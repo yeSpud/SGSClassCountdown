@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.stephenogden.classcountdownspanish", appContext.getPackageName());
+        assertEquals("com.stephenogden.sgsclasscountdownapp", appContext.getPackageName());
     }
 }
