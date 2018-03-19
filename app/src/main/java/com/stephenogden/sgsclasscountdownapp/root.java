@@ -19,21 +19,25 @@ public class root extends AppCompatActivity {
 
     Calendar calendar = Calendar.getInstance();
 
-    boolean running;
+    boolean isWeekend, running, lo;
 
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
-    Date checkTime;
-    Date curTime;
 
-    TextView count;
+    Date checkTime, curTime;
+
+    TextView count,staticTime,staticHeader,dynamicHeader;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.root);
+
         count = findViewById(R.id.countdownTime);
+        staticTime = findViewById(R.id.staticTime);
+        staticHeader = findViewById(R.id.staticTimeHeader);
+        dynamicHeader = findViewById(R.id.countdownHeader);
 
         try {
             curTime = simpleDateFormat.parse(String.format("%s:%s:%s",String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)),
@@ -49,12 +53,8 @@ public class root extends AppCompatActivity {
                 String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)),String.valueOf(Calendar.getInstance().get(Calendar.SECOND))));
 
 
-        TextView staticTime = findViewById(R.id.staticTime);
-        TextView staticHeader = findViewById(R.id.staticTimeHeader);
-        TextView dynamicHeader = findViewById(R.id.countdownHeader);
-
         if (weekday.toLowerCase().equals("monday") || weekday.toLowerCase().equals("tuesday") || weekday.toLowerCase().equals("friday")) {
-            staticTime.setText(R.string.STDTime);
+            staticTime.setText(R.string.G_STDTime);
             try {
                 checkTime = simpleDateFormat.parse("14:25:00");
             } catch (ParseException e) {
@@ -62,7 +62,7 @@ public class root extends AppCompatActivity {
             }
             running = true;
         } else if (weekday.toLowerCase().equals("thursday")) {
-            staticTime.setText(R.string.LongTime);
+            staticTime.setText(R.string.Third_LongTime);
             try {
                 checkTime = simpleDateFormat.parse("13:30:00");
             } catch (ParseException e) {

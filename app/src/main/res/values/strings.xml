@@ -2,8 +2,10 @@
     <string name="app_name">SGSClasscountdownApp</string>
     <string name="timerHeader">This class ends at:</string>
     <string name="countdownHeader">Which is in:</string>
-    <string name="STDTime">2:25 PM</string>
-    <string name="LongTime">1:30 PM</string>
     <string name="noClass">No class today :P</string>
     <string name="classOut">Class is over!</string>
+
+    <string name="Third_LongTime">1:30 PM</string>
+
+    <string name="G_STDTime">2:25 PM</string>
 </resources>
