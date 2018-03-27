@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class root extends AppCompatActivity {
+public class regular extends AppCompatActivity {
 
     Calendar calendar = Calendar.getInstance();
 
@@ -32,7 +32,7 @@ public class root extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.root);
+        setContentView(R.layout.regular);
 
         count = findViewById(R.id.countdownTime);
         staticTime = findViewById(R.id.staticTime);
