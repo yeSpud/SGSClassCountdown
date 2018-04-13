@@ -1,6 +1,7 @@
 package com.stephenogden.sgsclasscountdownapp;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,6 +33,7 @@ public class time {
 
         } catch (ParseException e) {
             e.printStackTrace();
+            Log.e("getFormatTime",e.getMessage());
         }
 
         return currentTime;
