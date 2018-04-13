@@ -3,8 +3,6 @@
     <string name="pending">Loading</string>
     <string name="timerHeader">which will end at:</string>
     <string name="countdownHeader">which is in:</string>
-    <string name="noClass">No class today :P</string>
-    <string name="classOut">Class is over!</string>
     <string name="classNow">The current block is:</string>
 
     <string name="aBlock">A</string>
