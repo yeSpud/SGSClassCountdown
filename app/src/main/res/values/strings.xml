@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">SGSClasscountdownApp</string>
     <string name="pending">Loading</string>
-    <string name="timerHeader">This class ends at:</string>
-    <string name="countdownHeader">Which is in:</string>
+    <string name="timerHeader">which will end at:</string>
+    <string name="countdownHeader">which is in:</string>
     <string name="noClass">No class today :P</string>
     <string name="classOut">Class is over!</string>
     <string name="classNow">The current block is:</string>
@@ -29,4 +29,8 @@
     <string name="F_STDTime">1:40 PM</string>
     <string name="G_STDTime">2:25 PM</string>
     <string name="H_STDTime">3:10 PM</string>
+
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 </resources>

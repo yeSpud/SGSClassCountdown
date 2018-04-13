@@ -28,11 +28,12 @@
         android:layout_marginTop="25dp"
         android:textSize="25sp"
         android:textColor="@color/white"
-        android:text=""
+        android:text="--:--"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/staticTimeHeader" />
+        app:layout_constraintTop_toBottomOf="@id/staticTimeHeader"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/countdownHeader"
@@ -54,11 +55,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:textSize="25sp"
-        android:text=""
+        android:text="--:--"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/countdownHeader" />
+        app:layout_constraintTop_toBottomOf="@id/countdownHeader"
+        tools:ignore="HardcodedText" />
 
 </android.support.constraint.ConstraintLayout>

@@ -19,7 +19,7 @@ public class regular extends AppCompatActivity {
 
     Calendar calendar = Calendar.getInstance();
 
-    boolean isWeekend, running, lo;
+    boolean running;
 
     @SuppressLint("SimpleDateFormat")
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
