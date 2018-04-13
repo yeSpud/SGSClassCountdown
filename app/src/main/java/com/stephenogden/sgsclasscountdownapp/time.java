@@ -132,22 +132,50 @@ public class time {
     public String getTimeRemaining() {
 
         try {
+            checkTime = simpleDateFormat.parse("15:10:00");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+        try {
 
             if (getBlock().equalsIgnoreCase("a - normal")) {
                 checkTime = simpleDateFormat.parse("9:00:00");
             } else if (getBlock().equalsIgnoreCase("b - normal")) {
                 checkTime = (simpleDateFormat.parse("9:45:00"));
-            } // TODO: Finish this
+            } else if (getBlock().equalsIgnoreCase("c - normal")) {
+                checkTime = (simpleDateFormat.parse("10:45:00"));
+            } else if (getBlock().equalsIgnoreCase("d - normal")) {
+                checkTime = (simpleDateFormat.parse("11:30:00"));
+            } else if (getBlock().equalsIgnoreCase("e - normal")) {
+                checkTime = (simpleDateFormat.parse("12:15:00"));
+            } else if (getBlock().equalsIgnoreCase("f - normal")) {
+                checkTime = simpleDateFormat.parse("13:40:00");
+            } else if (getBlock().equalsIgnoreCase("g - normal")) {
+                checkTime = simpleDateFormat.parse("14:25:00");
+            } else if (getBlock().equalsIgnoreCase("h - block")) {
+                checkTime = simpleDateFormat.parse("15:10:00");
+            } else if (getBlock().equalsIgnoreCase("a - long") || getBlock().equalsIgnoreCase("e - long")) {
+                checkTime = simpleDateFormat.parse("9:45:00");
+            } else if (getBlock().equalsIgnoreCase("b - long") || getBlock().equalsIgnoreCase("f - long")) {
+                checkTime = simpleDateFormat.parse("11:25:00");
+            } else if (getBlock().equalsIgnoreCase("c - long") || getBlock().equalsIgnoreCase("g - long")) {
+                checkTime = simpleDateFormat.parse("13:30:00");
+            } else if (getBlock().equalsIgnoreCase("d - long") || getBlock().equalsIgnoreCase("h - long")) {
+                checkTime = simpleDateFormat.parse("15:10:00");
+            }
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        long diff = checkTime.getTime() - currentTime.getTime();
+        long diff = checkTime.getTime() - getFormatTime().getTime();
         long seconds = diff / 1000;
         long minutes = seconds / 60;
         long hours = minutes / 60;
+        if (hours >= 12) {
+            hours = hours- 12;
+        }
 
         return String.format("%s:%s:%s", hours, minutes, seconds);
     }
