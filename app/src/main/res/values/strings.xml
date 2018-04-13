@@ -1,18 +1,19 @@
 <resources>
     <string name="app_name">SGSClasscountdownApp</string>
     <string name="pending">Loading</string>
+
     <string name="timerHeader">which will end at:</string>
     <string name="countdownHeader">which is in:</string>
     <string name="classNow">The current block is:</string>
 
-    <string name="aBlock">A</string>
-    <string name="bBlock">B</string>
-    <string name="cBlock">C</string>
-    <string name="dBlock">D</string>
-    <string name="eBlock">E</string>
-    <string name="fBlock">F</string>
-    <string name="gBlock">G</string>
-    <string name="hBlock">H</string>
+    <string name="aBlock">A block</string>
+    <string name="bBlock">B block</string>
+    <string name="cBlock">C block</string>
+    <string name="dBlock">D block</string>
+    <string name="eBlock">E block</string>
+    <string name="fBlock">F block</string>
+    <string name="gBlock">G block</string>
+    <string name="hBlock">H block</string>
 
     <string name="First_LongTime">9:45 AM</string>
     <string name="Second_LongTime">11:25 AM</string>
@@ -31,4 +32,11 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+
+    <string name="getformattime">getFormatTime</string>
+    <string name="getblock">getBlock</string>
+    <string name="weekday">weekday</string>
+    <string name="gettimeremaining">getTimeRemaining</string>
+    <string name="back">Back</string>
+
 </resources>
