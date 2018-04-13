@@ -16,14 +16,11 @@ import java.util.Locale;
  */
 public class time {
 
-    Calendar calendar = Calendar.getInstance();
-
-    @SuppressLint("SimpleDateFormat")
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
-
-    Date checkTime, currentTime;
-
     String weekday;
+    private Calendar calendar = Calendar.getInstance();
+    @SuppressLint("SimpleDateFormat")
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+    private Date checkTime, currentTime;
 
     public Date getFormatTime() {
 
@@ -129,6 +126,7 @@ public class time {
 
     }
 
+    @SuppressLint("DefaultLocale")
     public String getTimeRemaining() {
 
         try {
@@ -171,13 +169,9 @@ public class time {
 
         long diff = checkTime.getTime() - getFormatTime().getTime();
         long seconds = diff / 1000;
-        long minutes = seconds / 60;
-        long hours = minutes / 60;
-        if (hours >= 12) {
-            hours = hours- 12;
-        }
+        long minutes = diff / 60000;
 
-        return String.format("%s:%s:%s", hours, minutes, seconds);
+        return String.format("%s:%02d", minutes, seconds - (minutes*60));
     }
 
 }
