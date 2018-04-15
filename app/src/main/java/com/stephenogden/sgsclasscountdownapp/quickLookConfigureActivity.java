@@ -76,7 +76,7 @@ public class quickLookConfigureActivity extends Activity {
         setResult(RESULT_CANCELED);
 
         setContentView(R.layout.quick_look_configure);
-        mAppWidgetText = (EditText) findViewById(R.id.appwidget_text);
+        mAppWidgetText = findViewById(R.id.appwidget_text);
         findViewById(R.id.add_button).setOnClickListener(mOnClickListener);
 
         // Find the widget id from the intent.
