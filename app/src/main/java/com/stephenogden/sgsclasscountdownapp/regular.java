@@ -118,7 +118,6 @@ public class regular extends AppCompatActivity {
                 });
 
             }
-
             public void onFinish() {
                 finish();
             }

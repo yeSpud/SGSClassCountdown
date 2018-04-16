@@ -62,6 +62,9 @@ public class time {
                 } else if (getFormatTime().after(simpleDateFormat.parse("11:35:00")) && getFormatTime().before(simpleDateFormat.parse("12:15:00"))) {
                     // E block
                     block = "E - normal";
+                } else if (getFormatTime().after(simpleDateFormat.parse("11:35:00")) && getFormatTime().before(simpleDateFormat.parse("00:15:00"))) {
+                    // Also E block, time is retarded
+                    block = "E - normal";
                 } else if (getFormatTime().after(simpleDateFormat.parse("13:00:00")) && getFormatTime().before(simpleDateFormat.parse("13:40:00"))) {
                     // F block
                     block = "F - normal";
@@ -88,6 +91,9 @@ public class time {
                 } else if (getFormatTime().after(simpleDateFormat.parse("12:05:00")) && getFormatTime().before(simpleDateFormat.parse("13:30:00"))) {
                     // C block
                     block = "C - long";
+                } else if (getFormatTime().after(simpleDateFormat.parse("00:05:00")) && getFormatTime().before(simpleDateFormat.parse("13:30:00"))) {
+                    // C block
+                    block = "C - long";
                 } else if (getFormatTime().after(simpleDateFormat.parse("13:45:00")) && getFormatTime().before(simpleDateFormat.parse("15:10:00"))) {
                     // D block
                     block = "D - long";
@@ -106,6 +112,9 @@ public class time {
                     // F block
                     block = "F - long";
                 } else if (getFormatTime().after(simpleDateFormat.parse("12:05:00")) && getFormatTime().before(simpleDateFormat.parse("13:30:00"))) {
+                    // G block
+                    block = "G - long";
+                } else if (getFormatTime().after(simpleDateFormat.parse("00:05:00")) && getFormatTime().before(simpleDateFormat.parse("13:30:00"))) {
                     // G block
                     block = "G - long";
                 } else if (getFormatTime().after(simpleDateFormat.parse("13:45:00")) && getFormatTime().before(simpleDateFormat.parse("15:10:00"))) {
@@ -134,7 +143,6 @@ public class time {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         try {
 
             if (getBlock().equalsIgnoreCase("a - normal")) {
