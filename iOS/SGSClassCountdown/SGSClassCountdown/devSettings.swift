@@ -13,11 +13,14 @@ class devSettings: UIViewController {
     
     @IBOutlet weak var getWeekday: UILabel!
     
+    @IBOutlet weak var getBlock: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         let fooTime = time()
         getWeekday.text = fooTime.getWeekday()
+        getBlock.text = fooTime.getBlock()
     }
     
     override func didReceiveMemoryWarning() {
