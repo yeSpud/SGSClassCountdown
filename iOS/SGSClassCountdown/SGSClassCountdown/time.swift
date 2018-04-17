@@ -45,7 +45,7 @@ class time {
                 Block = "A - normal";
             } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 9, minute: 5) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 9, minute: 45)) {
                 // B block
-               Block = "B - normal"
+                Block = "B - normal"
             } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 10, minute: 5) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 10, minute: 45)) {
                 // C block
                 Block = "C - normal"
@@ -67,14 +67,45 @@ class time {
             } else {
                 Block = "None"
             }
- 
         } else if (getWeekday().lowercased() == "wednesday") {
             // A - Day
             
+            if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 8, minute: 20) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 9, minute: 45)) {
+                // A block
+                Block = "A - long"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 10, minute: 0) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 11, minute: 25)) {
+                // B block
+                Block = "B - long"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 12, minute: 05) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 13, minute: 30)) {
+                // C block
+                Block = "C - long"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 13, minute: 45) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 15, minute: 10)) {
+                // D block
+                Block = "D - long"
+            } else {
+                Block = "None"
+            }
+        } else if (getWeekday().lowercased() == "thursday") {
+            // E - Day
             
-            
+            if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 8, minute: 20) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 9, minute: 45)) {
+                // E block
+                Block = "E - long"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 10, minute: 0) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 11, minute: 25)) {
+                // F block
+                Block = "F - long"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 12, minute: 05) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 13, minute: 30)) {
+                // G block
+                Block = "G - long"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 13, minute: 45) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 15, minute: 10)) {
+                // H block
+                Block = "H - long"
+            } else {
+                Block = "None"
+            }
+        } else {
+            Block = "None"
         }
-        
         return String(Block)
     }
     
@@ -83,5 +114,5 @@ class time {
         longTime = (hour * 60) + minute
         return longTime
     }
- 
+    
 }
