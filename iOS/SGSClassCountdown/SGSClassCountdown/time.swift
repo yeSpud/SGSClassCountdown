@@ -10,22 +10,19 @@ import Foundation
 
 class time {
     
-    func getFormatTime() -> Date {
-        let date = NSDate();
+    func getFormatTime() -> String {
+        
+        let date = NSDate()
         let dateFormatter = DateFormatter()
-        //To prevent displaying either date or time, set the desired style to NoStyle.
-        dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
-        dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
-        dateFormatter.timeZone = NSTimeZone.local
+        dateFormatter.dateFormat = "HH:mm:ss"
         let localDate = dateFormatter.string(from: date as Date)
-        //print("LocalDate:")
-        print(localDate)
-        print((dateFormatter.date(from:localDate)!))
-        return dateFormatter.date(from:localDate)!
+        return localDate
+        // Example retun:
+        // 09:46:26
     }
     
     func getWeekday() -> String {
-        let date = getFormatTime()
+        let date = Date()
         let formatter = DateFormatter()
         formatter.timeZone = NSTimeZone() as TimeZone?
         formatter.dateFormat = "EEEE"
@@ -37,21 +34,53 @@ class time {
         
         var Block:String = "None"
         
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: getFormatTime())
-        let minutes = calendar.component(.minute, from: getFormatTime())
+        //let calendar = Calendar.current
+        let hour = Int(getFormatTime().split(separator: ":")[0])
+        //print(hour)
+        let minutes = Int(getFormatTime().split(separator: ":")[1])
+        //print(minutes)
         
         if (getWeekday().lowercased() == "monday" || getWeekday().lowercased() == "tuesday" || getWeekday().lowercased() == "friday") {
             // 8 - Period day
-            if (hour == 8 && (minutes < 0 && minutes >= 20)) {
+            
+            if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 8, minute: 20) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 9, minute: 0)) {
                 // A block
                 Block = "A - normal";
-            } else if (hour == 9 && (minutes >= 05 && minutes < 45)) {
-                // B Block
-                Block = "B - normal"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 9, minute: 5) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 9, minute: 45)) {
+                // B block
+               Block = "B - normal"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 10, minute: 5) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 10, minute: 45)) {
+                // C block
+                Block = "C - normal"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 10, minute: 50) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 11, minute: 30)) {
+                // D block
+                Block = "D - normal"
+                
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 11, minute: 35) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 12, minute: 15)) {
+                // E block
+                Block = "E - normal"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 13, minute: 0) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 13, minute: 40)) {
+                // F block
+                Block = "F - normal"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 13, minute: 45) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 14, minute: 25)) {
+                // G block
+                Block = "G - normal"
+            } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 14, minute: 30) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 15, minute: 10)) {
+                // H block
+                Block = "H - normal"
+            } else {
+                Block = "None"
             }
+ 
         }
         
         return String(Block)
     }
+    
+    func timeToLong(hour:Int, minute:Int) -> Int {
+        var longTime:Int = 0
+        longTime = (hour * 60) + minute
+        return longTime
+    }
+ 
 }

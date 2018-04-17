@@ -108,6 +108,7 @@
                                     <color key="titleShadowColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="backPressed:" destination="nWE-oh-Xga" eventType="touchUpInside" id="GyE-0W-a42"/>
                                     <segue destination="BYZ-38-t0r" kind="show" id="OKW-ON-MMn"/>
                                 </connections>
                             </button>
@@ -135,24 +136,42 @@
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="getFormatTime()" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gv9-xF-cZV">
+                                <rect key="frame" x="69.5" y="288" width="181" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fhf-gz-xor">
+                                <rect key="frame" x="136" y="338" width="48" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="RPP-2S-By1" firstAttribute="top" secondItem="tvb-4E-RDn" secondAttribute="bottom" constant="40" id="2bo-HR-GxR"/>
                             <constraint firstItem="tvb-4E-RDn" firstAttribute="top" secondItem="cqD-YZ-kpW" secondAttribute="bottom" constant="20" id="A5z-CD-N7R"/>
                             <constraint firstItem="dYh-Vf-19N" firstAttribute="centerX" secondItem="YvS-lS-G6o" secondAttribute="centerX" id="Au7-UM-WHg"/>
+                            <constraint firstItem="fhf-gz-xor" firstAttribute="top" secondItem="Gv9-xF-cZV" secondAttribute="bottom" constant="20" id="FSZ-UH-TYk"/>
+                            <constraint firstItem="Gv9-xF-cZV" firstAttribute="top" secondItem="dYh-Vf-19N" secondAttribute="bottom" constant="40" id="FfE-nA-FhT"/>
                             <constraint firstItem="RPP-2S-By1" firstAttribute="centerX" secondItem="YvS-lS-G6o" secondAttribute="centerX" id="HA5-k8-a4R"/>
                             <constraint firstItem="Fve-Px-hwl" firstAttribute="bottom" secondItem="MsL-M6-eUT" secondAttribute="bottom" constant="40" id="KLY-Mj-Xx3"/>
                             <constraint firstItem="cqD-YZ-kpW" firstAttribute="top" secondItem="Fve-Px-hwl" secondAttribute="top" constant="40" id="VkW-Iq-Sji"/>
                             <constraint firstItem="dYh-Vf-19N" firstAttribute="top" secondItem="RPP-2S-By1" secondAttribute="bottom" constant="20" id="ZeW-yM-AtD"/>
                             <constraint firstItem="cqD-YZ-kpW" firstAttribute="centerX" secondItem="YvS-lS-G6o" secondAttribute="centerX" id="cC3-Yo-x37"/>
+                            <constraint firstItem="fhf-gz-xor" firstAttribute="centerX" secondItem="YvS-lS-G6o" secondAttribute="centerX" id="dEf-ZE-JFW"/>
                             <constraint firstItem="MsL-M6-eUT" firstAttribute="centerX" secondItem="YvS-lS-G6o" secondAttribute="centerX" id="kVk-hN-jv3"/>
+                            <constraint firstItem="Gv9-xF-cZV" firstAttribute="centerX" secondItem="YvS-lS-G6o" secondAttribute="centerX" id="pHh-qK-fpZ"/>
                             <constraint firstItem="tvb-4E-RDn" firstAttribute="centerX" secondItem="YvS-lS-G6o" secondAttribute="centerX" id="r1y-P0-7XU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Fve-Px-hwl"/>
                     </view>
                     <connections>
+                        <outlet property="back" destination="kVk-hN-jv3" id="gtm-GN-G7C"/>
                         <outlet property="getBlock" destination="dYh-Vf-19N" id="ULB-4X-j89"/>
+                        <outlet property="getFormatTime" destination="fhf-gz-xor" id="HN6-eY-cH4"/>
                         <outlet property="getWeekday" destination="tvb-4E-RDn" id="7o5-ey-Mxn"/>
                     </connections>
                 </viewController>
