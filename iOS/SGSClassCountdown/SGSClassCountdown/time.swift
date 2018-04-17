@@ -34,11 +34,8 @@ class time {
         
         var Block:String = "None"
         
-        //let calendar = Calendar.current
         let hour = Int(getFormatTime().split(separator: ":")[0])
-        //print(hour)
         let minutes = Int(getFormatTime().split(separator: ":")[1])
-        //print(minutes)
         
         if (getWeekday().lowercased() == "monday" || getWeekday().lowercased() == "tuesday" || getWeekday().lowercased() == "friday") {
             // 8 - Period day
@@ -55,7 +52,6 @@ class time {
             } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 10, minute: 50) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 11, minute: 30)) {
                 // D block
                 Block = "D - normal"
-                
             } else if (timeToLong(hour: hour!, minute: minutes!) >= timeToLong(hour: 11, minute: 35) && timeToLong(hour: hour!, minute: minutes!) < timeToLong(hour: 12, minute: 15)) {
                 // E block
                 Block = "E - normal"
@@ -72,6 +68,11 @@ class time {
                 Block = "None"
             }
  
+        } else if (getWeekday().lowercased() == "wednesday") {
+            // A - Day
+            
+            
+            
         }
         
         return String(Block)

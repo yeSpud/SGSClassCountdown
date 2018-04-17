@@ -10,7 +10,9 @@ import UIKit
 
 class devSettings: UIViewController {
     
-    var update = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: Selector("updateView"), userInfo: nil, repeats: true)
+    var timer: Timer?
+    
+    let fooTime = time()
     
     @IBOutlet weak var getWeekday: UILabel!
     
@@ -21,20 +23,15 @@ class devSettings: UIViewController {
     @IBOutlet weak var back: NSLayoutConstraint!
     
     @IBAction func backPressed(_ sender: Any) {
-        update.invalidate()
+        timer?.invalidate()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        //let fooTime = time()
-        //getWeekday.text = fooTime.getWeekday()
-        //getBlock.text = fooTime.getBlock()
-        //getFormatTime.text = fooTime.getFormatTime()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
     
-    func updateView() {
-        let fooTime = time()
+    @objc func update() {
         getWeekday.text = fooTime.getWeekday()
         getBlock.text = fooTime.getBlock()
         getFormatTime.text = fooTime.getFormatTime()
