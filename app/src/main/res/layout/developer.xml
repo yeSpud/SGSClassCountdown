@@ -101,6 +101,18 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="HardcodedText" />
 
+    <TextView
+        android:id="@+id/buildDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Build date: 4/19/2018 - 13:46"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/white"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/back"
+        tools:ignore="HardcodedText" />
+
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
