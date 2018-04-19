@@ -45,6 +45,7 @@
                                     <color key="titleShadowColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
+                                    <action selector="devSettings:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ayc-29-NSw"/>
                                     <segue destination="nWE-oh-Xga" kind="show" id="wOx-SX-T9V"/>
                                 </connections>
                             </button>
@@ -86,6 +87,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="block" destination="yyD-Xe-7se" id="r0d-ps-hLD"/>
+                        <outlet property="countdown" destination="xvn-0X-gjb" id="MQU-AV-qyt"/>
+                        <outlet property="endTime" destination="7eN-ye-ZQ0" id="amk-Wv-5is"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -115,4 +115,22 @@ class time {
         return longTime
     }
     
+    func timeRemaining(hour:Int, minute:Int) -> String {
+        var timeLeft:String = "--:--"
+        let longTimeEntered = ((hour * 60) + minute) * 60
+        let longTimeGiven = (Int(getFormatTime().split(separator: ":")[0])! * 60 * 60) + (Int(getFormatTime().split(separator: ":")[1])! * 60) + (Int(getFormatTime().split(separator: ":")[2])!)
+        
+        let timeDifference = (longTimeEntered - longTimeGiven)
+        
+        let seconds = timeDifference;
+        let minutes = timeDifference / 60;
+        
+        //String.format("%s:%02d", minutes, seconds - (minutes*60));
+        timeLeft = String(minutes)
+        timeLeft.append(":")
+        timeLeft.append(String(format:"%02d",seconds - (minutes*60)))
+        
+        return timeLeft
+    }
+    
 }
