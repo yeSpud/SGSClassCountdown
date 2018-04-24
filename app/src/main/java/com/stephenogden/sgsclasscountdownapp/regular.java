@@ -1,6 +1,7 @@
 package com.stephenogden.sgsclasscountdownapp;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 
 public class regular extends AppCompatActivity {
 
@@ -19,9 +20,13 @@ public class regular extends AppCompatActivity {
 
     Button settings;
 
+    public static Context context;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.regular);
+
+        regular.context = getApplicationContext();
 
         blockText = findViewById(R.id.blockText);
         staticTime = findViewById(R.id.staticTime);
@@ -29,12 +34,13 @@ public class regular extends AppCompatActivity {
 
         settings = findViewById(R.id.settings);
 
-        developer developer = new developer();
         try {
             developer.localStorage = new File(this.getFilesDir(), "local.txt");
             if (developer.localStorage.createNewFile()) {
-                FileOutputStream fOS = new FileOutputStream(developer.localStorage);
-                fOS.write("Auto".getBytes());
+                FileWriter fOS = new FileWriter(developer.localStorage);
+                fOS.write("Auto");
+                fOS.flush();
+                fOS.close();
                 recreate();
             } else {
                 Log.i("File location", developer.localStorage.getAbsolutePath());

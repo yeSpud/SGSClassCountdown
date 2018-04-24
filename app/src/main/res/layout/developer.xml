@@ -105,7 +105,7 @@
         android:id="@+id/buildDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Build date: 4/19/2018 - 13:46"
+        android:text="Build date: 4/24/2018 - 00:05"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/white"

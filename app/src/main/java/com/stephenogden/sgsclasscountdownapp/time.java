@@ -1,11 +1,18 @@
 package com.stephenogden.sgsclasscountdownapp;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,24 +49,25 @@ public class time {
 
     public String getBlock() {
         String block = "None";
-        developer developer = new developer();
+
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(developer.localStorage));
-            if (reader.readLine().equalsIgnoreCase("auto")) {
+            if (read_file(regular.context, developer.localStorage.getName()).startsWith("Auto")) {
                 weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-            } else if (reader.readLine().equalsIgnoreCase("a")) {
-                weekday = "wednesday";
-            } else if (reader.readLine().equalsIgnoreCase("e")) {
-                weekday = "thursday";
-            } else if (reader.readLine().equalsIgnoreCase("8")) {
-                weekday = "monday";
+            } else if (read_file(regular.context, developer.localStorage.getName()).startsWith("A")) {
+                weekday = "Wednesday";
+            } else if (read_file(regular.context, developer.localStorage.getName()).startsWith("E")) {
+                weekday = "Thursday";
+            } else if (read_file(regular.context, developer.localStorage.getName()).startsWith("8")) {
+                weekday = "Monday";
             } else {
+                Log.e("None of the above", read_file(regular.context, developer.localStorage.getName()));
                 weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
             }
         } catch (Exception e) {
             weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+            Log.e("Error", "Cannot override");
+            Log.e("Reason", e.toString());
         }
-        //if (developer.localStorage.)
         //weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
 
         try {
@@ -200,6 +208,26 @@ public class time {
         long minutes = diff / 60000;
 
         return String.format("%s:%02d", minutes, seconds - (minutes*60));
+    }
+
+    public String read_file(Context context, String filename) {
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            return sb.toString();
+        } catch (FileNotFoundException e) {
+            return "";
+        } catch (UnsupportedEncodingException e) {
+            return "";
+        } catch (IOException e) {
+            return "";
+        }
     }
 
 }

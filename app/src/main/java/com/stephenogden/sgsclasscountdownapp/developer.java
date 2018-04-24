@@ -20,7 +20,7 @@ public class developer extends AppCompatActivity {
 
     Button back;
 
-    public File localStorage;
+    public static File localStorage;
 
     TextView getFormatTime, getBlock, weekday, getTimeRemaining;
 

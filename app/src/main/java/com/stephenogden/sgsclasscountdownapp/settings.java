@@ -1,5 +1,6 @@
 package com.stephenogden.sgsclasscountdownapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Switch;
 
-import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Stephen Ogden on 4/23/18.
@@ -43,6 +50,17 @@ public class settings extends AppCompatActivity {
         buttonA = findViewById(R.id.overrideA);
         buttonE = findViewById(R.id.overrideE);
 
+        button8.setChecked(read_file(regular.context, developer.localStorage.getName()).startsWith("8"));
+        buttonA.setChecked(read_file(regular.context, developer.localStorage.getName()).startsWith("A"));
+        buttonE.setChecked(read_file(regular.context, developer.localStorage.getName()).startsWith("E"));
+        autoSwitch.setChecked(read_file(regular.context, developer.localStorage.getName()).startsWith("Auto"));
+
+        if (autoSwitch.isChecked()) {
+            dayGroup.setVisibility(View.INVISIBLE);
+        } else {
+            dayGroup.setVisibility(View.VISIBLE);
+        }
+
     }
 
     protected void onResume() {
@@ -60,19 +78,116 @@ public class settings extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     dayGroup.setVisibility(View.INVISIBLE);
-                    developer developer = new developer();
                     try {
-                        FileOutputStream fOS = new FileOutputStream(developer.localStorage);
-                        fOS.write("Auto".getBytes());
+                        FileWriter fOS = new FileWriter(developer.localStorage);
+                        fOS.write("Auto");
+                        fOS.flush();
+                        fOS.close();
+                        Log.i("Updated file","Auto");
                     } catch (IOException e) {
                         e.printStackTrace();
                         Log.e("Error","Cannot update file");
                     }
                 } else {
                     dayGroup.setVisibility(View.VISIBLE);
+                    try {
+                        FileWriter fOS = new FileWriter(developer.localStorage);
+                        if (button8.isChecked()) {
+                            fOS.write("8");
+                            fOS.flush();
+                            fOS.close();
+                            Log.i("Updated file","8");
+                        } else if (buttonA.isChecked()) {
+                            fOS.write("A");
+                            fOS.flush();
+                            fOS.close();
+                            Log.i("Updated file", "A");
+                        } else if (buttonE.isChecked()) {
+                            fOS.write("E");
+                            fOS.flush();
+                            fOS.close();
+                            Log.i("Updated file", "E");
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.e("Error","Cannot update file");
+                    }
                 }
             }
         });
 
+        button8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    try {
+                        FileWriter fOS = new FileWriter(developer.localStorage);
+                        fOS.write("8");
+                        fOS.flush();
+                        fOS.close();
+                        Log.i("Updated file", "8");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.e("Error", "Cannot update file");
+                    }
+                }
+            }
+        });
+
+        buttonA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    try {
+                        FileWriter fOS = new FileWriter(developer.localStorage);
+                        fOS.write("A");
+                        fOS.flush();
+                        fOS.close();
+                        Log.i("Updated file", "A");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.e("Error", "Cannot update file");
+                    }
+                }
+            }
+        });
+
+        buttonE.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    try {
+                        FileWriter fOS = new FileWriter(developer.localStorage);
+                        fOS.write("E");
+                        fOS.flush();
+                        fOS.close();
+                        Log.i("Updated file", "E");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Log.e("Error","Cannot update file");
+                    }
+                }
+            }
+        });
+    }
+
+    public String read_file(Context context, String filename) {
+        try {
+            FileInputStream fis = context.openFileInput(filename);
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+            return sb.toString();
+        } catch (FileNotFoundException e) {
+            return "";
+        } catch (UnsupportedEncodingException e) {
+            return "";
+        } catch (IOException e) {
+            return "";
+        }
     }
 }
