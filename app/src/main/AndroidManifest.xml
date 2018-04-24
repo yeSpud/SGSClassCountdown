@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         -->
+        <activity android:name=".settings" />
         <activity android:name=".developer" />
     </application>
 
