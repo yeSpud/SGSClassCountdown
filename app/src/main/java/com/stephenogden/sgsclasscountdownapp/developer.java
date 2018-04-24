@@ -1,11 +1,14 @@
 package com.stephenogden.sgsclasscountdownapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.io.File;
 
 /**
  * Created by Stephen Ogden on 4/13/18.
@@ -16,6 +19,8 @@ import android.widget.TextView;
 public class developer extends AppCompatActivity {
 
     Button back;
+
+    public File localStorage;
 
     TextView getFormatTime, getBlock, weekday, getTimeRemaining;
 
@@ -59,7 +64,7 @@ public class developer extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         cancel();
-                        finish();
+                        startActivity(new Intent(developer.this, regular.class));
                     }
                 });
             }

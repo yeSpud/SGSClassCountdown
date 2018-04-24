@@ -3,6 +3,9 @@ package com.stephenogden.sgsclasscountdownapp;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,8 +42,25 @@ public class time {
 
     public String getBlock() {
         String block = "None";
-
-        weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+        developer developer = new developer();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(developer.localStorage));
+            if (reader.readLine().equalsIgnoreCase("auto")) {
+                weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+            } else if (reader.readLine().equalsIgnoreCase("a")) {
+                weekday = "wednesday";
+            } else if (reader.readLine().equalsIgnoreCase("e")) {
+                weekday = "thursday";
+            } else if (reader.readLine().equalsIgnoreCase("8")) {
+                weekday = "monday";
+            } else {
+                weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+            }
+        } catch (Exception e) {
+            weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+        }
+        //if (developer.localStorage.)
+        //weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
 
         try {
 

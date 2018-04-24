@@ -5,9 +5,13 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class regular extends AppCompatActivity {
 
@@ -24,6 +28,30 @@ public class regular extends AppCompatActivity {
         countdownTime = findViewById(R.id.countdownTime);
 
         settings = findViewById(R.id.settings);
+
+        developer developer = new developer();
+        try {
+            developer.localStorage = new File(this.getFilesDir(), "local.txt");
+            if (developer.localStorage.createNewFile()) {
+                FileOutputStream fOS = new FileOutputStream(developer.localStorage);
+                fOS.write("Auto".getBytes());
+                recreate();
+            } else {
+                Log.i("File location", developer.localStorage.getAbsolutePath());
+                if (developer.localStorage.canRead() && developer.localStorage.canWrite()) {
+
+                    if (developer.localStorage.length() == 0) {
+                        Log.e("Error", "File empty");
+                    } else {
+                        Log.i("File size", Long.toString(developer.localStorage.length()));
+                    }
+                } else {
+                    Log.e("Error","cannot read or write!");
+                }
+            }
+        } catch (Exception e) {
+            Log.e("Error getting file", e.toString());
+        }
 
     }
 
@@ -113,7 +141,7 @@ public class regular extends AppCompatActivity {
                 settings.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        startActivity(new Intent(regular.this, developer.class));
+                        startActivity(new Intent(regular.this, settings.class));
                     }
                 });
 
