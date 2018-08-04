@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Countdown</string>
+    <string name="app_name">Class Timer</string>
     <string name="pending">Loading</string>
 
     <string name="timerHeader">which will end at:</string>
