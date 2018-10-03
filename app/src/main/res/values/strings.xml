@@ -39,4 +39,9 @@
     <string name="gettimeremaining">getTimeRemaining</string>
     <string name="back">Back</string>
 
+    <string name="backgroundImageDescription">The background image to be displayed (Black by default)</string>
+    <string name="noClass">No class today!</string>
+    <string name="endingPlaceholder">- will end in:</string>
+    <string name="timerPlaceholder">--:--</string>
+
 </resources>

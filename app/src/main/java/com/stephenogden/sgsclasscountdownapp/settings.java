@@ -15,7 +15,6 @@ import android.widget.Switch;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,6 +39,8 @@ public class settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
+        Timer Timer = new Timer();
+
         devSettings = findViewById(R.id.devSettings);
 
         autoSwitch = findViewById(R.id.override);
@@ -50,10 +51,12 @@ public class settings extends AppCompatActivity {
         buttonA = findViewById(R.id.overrideA);
         buttonE = findViewById(R.id.overrideE);
 
-        button8.setChecked(read_file(regular.context, developer.localStorage.getName()).startsWith("8"));
-        buttonA.setChecked(read_file(regular.context, developer.localStorage.getName()).startsWith("A"));
-        buttonE.setChecked(read_file(regular.context, developer.localStorage.getName()).startsWith("E"));
-        autoSwitch.setChecked(read_file(regular.context, developer.localStorage.getName()).startsWith("Auto"));
+        /*
+        button8.setChecked(read_file(Timer.context, developer.localStorage.getName()).startsWith("8"));
+        buttonA.setChecked(read_file(Timer.context, developer.localStorage.getName()).startsWith("A"));
+        buttonE.setChecked(read_file(Timer.context, developer.localStorage.getName()).startsWith("E"));
+        autoSwitch.setChecked(read_file(Timer.context, developer.localStorage.getName()).startsWith("Auto"));
+        */
 
         if (autoSwitch.isChecked()) {
             dayGroup.setVisibility(View.INVISIBLE);

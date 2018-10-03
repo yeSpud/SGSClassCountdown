@@ -50,21 +50,21 @@ public class developer extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-        final time time = new time();
+        final Core Core = new Core();
 
         new CountDownTimer(Long.MAX_VALUE-1, 1000) {
             public void onTick(long millisUntilFinished) {
 
-                getFormatTime.setText(time.getFormatTime().toString());
-                getBlock.setText(time.getBlock());
-                weekday.setText(time.weekday);
-                getTimeRemaining.setText(time.getTimeRemaining());
+                getFormatTime.setText(Core.getFormatTime().toString());
+                getBlock.setText(Core.getBlock());
+                weekday.setText(Core.weekday);
+                getTimeRemaining.setText(Core.getTimeRemaining());
 
                 back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         cancel();
-                        startActivity(new Intent(developer.this, regular.class));
+                        startActivity(new Intent(developer.this, Timer.class));
                     }
                 });
             }
