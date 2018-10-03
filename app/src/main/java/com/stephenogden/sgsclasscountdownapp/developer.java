@@ -18,10 +18,8 @@ import java.io.File;
 
 public class developer extends AppCompatActivity {
 
-    Button back;
-
     public static File localStorage;
-
+    Button back;
     TextView getFormatTime, getBlock, weekday, getTimeRemaining;
 
     boolean running;
@@ -52,11 +50,11 @@ public class developer extends AppCompatActivity {
         super.onResume();
         final Core Core = new Core();
 
-        new CountDownTimer(Long.MAX_VALUE-1, 1000) {
+        new CountDownTimer(Long.MAX_VALUE - 1, 1000) {
             public void onTick(long millisUntilFinished) {
 
                 getFormatTime.setText(Core.getFormatTime().toString());
-                getBlock.setText(Core.getBlock());
+                getBlock.setText(Core.getBlock().name());
                 weekday.setText(Core.weekday);
                 getTimeRemaining.setText(Core.getTimeRemaining());
 
@@ -73,7 +71,6 @@ public class developer extends AppCompatActivity {
                 finish();
             }
         }.start();
-
 
 
     }
