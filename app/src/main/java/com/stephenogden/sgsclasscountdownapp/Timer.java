@@ -16,7 +16,7 @@ public class Timer extends AppCompatActivity {
 
     public Context context;
 
-    private TextView block, countdown;
+    private TextView block, countdown, noClass;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +26,9 @@ public class Timer extends AppCompatActivity {
 
         block = findViewById(R.id.blockInfo);
         countdown = findViewById(R.id.countdown);
+        noClass = findViewById(R.id.noClass);
 
+        // Setup the settings button
         findViewById(R.id.gotoSettings).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,6 +36,7 @@ public class Timer extends AppCompatActivity {
             }
         });
 
+        /*
         try {
             developer.localStorage = new File(this.getFilesDir(), "local.txt");
             if (developer.localStorage.createNewFile()) {
@@ -58,6 +61,7 @@ public class Timer extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("Error getting file", e.toString());
         }
+        */
 
     }
 
@@ -67,17 +71,35 @@ public class Timer extends AppCompatActivity {
 
         final Core Core = new Core();
 
+        // Create a timer for that one second loop
         new CountDownTimer(Long.MAX_VALUE - 1, 1000) {
             @Override
             public void onTick(long l) {
-                block.setText(Core.changeBlock(Core.getBlock()));
-                countdown.setText(Core.getTimeRemaining());
+
+                // If there is no block, change the message to there is no block
+                if (Core.getBlock().equals(Block.NoBlock)) {
+                    block.setVisibility(View.GONE);
+                    countdown.setVisibility(View.GONE);
+                    noClass.setVisibility(View.VISIBLE);
+                } else {
+
+                    // If the countdown is not showing, set it to visible
+                    if (noClass.getVisibility() == View.VISIBLE) {
+                        block.setVisibility(View.VISIBLE);
+                        countdown.setVisibility(View.VISIBLE);
+                        noClass.setVisibility(View.GONE);
+                    }
+                    block.setText(Core.changeBlock(Core.getBlock()));
+                    countdown.setText(Core.getTimeRemaining());
+                }
             }
 
             @Override
             public void onFinish() {
+
+                // If the timer has stopped as it has run out, relaunch the actvity
                 recreate();
             }
-        }.start();
+        }.start(); // Start the timer
     }
 }
