@@ -1,4 +1,4 @@
-package com.stephenogden.sgsclasscountdownapp;
+package com.spud.sgsclasscountdownapp;
 
 /**
  * Created by Stephen Ogden on 10/3/18.

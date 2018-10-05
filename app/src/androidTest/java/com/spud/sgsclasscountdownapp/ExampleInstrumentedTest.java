@@ -1,4 +1,4 @@
-package com.stephenogden.sgsclasscountdownapp;
+package com.spud.sgsclasscountdownapp;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

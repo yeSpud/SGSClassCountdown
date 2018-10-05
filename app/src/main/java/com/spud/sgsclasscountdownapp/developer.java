@@ -1,4 +1,4 @@
-package com.stephenogden.sgsclasscountdownapp;
+package com.spud.sgsclasscountdownapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import java.io.File;
  * FRC 1595
  */
 
+@Deprecated
 public class developer extends AppCompatActivity {
 
     public static File localStorage;

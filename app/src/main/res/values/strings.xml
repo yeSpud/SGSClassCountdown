@@ -2,37 +2,6 @@
     <string name="app_name">Class Timer</string>
     <string name="pending">Loading</string>
 
-    <string name="timerHeader">which will end at:</string>
-    <string name="countdownHeader">which is in:</string>
-    <string name="classNow">The current block is:</string>
-
-    <string name="aBlock">A block</string>
-    <string name="bBlock">B block</string>
-    <string name="cBlock">C block</string>
-    <string name="dBlock">D block</string>
-    <string name="eBlock">E block</string>
-    <string name="fBlock">F block</string>
-    <string name="gBlock">G block</string>
-    <string name="hBlock">H block</string>
-
-    <string name="First_LongTime">9:45 AM</string>
-    <string name="Second_LongTime">11:25 AM</string>
-    <string name="Third_LongTime">1:30 PM</string>
-    <string name="Fourth_LongTime">3:10</string>
-
-    <string name="A_STDTime">9:00 AM</string>
-    <string name="B_STDTime">9:45 AM</string>
-    <string name="C_STDTime">10:45 AM</string>
-    <string name="D_STDTime">11:30 AM</string>
-    <string name="E_STDTime">12:15 PM</string>
-    <string name="F_STDTime">1:40 PM</string>
-    <string name="G_STDTime">2:25 PM</string>
-    <string name="H_STDTime">3:10 PM</string>
-
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="configure">Configure</string>
-    <string name="add_widget">Add widget</string>
-
     <string name="getformattime">getFormatTime</string>
     <string name="getblock">getBlock</string>
     <string name="weekday">weekday</string>

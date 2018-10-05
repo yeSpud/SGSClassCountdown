@@ -1,4 +1,4 @@
-package com.stephenogden.sgsclasscountdownapp;
+package com.spud.sgsclasscountdownapp;
 
 import org.junit.Test;
 

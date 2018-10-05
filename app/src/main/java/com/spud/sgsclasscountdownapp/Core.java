@@ -1,15 +1,7 @@
-package com.stephenogden.sgsclasscountdownapp;
+package com.spud.sgsclasscountdownapp;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.util.Log;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -25,20 +17,23 @@ public class Core {
 
     String weekday;
     private Calendar calendar = Calendar.getInstance();
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm:ss", Locale.US);
     private Date checkTime, currentTime;
 
     public Date getFormatTime() {
 
         try {
-            currentTime = simpleDateFormat.parse(String.format("%s:%s:%s", String.valueOf(Calendar.getInstance().get(Calendar.HOUR_OF_DAY)),
-                    String.valueOf(Calendar.getInstance().get(Calendar.MINUTE)), String.valueOf(Calendar.getInstance().get(Calendar.SECOND))));
+            String h,m,s;
+            h = String.valueOf(Calendar.getInstance().get(Calendar.HOUR));
+            m = String.valueOf(Calendar.getInstance().get(Calendar.MINUTE));
+            s = String.valueOf(Calendar.getInstance().get(Calendar.SECOND));
+            currentTime = simpleDateFormat.parse(String.format("%s:%s:%s", h, m, s));
 
         } catch (ParseException e) {
             e.printStackTrace();
-            Log.e("getFormatTime", e.getMessage());
         }
 
+        Log.i("Formated time", currentTime.toString());
         return currentTime;
 
     }
@@ -47,27 +42,25 @@ public class Core {
 
         Block block = Block.NoBlock;
 
-        Timer Timer = new Timer();
+        Database database = new Database();
 
-        try {
-            if (read_file(Timer.context, developer.localStorage.getName()).startsWith("Auto")) {
+        if (database.databaseExists()) {
+            if (database.getUpdateType().equals(Database.updateType.Automatic)) {
                 weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-            } else if (read_file(Timer.context, developer.localStorage.getName()).startsWith("A")) {
+            } else if (database.getUpdateType().equals(Database.updateType.ManualADay)) {
                 weekday = "Wednesday";
-            } else if (read_file(Timer.context, developer.localStorage.getName()).startsWith("E")) {
+            } else if (database.getUpdateType().equals(Database.updateType.ManualEDay)) {
                 weekday = "Thursday";
-            } else if (read_file(Timer.context, developer.localStorage.getName()).startsWith("8")) {
+            } else if (database.getUpdateType().equals(Database.updateType.ManualFullDay)) {
                 weekday = "Monday";
             } else {
-                Log.e("None of the above", read_file(Timer.context, developer.localStorage.getName()));
+                Log.e("E", "Cannot identify the updateType from database");
                 weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
             }
-        } catch (Exception e) {
+            Log.i("Weekday", weekday);
+        } else {
             weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-            Log.e("Error", "Cannot override");
-            Log.e("Reason", e.toString());
         }
-        //weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
 
         try {
 
@@ -158,6 +151,7 @@ public class Core {
             e.printStackTrace();
         }
 
+        Log.i("Block", block.name());
         return block;
     }
 
@@ -204,27 +198,8 @@ public class Core {
         long seconds = diff / 1000;
         long minutes = diff / 60000;
 
-        return String.format("%s:%02d", minutes, seconds - (minutes * 60));
-    }
-
-    public String read_file(Context context, String filename) {
-        try {
-            FileInputStream fis = context.openFileInput(filename);
-            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-            BufferedReader bufferedReader = new BufferedReader(isr);
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-            return sb.toString();
-        } catch (FileNotFoundException e) {
-            return "";
-        } catch (UnsupportedEncodingException e) {
-            return "";
-        } catch (IOException e) {
-            return "";
-        }
+        Log.i("Time remaining", String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60)));
+        return String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60));
     }
 
     public String changeBlock(Block block) {
