@@ -1,6 +1,5 @@
 package com.spud.sgsclasscountdownapp;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -9,9 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 public class Timer extends AppCompatActivity {
-
-    @Deprecated
-    public Context context;
 
     private TextView block, countdown, noClass;
 

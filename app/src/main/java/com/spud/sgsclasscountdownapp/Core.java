@@ -33,7 +33,7 @@ public class Core {
             e.printStackTrace();
         }
 
-        Log.i("Formated time", currentTime.toString());
+        Log.i("Formatted time", currentTime.toString());
         return currentTime;
 
     }

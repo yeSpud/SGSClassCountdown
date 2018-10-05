@@ -7,86 +7,156 @@
     android:background="@color/black"
     tools:context=".Settings">
 
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/bluredbackgroundImageDescription"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholderbackgroundblured" />
+
+    <TextView
+        android:id="@+id/settingsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/settings"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/UpdateHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/schedule_update_method"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/settingsHeader" />
+
+    <RadioGroup
+        android:id="@+id/updateGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/UpdateHeader">
+
+
+        <RadioButton
+            android:id="@+id/AutomaticUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:text="@string/automatic"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/overrideGroup"
+            tools:targetApi="lollipop" />
+
+        <RadioButton
+            android:id="@+id/Builtin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:text="@string/builtin"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/overrideGroup"
+            tools:targetApi="lollipop" />
+
+        <RadioButton
+            android:id="@+id/Manual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:text="@string/manual"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/overrideGroup"
+            tools:targetApi="lollipop" />
+
+    </RadioGroup>
+
     <TextView
         android:id="@+id/overrideHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Automatic Schedule override"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Switch
-        android:id="@+id/override"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"
-        android:showText="true"
-        android:textOff="Manual"
-        android:textOn="Auto"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/overrideHeader"
         android:layout_marginTop="20dp"
+        android:text="@string/override_options"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/updateGroup" />
 
     <RadioGroup
-        android:id="@+id/overRideGroup"
+        android:id="@+id/overrideGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/override"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/overrideHeader">
 
-    <RadioButton
-        android:id="@+id/override8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="8 period day"
-        android:buttonTint="@color/white"
-        android:textColor="@color/white"
-        android:checked="true"
-        app:layout_constraintTop_toTopOf="@id/overRideGroup"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <RadioButton
+            android:id="@+id/override8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:text="@string/_8_period_day_normal"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/overrideGroup"
+            tools:targetApi="lollipop" />
 
-    <RadioButton
-        android:id="@+id/overrideA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="A day"
-        android:buttonTint="@color/white"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/override8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <RadioButton
+            android:id="@+id/overrideA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:text="@string/a_day"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/override8"
+            tools:targetApi="lollipop" />
 
-    <RadioButton
-        android:id="@+id/overrideE"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="E day"
-        android:buttonTint="@color/white"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/overrideA"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <RadioButton
+            android:id="@+id/overrideE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/white"
+            android:text="@string/e_day"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/overrideA"
+            tools:targetApi="lollipop" />
 
     </RadioGroup>
 
     <Button
-        android:id="@+id/devSettings"
+        android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="Dev Settings"
+        android:layout_marginBottom="15dp"
         android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/back"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="HardcodedText" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </android.support.constraint.ConstraintLayout>

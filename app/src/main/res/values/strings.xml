@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Class Timer</string>
-    <string name="pending">Loading</string>
 
     <string name="getformattime">getFormatTime</string>
     <string name="getblock">getBlock</string>
@@ -8,9 +7,19 @@
     <string name="gettimeremaining">getTimeRemaining</string>
     <string name="back">Back</string>
 
-    <string name="backgroundImageDescription">The background image to be displayed (Black by default)</string>
+    <string name="backgroundImageDescription">The background image to be displayed</string>
     <string name="noClass">No class today!</string>
     <string name="endingPlaceholder">- will end in:</string>
-    <string name="timerPlaceholder">--:--</string>
+    <string name="timerPlaceholder" translatable="false">--:--</string>
+    <string name="bluredbackgroundImageDescription">The blurred background image to be displayed</string>
+    <string name="settings">Settings</string>
+    <string name="schedule_update_method">Schedule update method:</string>
+    <string name="automatic">Automatic</string>
+    <string name="builtin">Built-in</string>
+    <string name="manual">Manual</string>
+    <string name="override_options">Override options:</string>
+    <string name="_8_period_day_normal">8 period day (Normal)</string>
+    <string name="a_day">A day</string>
+    <string name="e_day">E day</string>
 
 </resources>

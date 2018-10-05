@@ -1,18 +1,12 @@
 package com.spud.sgsclasscountdownapp;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Switch;
-
-import java.io.FileWriter;
-import java.io.IOException;
 
 /**
  * Created by Stephen Ogden on 4/23/18.
@@ -21,13 +15,9 @@ import java.io.IOException;
  */
 public class Settings extends AppCompatActivity {
 
-    Button devSettings;
+    RadioGroup override;
 
-    Switch autoSwitch;
-
-    RadioGroup dayGroup;
-
-    RadioButton button8, buttonA, buttonE;
+    RadioButton automatic, builtin, manual, override8, overrideA, overrideE;
 
     private Database database = new Database();
 
@@ -35,73 +25,42 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
 
-        devSettings = findViewById(R.id.devSettings);
+        override = findViewById(R.id.overrideGroup);
 
-        autoSwitch = findViewById(R.id.override);
+        automatic = findViewById(R.id.AutomaticUpdate);
+        builtin = findViewById(R.id.Builtin);
+        manual = findViewById(R.id.Manual);
+        override8 = findViewById(R.id.override8);
+        overrideA = findViewById(R.id.overrideA);
+        overrideE = findViewById(R.id.overrideE);
 
-        dayGroup = findViewById(R.id.overRideGroup);
+        // If the database does not exist, disable set the override buttons
+        manual.setEnabled(database.databaseExists());
+        override.setEnabled(database.databaseExists());
 
-        button8 = findViewById(R.id.override8);
-        buttonA = findViewById(R.id.overrideA);
-        buttonE = findViewById(R.id.overrideE);
-
-        if (database.databaseExists()) {
-            autoSwitch.setEnabled(true);
-            button8.setChecked(database.getUpdateType().equals(Database.updateType.ManualFullDay));
-            buttonA.setChecked(database.getUpdateType().equals(Database.updateType.ManualADay));
-            buttonE.setChecked(database.getUpdateType().equals(Database.updateType.ManualEDay));
-            autoSwitch.setChecked(database.getUpdateType().equals(Database.updateType.Automatic));
-        } else {
-            autoSwitch.setChecked(true);
-            autoSwitch.setEnabled(false);
-        }
-
-        if (autoSwitch.isChecked()) {
-            dayGroup.setVisibility(View.INVISIBLE);
-        } else {
-            dayGroup.setVisibility(View.VISIBLE);
-        }
+        // Check if there is a network connection available for the automatic portion
+        automatic.setEnabled(isNetworkAvailable());
 
     }
 
     protected void onResume() {
         super.onResume();
-        devSettings.setVisibility(View.GONE);
 
-        if (database.databaseExists()) {
-            autoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b) {
-                        dayGroup.setVisibility(View.INVISIBLE);
-                    } else {
-                        dayGroup.setVisibility(View.VISIBLE);
+    }
 
-                    }
-                }
-            });
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
 
-            button8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        // TODO: Write options to database
+    }
 
-                }
-            });
-
-            buttonA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-
-                }
-            });
-
-            buttonE.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
-                }
-            });
-        }
+    // https://stackoverflow.com/questions/4238921/detect-whether-there-is-an-internet-connection-available-on-android
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert connectivityManager != null;
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
