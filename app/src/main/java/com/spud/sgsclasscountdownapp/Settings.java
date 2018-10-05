@@ -66,15 +66,6 @@ public class Settings extends AppCompatActivity {
 
     protected void onResume() {
         super.onResume();
-
-        /*
-        devSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(Settings.this, developer.class));
-            }
-        });
-        */
         devSettings.setVisibility(View.GONE);
 
         if (database.databaseExists()) {
@@ -83,40 +74,9 @@ public class Settings extends AppCompatActivity {
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if (b) {
                         dayGroup.setVisibility(View.INVISIBLE);
-                        try {
-                            FileWriter fOS = new FileWriter(developer.localStorage);
-                            fOS.write("Auto");
-                            fOS.flush();
-                            fOS.close();
-                            Log.i("Updated file", "Auto");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("Error", "Cannot update file");
-                        }
                     } else {
                         dayGroup.setVisibility(View.VISIBLE);
-                        try {
-                            FileWriter fOS = new FileWriter(developer.localStorage);
-                            if (button8.isChecked()) {
-                                fOS.write("8");
-                                fOS.flush();
-                                fOS.close();
-                                Log.i("Updated file", "8");
-                            } else if (buttonA.isChecked()) {
-                                fOS.write("A");
-                                fOS.flush();
-                                fOS.close();
-                                Log.i("Updated file", "A");
-                            } else if (buttonE.isChecked()) {
-                                fOS.write("E");
-                                fOS.flush();
-                                fOS.close();
-                                Log.i("Updated file", "E");
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("Error", "Cannot update file");
-                        }
+
                     }
                 }
             });
@@ -124,54 +84,22 @@ public class Settings extends AppCompatActivity {
             button8.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b) {
-                        try {
-                            FileWriter fOS = new FileWriter(developer.localStorage);
-                            fOS.write("8");
-                            fOS.flush();
-                            fOS.close();
-                            Log.i("Updated file", "8");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("Error", "Cannot update file");
-                        }
-                    }
+
                 }
             });
 
             buttonA.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b) {
-                        try {
-                            FileWriter fOS = new FileWriter(developer.localStorage);
-                            fOS.write("A");
-                            fOS.flush();
-                            fOS.close();
-                            Log.i("Updated file", "A");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("Error", "Cannot update file");
-                        }
-                    }
+
+
                 }
             });
 
             buttonE.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                    if (b) {
-                        try {
-                            FileWriter fOS = new FileWriter(developer.localStorage);
-                            fOS.write("E");
-                            fOS.flush();
-                            fOS.close();
-                            Log.i("Updated file", "E");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Log.e("Error", "Cannot update file");
-                        }
-                    }
+
                 }
             });
         }
