@@ -1,14 +1,8 @@
 <resources>
     <string name="app_name">Class Timer</string>
-
-    <string name="getformattime">getFormatTime</string>
-    <string name="getblock">getBlock</string>
-    <string name="weekday">weekday</string>
-    <string name="gettimeremaining">getTimeRemaining</string>
     <string name="back">Back</string>
-
     <string name="backgroundImageDescription">The background image to be displayed</string>
-    <string name="noClass">No class today!</string>
+    <string name="noClass">No class right now!</string>
     <string name="endingPlaceholder">- will end in:</string>
     <string name="timerPlaceholder" translatable="false">--:--</string>
     <string name="bluredbackgroundImageDescription">The blurred background image to be displayed</string>
@@ -21,5 +15,6 @@
     <string name="_8_period_day_normal">8 period day (Normal)</string>
     <string name="a_day">A day</string>
     <string name="e_day">E day</string>
+    <string name="restore_to_default">Restore to default</string>
 
 </resources>

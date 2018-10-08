@@ -1,10 +1,13 @@
 package com.spud.sgsclasscountdownapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -34,18 +37,52 @@ public class Settings extends AppCompatActivity {
         overrideA = findViewById(R.id.overrideA);
         overrideE = findViewById(R.id.overrideE);
 
+        automatic.setChecked(database.getUpdateType().equals(Database.updateType.Automatic));
+        builtin.setChecked(database.getUpdateType().equals(Database.updateType.BuiltIn));
+        manual.setChecked(database.getUpdateType().equals(Database.updateType.ManualADay) ||
+                database.getUpdateType().equals(Database.updateType.ManualEDay) ||
+                database.getUpdateType().equals(Database.updateType.ManualFullDay) ||
+                database.getUpdateType().equals(Database.updateType.ManualCustomDay));
+
+        if (manual.isChecked()) {
+            override8.setChecked(database.getUpdateType().equals(Database.updateType.ManualFullDay));
+            overrideA.setChecked(database.getUpdateType().equals(Database.updateType.ManualADay));
+            overrideE.setChecked(database.getUpdateType().equals(Database.updateType.ManualEDay));
+        } else {
+            for (int i = 0; i < override.getChildCount(); i++) {
+                ((RadioButton) override.getChildAt(i)).setChecked(false);
+            }
+        }
+
         // If the database does not exist, disable set the override buttons
         manual.setEnabled(database.databaseExists());
         override.setEnabled(database.databaseExists());
 
-        // Check if there is a network connection available for the automatic portion
-        automatic.setEnabled(isNetworkAvailable());
+        // Setup back button
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Settings.this, Timer.class));
+                finish();
+            }
+        });
 
+        manual.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                for (int i = 0; i < override.getChildCount(); i++) {
+                    override.getChildAt(i).setEnabled(b);
+                }
+            }
+        });
     }
 
+    @Override
     protected void onResume() {
         super.onResume();
 
+        // Check if there is a network connection available for the automatic portion
+        automatic.setEnabled(isNetworkAvailable());
     }
 
     @Override
@@ -53,12 +90,12 @@ public class Settings extends AppCompatActivity {
         super.onDestroy();
 
         // TODO: Write options to database
+
     }
 
     // https://stackoverflow.com/questions/4238921/detect-whether-there-is-an-internet-connection-available-on-android
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         assert connectivityManager != null;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();

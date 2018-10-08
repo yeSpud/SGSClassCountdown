@@ -12,8 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/bluredbackgroundImageDescription"
-        android:scaleType="centerCrop"
-        android:src="@drawable/placeholderbackgroundblured" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/settingsHeader"
@@ -31,7 +30,7 @@
         android:id="@+id/UpdateHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:text="@string/schedule_update_method"
         android:textColor="@color/white"
         android:textSize="20sp"
@@ -47,7 +46,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/UpdateHeader">
-
 
         <RadioButton
             android:id="@+id/AutomaticUpdate"
@@ -145,6 +143,30 @@
             tools:targetApi="lollipop" />
 
     </RadioGroup>
+
+    <Button
+        android:id="@+id/classNames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Set class names"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/overrideGroup" />
+
+    <Button
+        android:id="@+id/Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/red"
+        android:textColor="@color/white"
+        android:text="@string/restore_to_default"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/classNames" />
 
     <Button
         android:id="@+id/back"

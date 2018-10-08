@@ -11,6 +11,8 @@ public class Timer extends AppCompatActivity {
 
     private TextView block, countdown, noClass;
 
+    private CountDownTimer timer;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer);
@@ -24,6 +26,7 @@ public class Timer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Timer.this, Settings.class));
+                finish();
             }
         });
 
@@ -34,12 +37,16 @@ public class Timer extends AppCompatActivity {
 
     }
 
+    protected void onPause() {
+        super.onPause();
+        timer.cancel();
+    }
 
     protected void onResume() {
         super.onResume();
 
         // Create a timer for that one second loop
-        new CountDownTimer(Long.MAX_VALUE - 1, 1000) {
+        timer = new CountDownTimer(Long.MAX_VALUE - 1, 1000) {
             @Override
             public void onTick(long l) {
 
@@ -72,5 +79,11 @@ public class Timer extends AppCompatActivity {
                 recreate();
             }
         }.start(); // Start the timer
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
     }
 }
