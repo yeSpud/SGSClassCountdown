@@ -51,6 +51,7 @@ public class Settings extends AppCompatActivity {
         } else {
             for (int i = 0; i < override.getChildCount(); i++) {
                 ((RadioButton) override.getChildAt(i)).setChecked(false);
+                (override.getChildAt(i)).setEnabled(false);
             }
         }
 

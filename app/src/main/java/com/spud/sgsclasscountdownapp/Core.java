@@ -17,9 +17,6 @@ public class Core {
 
     public int[] getTime() {
         int s = calendar.get(Calendar.SECOND), m = calendar.get(Calendar.MINUTE), h = calendar.get(Calendar.HOUR_OF_DAY);
-        Log.i("S", Integer.toString(s));
-        Log.i("M", Integer.toString(m));
-        Log.i("H", Integer.toString(h));
         int[] time = new int[3];
         time[0] = h;
         time[1] = m;
@@ -48,9 +45,11 @@ public class Core {
 
     Block getBlock() {
         Block block = Block.NoBlock;
-        Database database = new Database();
-        String weekday;
 
+        weekType weekday = getWeekType();
+
+        // TODO: Work with database
+        /*
         if (database.is_a_thing()) {
             if (database.getUpdateType().equals(Database.updateType.Automatic)) {
                 // TODO: Get from URL
@@ -71,9 +70,10 @@ public class Core {
         } else {
             weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
         }
+        */
 
-        if (!weekday.equalsIgnoreCase("saturday") && !weekday.equalsIgnoreCase("sunday")) {
-            if (weekday.equalsIgnoreCase("monday") || weekday.equalsIgnoreCase("tuesday") || weekday.equalsIgnoreCase("friday")) {
+        switch (weekday) {
+            case Normal:
                 Log.i("Schedule", "Full day");
                 if (timeToLong(getTime()) > timeToLong(8, 20, 0) && timeToLong(getTime()) < timeToLong(9, 0, 0)) {
                     block = Block.ANormal;
@@ -92,20 +92,21 @@ public class Core {
                 } else if (timeToLong(getTime()) > timeToLong(14, 30, 0) && timeToLong(getTime()) < timeToLong(15, 0, 0)) {
                     block = Block.HNormal;
                 }
-            } else {
+                break;
+            case Long:
                 Log.i("Schedule", "Long day");
                 if (timeToLong(getTime()) > timeToLong(8, 20, 0) && timeToLong(getTime()) < timeToLong(9, 45, 9)) {
-                    block = (weekday.equalsIgnoreCase("wednesday") ? Block.ALong : (weekday.equalsIgnoreCase("thursday") ? Block.ELong : Block.NoBlock));
+                    block = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? Block.ALong : (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY ? Block.ELong : Block.NoBlock));
                 } else if (timeToLong(getTime()) > timeToLong(10, 0, 0) && timeToLong(getTime()) < timeToLong(11, 25, 0)) {
-                    block = (weekday.equalsIgnoreCase("wednesday") ? Block.BLong : (weekday.equalsIgnoreCase("thursday") ? Block.FLong : Block.NoBlock));
+                    block = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? Block.BLong : (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY ? Block.FLong : Block.NoBlock));
                 } else if (timeToLong(getTime()) > timeToLong(12, 5, 0) && timeToLong(getTime()) < timeToLong(13, 30, 0)) {
-                    block = (weekday.equalsIgnoreCase("wednesday") ? Block.CLong : (weekday.equalsIgnoreCase("thursday") ? Block.GLong : Block.NoBlock));
+                    block = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? Block.CLong : (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY ? Block.GLong : Block.NoBlock));
                 } else if (timeToLong(getTime()) > timeToLong(13, 45, 0) && timeToLong(getTime()) < timeToLong(15, 10, 0)) {
-                    block = (weekday.equalsIgnoreCase("wednesday") ? Block.DLong : (weekday.equalsIgnoreCase("thursday") ? Block.HLong : Block.NoBlock));
+                    block = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? Block.DLong : (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY ? Block.HLong : Block.NoBlock));
                 } else {
                     block = Block.NoBlock;
                 }
-            }
+                break;
         }
         Log.i("Block", block.name());
         return block;
@@ -211,4 +212,35 @@ public class Core {
                 return null;
         }
     }
+
+    private weekType getWeekType() {
+
+        Log.i("Weekday", Integer.toString(calendar.get(Calendar.DAY_OF_WEEK)));
+        switch (calendar.get(Calendar.DAY_OF_WEEK)) {
+            case Calendar.SUNDAY:
+                return weekType.Weekend;
+            case Calendar.MONDAY:
+                return weekType.Normal;
+            case Calendar.TUESDAY:
+                return weekType.Normal;
+            case Calendar.WEDNESDAY:
+                return weekType.Long;
+            case Calendar.THURSDAY:
+                return weekType.Long;
+            case Calendar.FRIDAY:
+                return weekType.Normal;
+            case Calendar.SATURDAY:
+                return weekType.Weekend;
+            default:
+                return weekType.Weekend;
+        }
+
+    }
+
+    enum weekType {
+        Weekend,
+        Normal,
+        Long
+    }
+
 }

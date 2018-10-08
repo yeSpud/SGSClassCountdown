@@ -7,4 +7,5 @@
     <color name="black">#000000</color>
     <color name="lightgray">#6c6c6c</color>
     <color name="red">#FF0000</color>
+    <color name="accent_material_light">#ffffff</color>
 </resources>
