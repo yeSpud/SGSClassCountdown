@@ -16,10 +16,7 @@ public class Core {
     private Calendar calendar = Calendar.getInstance();
 
     public int[] getTime() {
-
-        int s = calendar.get(Calendar.SECOND);
-        int m = calendar.get(Calendar.MINUTE);
-        int h = calendar.get(Calendar.HOUR_OF_DAY);
+        int s = calendar.get(Calendar.SECOND), m = calendar.get(Calendar.MINUTE), h = calendar.get(Calendar.HOUR_OF_DAY);
         Log.i("S", Integer.toString(s));
         Log.i("M", Integer.toString(m));
         Log.i("H", Integer.toString(h));
@@ -29,48 +26,32 @@ public class Core {
         time[2] = s;
         Log.i("Formatted time", Arrays.toString(time));
         return time;
-
     }
 
     private long timeToLong(int[] time) {
         long longTime;
-
-        int h = time[0];
-        int m = time[1];
-        int s = time[2];
-
-        long hoursToMinutes = h * 60;
-        long minutesToSeconds = hoursToMinutes + (m * 60);
-        longTime = s + minutesToSeconds;
+        int h = time[0], m = time[1], s = time[2];
+        long hoursToSeconds = h * 3600, minutesToSeconds = m * 60;
+        longTime = s + minutesToSeconds + hoursToSeconds;
         Log.i("Time to long", Arrays.toString(time) + "->" + Long.toString(longTime));
-
         return longTime;
     }
 
-    // TODO: Tiem to long is nto formatting tome correctly
-    //[8, 22, 29]->1829
-    // 8:20:0 -> 1680 (Should be 30000)
-    // 9:0:0 -> 540 (Should be 32400)
     private long timeToLong(int hour, int minute, int second) {
         long longTime;
-        long hoursToMinutes = hour * 60;
-        long minutesToSeconds = hoursToMinutes + (minute * 60);
-        longTime = second + minutesToSeconds;
+        long hoursToSeconds = hour * 3600;
+        long minutesToSeconds = minute * 60;
+        longTime = second + minutesToSeconds + hoursToSeconds;
         Log.i("Time to long", String.format("%s:%s:%s -> %s", hour, minute, second, longTime));
-
         return longTime;
     }
 
     Block getBlock() {
-
         Block block = Block.NoBlock;
-
         Database database = new Database();
-
         String weekday;
 
-
-        if (database.databaseExists()) {
+        if (database.is_a_thing()) {
             if (database.getUpdateType().equals(Database.updateType.Automatic)) {
                 // TODO: Get from URL
                 weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
@@ -92,7 +73,6 @@ public class Core {
         }
 
         if (!weekday.equalsIgnoreCase("saturday") && !weekday.equalsIgnoreCase("sunday")) {
-            // TODO: Fix it for A block (Thinks its B for some reason)
             if (weekday.equalsIgnoreCase("monday") || weekday.equalsIgnoreCase("tuesday") || weekday.equalsIgnoreCase("friday")) {
                 Log.i("Schedule", "Full day");
                 if (timeToLong(getTime()) > timeToLong(8, 20, 0) && timeToLong(getTime()) < timeToLong(9, 0, 0)) {
@@ -105,7 +85,6 @@ public class Core {
                     block = Block.DNormal;
                 } else if (timeToLong(getTime()) > timeToLong(11, 35, 0) && timeToLong(getTime()) < timeToLong(12, 15, 0)) {
                     block = Block.ENormal;
-                    // TODO: Test for 0,15,0
                 } else if (timeToLong(getTime()) > timeToLong(13, 0, 0) && timeToLong(getTime()) < timeToLong(13, 40, 0)) {
                     block = Block.FNormal;
                 } else if (timeToLong(getTime()) > timeToLong(13, 45, 0) && timeToLong(getTime()) < timeToLong(14, 25, 0)) {
@@ -133,61 +112,103 @@ public class Core {
     }
 
     String getTimeRemaining() {
-        long checkTime = timeToLong(15, 10, 0);
-        if (getBlock().equals(Block.ANormal)) {
-            checkTime = timeToLong(9, 0, 0);
-        } else if (getBlock().equals(Block.BNormal)) {
-            checkTime = timeToLong(9, 45, 0);
-        } else if (getBlock().equals(Block.CNormal)) {
-            checkTime = timeToLong(10, 45, 0);
-        } else if (getBlock().equals(Block.DNormal)) {
-            checkTime = timeToLong(11, 30, 0);
-        } else if (getBlock().equals(Block.ENormal)) {
-            checkTime = timeToLong(12, 15, 0);
-        } else if (getBlock().equals(Block.FNormal)) {
-            checkTime = timeToLong(13, 40, 0);
-        } else if (getBlock().equals(Block.GNormal)) {
-            checkTime = timeToLong(14, 25, 0);
-        } else if (getBlock().equals(Block.HNormal)) {
-            checkTime = timeToLong(15, 10, 0);
-        } else if (getBlock().equals(Block.ALong) || getBlock().equals(Block.ELong)) {
-            checkTime = timeToLong(9, 45, 0);
-        } else if (getBlock().equals(Block.BLong) || getBlock().equals(Block.FLong)) {
-            checkTime = timeToLong(11, 25, 0);
-        } else if (getBlock().equals(Block.CLong) || getBlock().equals(Block.GLong)) {
-            checkTime = timeToLong(13, 30, 0);
-        } else if (getBlock().equals(Block.DLong) || getBlock().equals(Block.HLong)) {
-            checkTime = timeToLong(15, 10, 0);
+        long checkTime;
+        // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
+        switch (getBlock()) {
+            case ANormal:
+                checkTime = timeToLong(9, 0, 0);
+                break;
+            case BNormal:
+                checkTime = timeToLong(9, 45, 0);
+                break;
+            case CNormal:
+                checkTime = timeToLong(10, 45, 0);
+                break;
+            case DNormal:
+                checkTime = timeToLong(11, 30, 0);
+                break;
+            case ENormal:
+                checkTime = timeToLong(12, 15, 0);
+                break;
+            case FNormal:
+                checkTime = timeToLong(13, 40, 0);
+                break;
+            case GNormal:
+                checkTime = timeToLong(14, 25, 0);
+                break;
+            case HNormal:
+                checkTime = timeToLong(15, 10, 0);
+                break;
+            case ALong:
+                checkTime = timeToLong(9, 45, 0);
+                break;
+            case BLong:
+                checkTime = timeToLong(11, 25, 0);
+                break;
+            case CLong:
+                checkTime = timeToLong(13, 30, 0);
+                break;
+            case DLong:
+                checkTime = timeToLong(15, 10, 0);
+                break;
+            case ELong:
+                checkTime = timeToLong(9, 45, 0);
+                break;
+            case FLong:
+                checkTime = timeToLong(11, 25, 0);
+                break;
+            case GLong:
+                checkTime = timeToLong(13, 30, 0);
+                break;
+            case HLong:
+                checkTime = timeToLong(15, 10, 0);
+                break;
+            default:
+                checkTime = timeToLong(15, 10, 0);
+                break;
         }
-
-        long seconds = checkTime - timeToLong(getTime());
-        long minutes = seconds / 60;
-
+        long seconds = checkTime - timeToLong(getTime()), minutes = seconds / 60;
         Log.i("Time remaining", String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60)));
         return String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60));
     }
 
     String changeBlock(Block block) {
-
-        if (block.equals(Block.ANormal) || block.equals(Block.ALong)) {
-            return "A block will end in:";
-        } else if (block.equals(Block.BNormal) || block.equals(Block.BLong)) {
-            return "B block will end in:";
-        } else if (block.equals(Block.CNormal) || block.equals(Block.CLong)) {
-            return "C block will end in:";
-        } else if (block.equals(Block.DNormal) || block.equals(Block.DLong)) {
-            return "D block will end in:";
-        } else if (block.equals(Block.ENormal) || block.equals(Block.ELong)) {
-            return "E block will end in:";
-        } else if (block.equals(Block.FNormal) || block.equals(Block.FLong)) {
-            return "F block will end in:";
-        } else if (block.equals(Block.GNormal) || block.equals(Block.GLong)) {
-            return "G block will end in:";
-        } else if (block.equals(Block.HNormal) || block.equals(Block.HLong)) {
-            return "H block will end in:";
-        } else {
-            return null;
+        // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
+        switch (block) {
+            case ANormal:
+                return "A block will end in:";
+            case BNormal:
+                return "B block will end in:";
+            case CNormal:
+                return "C block will end in:";
+            case DNormal:
+                return "D block will end in:";
+            case ENormal:
+                return "E block will end in";
+            case FNormal:
+                return "F block will end in";
+            case GNormal:
+                return "G block will end in";
+            case HNormal:
+                return "H block will end in";
+            case ALong:
+                return "A block will end in";
+            case BLong:
+                return "B block will end in";
+            case CLong:
+                return "C block will end in";
+            case DLong:
+                return "D block will end in";
+            case ELong:
+                return "E block will end in";
+            case FLong:
+                return "F block will end in";
+            case GLong:
+                return "G block will end in";
+            case HLong:
+                return "H block will end in";
+            default:
+                return null;
         }
     }
-
 }

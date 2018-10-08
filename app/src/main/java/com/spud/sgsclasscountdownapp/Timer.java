@@ -10,7 +10,6 @@ import android.widget.TextView;
 public class Timer extends AppCompatActivity {
 
     private TextView block, countdown, noClass;
-
     private CountDownTimer timer;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,8 +30,9 @@ public class Timer extends AppCompatActivity {
         });
 
         // If there is no database, create a new one
-        if (!new Database().databaseExists()) {
-            new Database().createFile();
+        Database database = new Database();
+        if (!database.is_a_thing()) {
+            database.createNewDatabase();
         }
 
     }
@@ -45,8 +45,7 @@ public class Timer extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Create a timer for that one second loop
-        timer = new CountDownTimer(Long.MAX_VALUE - 1, 1000) {
+        timer = new CountDownTimer(Long.MAX_VALUE - 1, 500) {
             @Override
             public void onTick(long l) {
 
@@ -74,8 +73,7 @@ public class Timer extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
-                // If the timer has stopped as it has run out, relaunch the actvity
+                // If the timer has stopped as it has run out, relaunch the activity
                 recreate();
             }
         }.start(); // Start the timer

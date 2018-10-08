@@ -10,7 +10,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-
 /**
  * Created by Stephen Ogden on 10/3/18.
  * FTC 6128 | 7935
@@ -25,13 +24,13 @@ public class Database {
     @SuppressLint("SdCardPath")
     private File databaseFile = new File("/data/data/"+this.getClass().getPackage().getName()+"/database.txt");
 
-    public void createFile() {
+    public void createNewDatabase() {
         try {
             if (databaseFile.createNewFile()) {
-                initDatabase();
+                initialiseDatabase();
             } else {
                 if (databaseFile.length() == 0) {
-                    initDatabase();
+                    initialiseDatabase();
                 }
             }
         } catch (IOException e) {
@@ -39,12 +38,12 @@ public class Database {
         }
     }
 
-    public boolean databaseExists() {
+    public boolean is_a_thing() {
         Log.w("Database exists", Boolean.toString(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead()));
         return databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead();
     }
 
-    private void initDatabase() {
+    private void initialiseDatabase() {
         try {
             FileWriter writer = new FileWriter(databaseFile);
             writer.write(String.format("%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n",
