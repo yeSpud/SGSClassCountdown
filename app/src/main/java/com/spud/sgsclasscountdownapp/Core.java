@@ -47,6 +47,10 @@ public class Core {
         return longTime;
     }
 
+    // TODO: Tiem to long is nto formatting tome correctly
+    //[8, 22, 29]->1829
+    // 8:20:0 -> 1680 (Should be 30000)
+    // 9:0:0 -> 540 (Should be 32400)
     private long timeToLong(int hour, int minute, int second) {
         long longTime;
         long hoursToMinutes = hour * 60;
@@ -88,6 +92,7 @@ public class Core {
         }
 
         if (!weekday.equalsIgnoreCase("saturday") && !weekday.equalsIgnoreCase("sunday")) {
+            // TODO: Fix it for A block (Thinks its B for some reason)
             if (weekday.equalsIgnoreCase("monday") || weekday.equalsIgnoreCase("tuesday") || weekday.equalsIgnoreCase("friday")) {
                 Log.i("Schedule", "Full day");
                 if (timeToLong(getTime()) > timeToLong(8, 20, 0) && timeToLong(getTime()) < timeToLong(9, 0, 0)) {
