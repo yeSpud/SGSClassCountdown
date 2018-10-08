@@ -16,5 +16,6 @@
     <string name="a_day">A day</string>
     <string name="e_day">E day</string>
     <string name="restore_to_default">Restore to default</string>
+    <string name="set_class_names">Set class names</string>
 
 </resources>

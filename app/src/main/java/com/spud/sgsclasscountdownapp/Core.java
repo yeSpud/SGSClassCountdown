@@ -1,9 +1,5 @@
 package com.spud.sgsclasscountdownapp;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.Arrays;

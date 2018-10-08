@@ -131,4 +131,8 @@ public class Database {
         ManualCustomDay
 
     }
+
+    public void writeToDatabase() {
+        // TODO: Finish me!
+    }
 }
