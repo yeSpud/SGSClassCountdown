@@ -37,17 +37,17 @@ public class Settings extends AppCompatActivity {
         overrideA = findViewById(R.id.overrideA);
         overrideE = findViewById(R.id.overrideE);
 
-        automatic.setChecked(database.getUpdateType().equals(Database.updateType.Automatic));
-        builtin.setChecked(database.getUpdateType().equals(Database.updateType.BuiltIn));
-        manual.setChecked(database.getUpdateType().equals(Database.updateType.ManualADay) ||
-                database.getUpdateType().equals(Database.updateType.ManualEDay) ||
-                database.getUpdateType().equals(Database.updateType.ManualFullDay) ||
-                database.getUpdateType().equals(Database.updateType.ManualCustomDay));
+        automatic.setChecked(database.getUpdateType().equals(UpdateType.Automatic));
+        builtin.setChecked(database.getUpdateType().equals(UpdateType.BuiltIn));
+        manual.setChecked(database.getUpdateType().equals(UpdateType.ManualADay) ||
+                database.getUpdateType().equals(UpdateType.ManualEDay) ||
+                database.getUpdateType().equals(UpdateType.ManualFullDay) ||
+                database.getUpdateType().equals(UpdateType.ManualCustomDay));
 
         if (manual.isChecked()) {
-            override8.setChecked(database.getUpdateType().equals(Database.updateType.ManualFullDay));
-            overrideA.setChecked(database.getUpdateType().equals(Database.updateType.ManualADay));
-            overrideE.setChecked(database.getUpdateType().equals(Database.updateType.ManualEDay));
+            override8.setChecked(database.getUpdateType().equals(UpdateType.ManualFullDay));
+            overrideA.setChecked(database.getUpdateType().equals(UpdateType.ManualADay));
+            overrideE.setChecked(database.getUpdateType().equals(UpdateType.ManualEDay));
         } else {
             for (int i = 0; i < override.getChildCount(); i++) {
                 ((RadioButton) override.getChildAt(i)).setChecked(false);
@@ -90,18 +90,18 @@ public class Settings extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Database database = new Database();
-        Database.updateType updateType = null;
+        UpdateType updateType = null;
 
         if (builtin.isChecked()) {
-            updateType = Database.updateType.BuiltIn;
+            updateType = UpdateType.BuiltIn;
         } else if (automatic.isChecked()) {
-            updateType = Database.updateType.Automatic;
+            updateType = UpdateType.Automatic;
         } else if (overrideE.isChecked()) {
-            updateType = Database.updateType.ManualEDay;
+            updateType = UpdateType.ManualEDay;
         } else if (overrideA.isChecked()) {
-            updateType = Database.updateType.ManualADay;
+            updateType = UpdateType.ManualADay;
         } else if (override8.isChecked()) {
-            updateType = Database.updateType.ManualFullDay;
+            updateType = UpdateType.ManualFullDay;
         }
 
 

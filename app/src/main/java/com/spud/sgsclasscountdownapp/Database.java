@@ -47,16 +47,16 @@ class Database {
         try {
             FileWriter writer = new FileWriter(databaseFile);
             writer.write(String.format("%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n",
-                    databaseValues.DatabaseVersion.getName(), DATABASE_VERSION,
-                    databaseValues.UpdateType.getName(), updateType.BuiltIn.name(),
-                    databaseValues.ABlockClassName.getName(), "",
-                    databaseValues.BBlockClassName.getName(), "",
-                    databaseValues.CBlockClassName.getName(), "",
-                    databaseValues.DBlockClassName.getName(), "",
-                    databaseValues.EBlockClassName.getName(), "",
-                    databaseValues.FBlockClassName.getName(), "",
-                    databaseValues.GBlockClassName.getName(), "",
-                    databaseValues.HBlockClassName.getName(), ""));
+                    DatabaseKeys.DatabaseVersion.getName(), DATABASE_VERSION,
+                    DatabaseKeys.UpdateType.getName(), UpdateType.BuiltIn.name(),
+                    DatabaseKeys.ABlockClassName.getName(), "",
+                    DatabaseKeys.BBlockClassName.getName(), "",
+                    DatabaseKeys.CBlockClassName.getName(), "",
+                    DatabaseKeys.DBlockClassName.getName(), "",
+                    DatabaseKeys.EBlockClassName.getName(), "",
+                    DatabaseKeys.FBlockClassName.getName(), "",
+                    DatabaseKeys.GBlockClassName.getName(), "",
+                    DatabaseKeys.HBlockClassName.getName(), ""));
             writer.flush();
             writer.close();
         } catch (IOException e) {
@@ -92,28 +92,28 @@ class Database {
         return version;
     }
 
-    updateType getUpdateType() {
-        updateType update = updateType.valueOf(readFromDatabase()[1]);
+    UpdateType getUpdateType() {
+        UpdateType update = UpdateType.valueOf(readFromDatabase()[1]);
         Log.i("Update type", update.name());
         return update;
     }
 
     @SuppressWarnings("SameParameterValue")
         // TODO: Fix wiring the builtin value
-    void writeToDatabase(int databaseVersion, updateType UpdateType, String aBlockClassName, String bBlockClassName, String cBlockClassName, String dBlockClassName, String eBlockClassName, String fBlockClassName, String gBlockClassName, String hBlockClassName) {
+    void writeToDatabase(int databaseVersion, UpdateType UpdateType, String aBlockClassName, String bBlockClassName, String cBlockClassName, String dBlockClassName, String eBlockClassName, String fBlockClassName, String gBlockClassName, String hBlockClassName) {
         try {
             FileWriter writer = new FileWriter(databaseFile);
             String data = String.format("%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n",
-                    databaseValues.DatabaseVersion.getName(), databaseVersion,
-                    databaseValues.UpdateType.getName(), UpdateType.name(),
-                    databaseValues.ABlockClassName.getName(), aBlockClassName,
-                    databaseValues.BBlockClassName.getName(), bBlockClassName,
-                    databaseValues.CBlockClassName.getName(), cBlockClassName,
-                    databaseValues.DBlockClassName.getName(), dBlockClassName,
-                    databaseValues.EBlockClassName.getName(), eBlockClassName,
-                    databaseValues.FBlockClassName.getName(), fBlockClassName,
-                    databaseValues.GBlockClassName.getName(), gBlockClassName,
-                    databaseValues.HBlockClassName.getName(), hBlockClassName);
+                    DatabaseKeys.DatabaseVersion.getName(), databaseVersion,
+                    DatabaseKeys.UpdateType.getName(), UpdateType.name(),
+                    DatabaseKeys.ABlockClassName.getName(), aBlockClassName,
+                    DatabaseKeys.BBlockClassName.getName(), bBlockClassName,
+                    DatabaseKeys.CBlockClassName.getName(), cBlockClassName,
+                    DatabaseKeys.DBlockClassName.getName(), dBlockClassName,
+                    DatabaseKeys.EBlockClassName.getName(), eBlockClassName,
+                    DatabaseKeys.FBlockClassName.getName(), fBlockClassName,
+                    DatabaseKeys.GBlockClassName.getName(), gBlockClassName,
+                    DatabaseKeys.HBlockClassName.getName(), hBlockClassName);
             Log.i("Data", data);
             writer.write(data);
             writer.flush();
@@ -123,7 +123,7 @@ class Database {
         }
     }
 
-    public String getBlockName(Block block) {
+    String getBlockName(Block block) {
 
         // Load the database content
         String[] databaseContent = readFromDatabase();
@@ -167,36 +167,5 @@ class Database {
             default:
                 return "";
         }
-    }
-
-    public enum databaseValues {
-        DatabaseVersion("Database version"),
-        UpdateType("Update type"),
-        ABlockClassName("A block class name"),
-        BBlockClassName("B block class name"),
-        CBlockClassName("C block class name"),
-        DBlockClassName("D block class name"),
-        EBlockClassName("E block class name"),
-        FBlockClassName("F block class name"),
-        GBlockClassName("G block class name"),
-        HBlockClassName("H block class name");
-        private String value;
-
-        databaseValues(String value) {
-            this.value = value;
-        }
-
-        public String getName() {
-            return value;
-        }
-    }
-
-    public enum updateType {
-        BuiltIn,
-        Automatic,
-        ManualADay,
-        ManualEDay,
-        ManualFullDay,
-        ManualCustomDay
     }
 }

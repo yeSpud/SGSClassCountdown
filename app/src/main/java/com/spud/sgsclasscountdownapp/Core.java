@@ -46,7 +46,7 @@ public class Core {
     Block getBlock() {
         Block block = Block.NoBlock;
 
-        weekType weekday = getWeekType();
+        WeekType weekday = getWeekType();
 
         // TODO: Work with database
         /*
@@ -215,34 +215,27 @@ public class Core {
         }
     }
 
-    private weekType getWeekType() {
+    private WeekType getWeekType() {
 
         Log.i("Weekday", Integer.toString(calendar.get(Calendar.DAY_OF_WEEK)));
         switch (calendar.get(Calendar.DAY_OF_WEEK)) {
             case Calendar.SUNDAY:
-                return weekType.Weekend;
+                return WeekType.Weekend;
             case Calendar.MONDAY:
-                return weekType.Normal;
+                return WeekType.Normal;
             case Calendar.TUESDAY:
-                return weekType.Normal;
+                return WeekType.Normal;
             case Calendar.WEDNESDAY:
-                return weekType.Long;
+                return WeekType.Long;
             case Calendar.THURSDAY:
-                return weekType.Long;
+                return WeekType.Long;
             case Calendar.FRIDAY:
-                return weekType.Normal;
+                return WeekType.Normal;
             case Calendar.SATURDAY:
-                return weekType.Weekend;
+                return WeekType.Weekend;
             default:
-                return weekType.Weekend;
+                return WeekType.Weekend;
         }
 
     }
-
-    enum weekType {
-        Weekend,
-        Normal,
-        Long
-    }
-
 }

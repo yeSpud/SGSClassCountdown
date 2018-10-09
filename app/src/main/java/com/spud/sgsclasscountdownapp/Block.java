@@ -6,7 +6,6 @@ package com.spud.sgsclasscountdownapp;
  * FRC 1595
  */
 public enum Block {
-
     ANormal,
     BNormal,
     CNormal,
@@ -23,6 +22,5 @@ public enum Block {
     FLong,
     GLong,
     HLong,
-    NoBlock;
-
+    NoBlock
 }
