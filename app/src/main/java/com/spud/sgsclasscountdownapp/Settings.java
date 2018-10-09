@@ -76,6 +76,15 @@ public class Settings extends AppCompatActivity {
                 }
             }
         });
+
+        // Setup the dialog box for the restore button
+        findViewById(R.id.Reset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FactoryResetDialog dialog = new FactoryResetDialog();
+                dialog.show(getFragmentManager(),"Are you sure you want to do that?");
+            }
+        });
     }
 
     @Override

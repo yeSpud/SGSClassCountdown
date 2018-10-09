@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:stretchColumns="8">
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="@string/a_block" />
+
+        <EditText
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="" />
+
+        <Button android:text="@string/reset" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="@string/b_block" />
+
+        <EditText
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="" />
+
+        <Button android:text="@string/reset" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="@string/c_block" />
+
+        <EditText
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="" />
+
+        <Button android:text="@string/reset" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="@string/d_block" />
+
+        <EditText
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="" />
+
+        <Button android:text="@string/reset" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="@string/e_block" />
+
+        <EditText
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="" />
+
+        <Button android:text="@string/reset" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="@string/f_block" />
+
+        <EditText
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="" />
+
+        <Button android:text="@string/reset" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="@string/g_block" />
+
+        <EditText
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="" />
+
+        <Button android:text="@string/reset" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <TextView
+            android:padding="3dip"
+            android:text="@string/h_block" />
+
+        <EditText
+            android:gravity="center"
+            android:padding="3dip"
+            android:text="" />
+
+        <Button android:text="@string/reset" />
+
+    </TableRow>
+
+    <TableRow>
+
+        <Button android:text="@string/save" />
+
+        <Button android:text="@string/cancel" />
+
+    </TableRow>
+
+</TableLayout>

@@ -49,7 +49,7 @@ class Database {
         return !(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead());
     }
 
-    private void initialiseDatabase() {
+    void initialiseDatabase() {
         try {
             FileWriter writer = new FileWriter(databaseFile);
             writer.write(String.format("%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n",

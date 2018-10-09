@@ -17,5 +17,16 @@
     <string name="e_day">E day</string>
     <string name="restore_to_default">Restore to default</string>
     <string name="set_class_names">Set class names</string>
+    <string name="a_block">A Block:</string>
+    <string name="b_block">B Block:</string>
+    <string name="c_block">C Block:</string>
+    <string name="d_block">D Block:</string>
+    <string name="e_block">E Block:</string>
+    <string name="f_block">F Block</string>
+    <string name="g_block">G Block</string>
+    <string name="h_block">H Block</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
 
 </resources>
