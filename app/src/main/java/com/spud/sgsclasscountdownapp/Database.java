@@ -70,6 +70,7 @@ class Database {
         }
     }
 
+    // TODO: Check if database is empty, and re-initialize it
     private String[] readFromDatabase() {
         String data[] = new String[10];
         BufferedReader br = null;
@@ -104,6 +105,7 @@ class Database {
         return update;
     }
 
+    // TODO: Check if database is empty, and re-initialize it
     void writeToDatabase(int databaseVersion, UpdateType UpdateType, String aBlockClassName, String bBlockClassName, String cBlockClassName, String dBlockClassName, String eBlockClassName, String fBlockClassName, String gBlockClassName, String hBlockClassName) {
         try {
             FileWriter writer = new FileWriter(databaseFile);
