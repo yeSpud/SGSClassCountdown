@@ -82,7 +82,7 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FactoryResetDialog dialog = new FactoryResetDialog();
-                dialog.show(getFragmentManager(),"Are you sure you want to do that?");
+                dialog.show(getFragmentManager(), "Are you sure you want to do that?");
             }
         });
     }
@@ -99,18 +99,25 @@ public class Settings extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Database database = new Database();
+        //noinspection UnusedAssignment - Complaines about not being initalized if I make it uninitalized, which it says it can be...
         UpdateType updateType = null;
 
         if (builtin.isChecked()) {
             updateType = UpdateType.BuiltIn;
         } else if (automatic.isChecked()) {
             updateType = UpdateType.Automatic;
-        } else if (overrideE.isChecked()) {
-            updateType = UpdateType.ManualEDay;
-        } else if (overrideA.isChecked()) {
-            updateType = UpdateType.ManualADay;
-        } else if (override8.isChecked()) {
-            updateType = UpdateType.ManualFullDay;
+        } else if (manual.isChecked()) {
+            if (overrideE.isChecked()) {
+                updateType = UpdateType.ManualEDay;
+            } else if (overrideA.isChecked()) {
+                updateType = UpdateType.ManualADay;
+            } else if (override8.isChecked()) {
+                updateType = UpdateType.ManualFullDay;
+            } else {
+                updateType = UpdateType.BuiltIn;
+            }
+        } else {
+            updateType = UpdateType.BuiltIn;
         }
 
 

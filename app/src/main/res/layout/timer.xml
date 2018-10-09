@@ -7,6 +7,7 @@
     android:background="@color/black"
     tools:context=".Timer">
 
+    <!-- TODO: Fix background loading issues (Crashes)-->
     <ImageView
         android:id="@+id/backgroundImage"
         android:layout_width="match_parent"
