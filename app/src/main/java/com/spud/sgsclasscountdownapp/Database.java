@@ -15,7 +15,7 @@ import java.io.IOException;
  * FTC 6128 | 7935
  * FRC 1595
  */
-public class Database {
+class Database {
 
     Timer timer = new Timer();
 
@@ -24,7 +24,7 @@ public class Database {
     @SuppressLint("SdCardPath")
     private File databaseFile = new File("/data/data/"+this.getClass().getPackage().getName()+"/database.txt");
 
-    public void createNewDatabase() {
+    void createNewDatabase() {
         try {
             if (databaseFile.createNewFile()) {
                 initialiseDatabase();
@@ -38,7 +38,7 @@ public class Database {
         }
     }
 
-    public boolean is_a_thing() {
+    boolean is_a_thing() {
         Log.w("Database exists", Boolean.toString(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead()));
         return databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead();
     }
@@ -85,14 +85,14 @@ public class Database {
         return data;
     }
 
-    public int getDatabaseVersion() {
-        int version = 0;
+    int getDatabaseVersion() {
+        int version;
         version = Integer.parseInt(readFromDatabase()[0]);
         Log.i("Database version", Integer.toString(version));
         return version;
     }
 
-    public updateType getUpdateType() {
+    updateType getUpdateType() {
         updateType update = updateType.valueOf(readFromDatabase()[1]);
         Log.i("Update type", update.name());
         return update;
@@ -109,13 +109,10 @@ public class Database {
         FBlockClassName("F block class name"),
         GBlockClassName("G block class name"),
         HBlockClassName("H block class name");
-
         private String value;
-
         databaseValues(String value) {
             this.value = value;
         }
-
         public String getName() {
             return value;
         }
@@ -128,10 +125,30 @@ public class Database {
         ManualEDay,
         ManualFullDay,
         ManualCustomDay
-
     }
 
-    public void writeToDatabase() {
-        // TODO: Finish me!
+    @SuppressWarnings("SameParameterValue")
+    // TODO: Fix wiring the builtin value
+    void writeToDatabase(int databaseVersion, updateType UpdateType, String aBlockClassName, String bBlockClassName, String cBlockClassName, String dBlockClassName, String eBlockClassName, String fBlockClassName, String gBlockClassName, String hBlockClassName) {
+        try {
+            FileWriter writer = new FileWriter(databaseFile);
+            String data = String.format("%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n",
+                    databaseValues.DatabaseVersion.getName(), databaseVersion,
+                    databaseValues.UpdateType.getName(), UpdateType.name(),
+                    databaseValues.ABlockClassName.getName(), aBlockClassName,
+                    databaseValues.BBlockClassName.getName(), bBlockClassName,
+                    databaseValues.CBlockClassName.getName(), cBlockClassName,
+                    databaseValues.DBlockClassName.getName(), dBlockClassName,
+                    databaseValues.EBlockClassName.getName(), eBlockClassName,
+                    databaseValues.FBlockClassName.getName(), fBlockClassName,
+                    databaseValues.GBlockClassName.getName(), gBlockClassName,
+                    databaseValues.HBlockClassName.getName(), hBlockClassName);
+            Log.i("Data",data);
+            writer.write(data);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

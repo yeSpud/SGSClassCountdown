@@ -89,7 +89,7 @@ public class Core {
                     block = Block.FNormal;
                 } else if (timeToLong(getTime()) > timeToLong(13, 45, 0) && timeToLong(getTime()) < timeToLong(14, 25, 0)) {
                     block = Block.GNormal;
-                } else if (timeToLong(getTime()) > timeToLong(14, 30, 0) && timeToLong(getTime()) < timeToLong(15, 0, 0)) {
+                } else if (timeToLong(getTime()) > timeToLong(14, 30, 0) && timeToLong(getTime()) < timeToLong(15, 10, 0)) {
                     block = Block.HNormal;
                 }
                 break;
@@ -174,6 +174,8 @@ public class Core {
     }
 
     String changeBlock(Block block) {
+
+        // TODO: Set it up so that it gets the class name, unless its blank
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
         switch (block) {
             case ANormal:
