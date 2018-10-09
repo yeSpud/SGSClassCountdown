@@ -56,8 +56,8 @@ public class Settings extends AppCompatActivity {
         }
 
         // If the database does not exist, disable set the override buttons
-        manual.setEnabled(database.is_a_thing());
-        override.setEnabled(database.is_a_thing());
+        manual.setEnabled(!database.doesNotExist());
+        override.setEnabled(database.doesNotExist());
 
         // Setup back button
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {

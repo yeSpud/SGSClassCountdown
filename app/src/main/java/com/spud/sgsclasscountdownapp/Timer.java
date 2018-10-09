@@ -28,13 +28,6 @@ public class Timer extends AppCompatActivity {
                 finish();
             }
         });
-
-        // If there is no database, create a new one
-        Database database = new Database();
-        if (!database.is_a_thing()) {
-            database.createNewDatabase();
-        }
-
     }
 
     protected void onPause() {

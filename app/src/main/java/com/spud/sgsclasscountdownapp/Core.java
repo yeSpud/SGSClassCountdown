@@ -47,30 +47,27 @@ public class Core {
         Block block = Block.NoBlock;
 
         WeekType weekday = getWeekType();
+        Database database = new Database();
+        UpdateType updateType = database.getUpdateType();
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        // TODO: Work with database
-        /*
-        if (database.is_a_thing()) {
-            if (database.getUpdateType().equals(Database.updateType.Automatic)) {
+        if (updateType != UpdateType.BuiltIn) {
+            if (database.getUpdateType().equals(UpdateType.Automatic)) {
                 // TODO: Get from URL
-                weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
-            } else if (database.getUpdateType().equals(Database.updateType.ManualADay)) {
-                weekday = "Wednesday";
-            } else if (database.getUpdateType().equals(Database.updateType.ManualEDay)) {
-                weekday = "Thursday";
-            } else if (database.getUpdateType().equals(Database.updateType.ManualFullDay)) {
-                weekday = "Monday";
-            } else if (database.getUpdateType().equals(Database.updateType.BuiltIn)) {
-                weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+                weekday = getWeekType();
+            } else if (updateType.equals(UpdateType.ManualADay) || updateType.equals(UpdateType.ManualEDay)) {
+                weekday = WeekType.Long;
+            } else if (updateType.equals(UpdateType.ManualFullDay)) {
+                weekday = WeekType.Normal;
+            } else if (updateType.equals(UpdateType.BuiltIn)) {
+                weekday = getWeekType();
             } else {
                 Log.e("E", "Cannot identify the updateType from database");
-                weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+                weekday = getWeekType();
             }
-            Log.i("Weekday", weekday);
-        } else {
-            weekday = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault());
+            Log.i("Weekday override", weekday.name());
         }
-        */
+
 
         switch (weekday) {
             case Normal:
@@ -96,13 +93,37 @@ public class Core {
             case Long:
                 Log.i("Schedule", "Long day");
                 if (timeToLong(getTime()) > timeToLong(8, 20, 0) && timeToLong(getTime()) < timeToLong(9, 45, 9)) {
-                    block = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? Block.ALong : (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY ? Block.ELong : Block.NoBlock));
+                    if (dayOfWeek == Calendar.WEDNESDAY || updateType.equals(UpdateType.ManualADay)) {
+                        block = Block.ALong;
+                    } else if (dayOfWeek == Calendar.THURSDAY || updateType.equals(UpdateType.ManualEDay)) {
+                        block = Block.ELong;
+                    } else {
+                        block = Block.NoBlock;
+                    }
                 } else if (timeToLong(getTime()) > timeToLong(10, 0, 0) && timeToLong(getTime()) < timeToLong(11, 25, 0)) {
-                    block = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? Block.BLong : (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY ? Block.FLong : Block.NoBlock));
+                    if (dayOfWeek == Calendar.WEDNESDAY || updateType.equals(UpdateType.ManualADay)) {
+                        block = Block.BLong;
+                    } else if (dayOfWeek == Calendar.THURSDAY || updateType.equals(UpdateType.ManualEDay)) {
+                        block = Block.FLong;
+                    } else {
+                        block = Block.NoBlock;
+                    }
                 } else if (timeToLong(getTime()) > timeToLong(12, 5, 0) && timeToLong(getTime()) < timeToLong(13, 30, 0)) {
-                    block = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? Block.CLong : (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY ? Block.GLong : Block.NoBlock));
+                    if (dayOfWeek == Calendar.WEDNESDAY || updateType.equals(UpdateType.ManualADay)) {
+                        block = Block.CLong;
+                    } else if (dayOfWeek == Calendar.THURSDAY || updateType.equals(UpdateType.ManualEDay)) {
+                        block = Block.GLong;
+                    } else {
+                        block = Block.NoBlock;
+                    }
                 } else if (timeToLong(getTime()) > timeToLong(13, 45, 0) && timeToLong(getTime()) < timeToLong(15, 10, 0)) {
-                    block = (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? Block.DLong : (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY ? Block.HLong : Block.NoBlock));
+                    if (dayOfWeek == Calendar.WEDNESDAY || updateType.equals(UpdateType.ManualADay)) {
+                        block = Block.DLong;
+                    } else if (dayOfWeek == Calendar.THURSDAY || updateType.equals(UpdateType.ManualEDay)) {
+                        block = Block.HLong;
+                    } else {
+                        block = Block.NoBlock;
+                    }
                 } else {
                     block = Block.NoBlock;
                 }

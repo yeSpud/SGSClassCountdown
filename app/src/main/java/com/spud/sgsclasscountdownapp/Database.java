@@ -24,7 +24,13 @@ class Database {
     @SuppressLint("SdCardPath")
     private File databaseFile = new File("/data/data/" + this.getClass().getPackage().getName() + "/database.txt");
 
-    void createNewDatabase() {
+    Database (){
+        if (doesNotExist()) {
+            createNewDatabase();
+        }
+    }
+
+    private void createNewDatabase() {
         try {
             if (databaseFile.createNewFile()) {
                 initialiseDatabase();
@@ -38,9 +44,9 @@ class Database {
         }
     }
 
-    boolean is_a_thing() {
-        Log.w("Database exists", Boolean.toString(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead()));
-        return databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead();
+    boolean doesNotExist() {
+        Log.w("Database is missing", Boolean.toString(!(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead())));
+        return !(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead());
     }
 
     private void initialiseDatabase() {
@@ -98,8 +104,6 @@ class Database {
         return update;
     }
 
-    @SuppressWarnings("SameParameterValue")
-        // TODO: Fix wiring the builtin value
     void writeToDatabase(int databaseVersion, UpdateType UpdateType, String aBlockClassName, String bBlockClassName, String cBlockClassName, String dBlockClassName, String eBlockClassName, String fBlockClassName, String gBlockClassName, String hBlockClassName) {
         try {
             FileWriter writer = new FileWriter(databaseFile);
