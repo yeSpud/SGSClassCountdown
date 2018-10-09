@@ -26,18 +26,15 @@ public class Core {
     }
 
     private long timeToLong(int[] time) {
-        long longTime;
         int h = time[0], m = time[1], s = time[2];
-        long hoursToSeconds = h * 3600, minutesToSeconds = m * 60;
+        long longTime, hoursToSeconds = h * 3600, minutesToSeconds = m * 60;
         longTime = s + minutesToSeconds + hoursToSeconds;
         Log.i("Time to long", Arrays.toString(time) + "->" + Long.toString(longTime));
         return longTime;
     }
 
     private long timeToLong(int hour, int minute, int second) {
-        long longTime;
-        long hoursToSeconds = hour * 3600;
-        long minutesToSeconds = minute * 60;
+        long longTime, hoursToSeconds = hour * 3600, minutesToSeconds = minute * 60;
         longTime = second + minutesToSeconds + hoursToSeconds;
         Log.i("Time to long", String.format("%s:%s:%s -> %s", hour, minute, second, longTime));
         return longTime;
@@ -67,7 +64,6 @@ public class Core {
             }
             Log.i("Weekday override", weekday.name());
         }
-
 
         switch (weekday) {
             case Normal:
@@ -195,49 +191,48 @@ public class Core {
     }
 
     String changeBlock(Block block) {
-
-        // TODO: Set it up so that it gets the class name, unless its blank
+        Database database = new Database();
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
+        // https://stackoverflow.com/questions/798545/what-is-the-java-operator-called-and-what-does-it-do
         switch (block) {
             case ANormal:
-                return "A block will end in:";
+                return (database.getBlockName(Block.ANormal).equals("")) ? "A block will end in:" : String.format("%s will end in:", database.getBlockName(Block.ANormal));
             case BNormal:
-                return "B block will end in:";
+                return (database.getBlockName(Block.BNormal).equals("")) ? "B block will end in:" : String.format("%s will end in:", database.getBlockName(Block.BNormal));
             case CNormal:
-                return "C block will end in:";
+                return (database.getBlockName(Block.CNormal).equals("")) ? "C block will end in:" : String.format("%s will end in:", database.getBlockName(Block.CNormal));
             case DNormal:
-                return "D block will end in:";
+                return (database.getBlockName(Block.DNormal).equals("")) ? "D block will end in:" : String.format("%s will end in:", database.getBlockName(Block.DNormal));
             case ENormal:
-                return "E block will end in";
+                return (database.getBlockName(Block.ENormal).equals("")) ? "E block will end in:" : String.format("%s will end in:", database.getBlockName(Block.ENormal));
             case FNormal:
-                return "F block will end in";
+                return (database.getBlockName(Block.FNormal).equals("")) ? "F block will end in:" : String.format("%s will end in:", database.getBlockName(Block.FNormal));
             case GNormal:
-                return "G block will end in";
+                return (database.getBlockName(Block.GNormal).equals("")) ? "G block will end in:" : String.format("%s will end in:", database.getBlockName(Block.GNormal));
             case HNormal:
-                return "H block will end in";
+                return (database.getBlockName(Block.HNormal).equals("")) ? "H block will end in:" : String.format("%s will end in:", database.getBlockName(Block.HNormal));
             case ALong:
-                return "A block will end in";
+                return (database.getBlockName(Block.ALong).equals("")) ? "A block will end in:" : String.format("%s will end in:", database.getBlockName(Block.ALong));
             case BLong:
-                return "B block will end in";
+                return (database.getBlockName(Block.BLong).equals("")) ? "B block will end in:" : String.format("%s will end in:", database.getBlockName(Block.BLong));
             case CLong:
-                return "C block will end in";
+                return (database.getBlockName(Block.CLong).equals("")) ? "C block will end in:" : String.format("%s will end in:", database.getBlockName(Block.CLong));
             case DLong:
-                return "D block will end in";
+                return (database.getBlockName(Block.DLong).equals("")) ? "D block will end in:" : String.format("%s will end in:", database.getBlockName(Block.DLong));
             case ELong:
-                return "E block will end in";
+                return (database.getBlockName(Block.ELong).equals("")) ? "E block will end in:" : String.format("%s will end in:", database.getBlockName(Block.ELong));
             case FLong:
-                return "F block will end in";
+                return (database.getBlockName(Block.FLong).equals("")) ? "F block will end in:" : String.format("%s will end in:", database.getBlockName(Block.FLong));
             case GLong:
-                return "G block will end in";
+                return (database.getBlockName(Block.GLong).equals("")) ? "G block will end in:" : String.format("%s will end in:", database.getBlockName(Block.GLong));
             case HLong:
-                return "H block will end in";
+                return (database.getBlockName(Block.HLong).equals("")) ? "H block will end in:" : String.format("%s will end in:", database.getBlockName(Block.HLong));
             default:
                 return null;
         }
     }
 
     private WeekType getWeekType() {
-
         Log.i("Weekday", Integer.toString(calendar.get(Calendar.DAY_OF_WEEK)));
         switch (calendar.get(Calendar.DAY_OF_WEEK)) {
             case Calendar.SUNDAY:
