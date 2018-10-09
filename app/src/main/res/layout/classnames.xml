@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:stretchColumns="8">
 
+    <!-- TODO: Consider changing this to a custom dialog box: https://developer.android.com/guide/topics/ui/dialogs -->
+
     <TableRow>
 
         <TextView
