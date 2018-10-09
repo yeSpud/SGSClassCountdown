@@ -89,8 +89,32 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Database database = new Database();
+        Database.updateType updateType = null;
 
-        // TODO: Write options to database
+        if (builtin.isChecked()) {
+            updateType = Database.updateType.BuiltIn;
+        } else if (automatic.isChecked()) {
+            updateType = Database.updateType.Automatic;
+        } else if (overrideE.isChecked()) {
+            updateType = Database.updateType.ManualEDay;
+        } else if (overrideA.isChecked()) {
+            updateType = Database.updateType.ManualADay;
+        } else if (override8.isChecked()) {
+            updateType = Database.updateType.ManualFullDay;
+        }
+
+
+        database.writeToDatabase(database.getDatabaseVersion(),
+                updateType,
+                database.getBlockName(Block.ANormal),
+                database.getBlockName(Block.BNormal),
+                database.getBlockName(Block.CNormal),
+                database.getBlockName(Block.DNormal),
+                database.getBlockName(Block.ENormal),
+                database.getBlockName(Block.FNormal),
+                database.getBlockName(Block.GNormal),
+                database.getBlockName(Block.HNormal));
 
     }
 

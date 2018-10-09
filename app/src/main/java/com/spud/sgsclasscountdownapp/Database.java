@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by Stephen Ogden on 10/3/18.
@@ -17,12 +18,11 @@ import java.io.IOException;
  */
 class Database {
 
-    Timer timer = new Timer();
-
     @SuppressWarnings("FieldCanBeLocal")
     private final int DATABASE_VERSION = 1;
+    Timer timer = new Timer();
     @SuppressLint("SdCardPath")
-    private File databaseFile = new File("/data/data/"+this.getClass().getPackage().getName()+"/database.txt");
+    private File databaseFile = new File("/data/data/" + this.getClass().getPackage().getName() + "/database.txt");
 
     void createNewDatabase() {
         try {
@@ -68,16 +68,16 @@ class Database {
         String data[] = new String[10];
         BufferedReader br = null;
         try {
-            br = new BufferedReader (new FileReader (databaseFile));
+            br = new BufferedReader(new FileReader(databaseFile));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         try {
-           for (int i = 0; i < data.length; i++) {
-               assert br != null;
-               // https://stackoverflow.com/questions/16285485/remove-characters-before-a-comma-in-a-string
-               data[i] = br.readLine().replaceAll(".*:", "");
-           }
+            for (int i = 0; i < data.length; i++) {
+                assert br != null;
+                // https://stackoverflow.com/questions/16285485/remove-characters-before-a-comma-in-a-string
+                data[i] = br.readLine().replaceAll(".*:", "");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,37 +98,8 @@ class Database {
         return update;
     }
 
-    public enum databaseValues {
-        DatabaseVersion("Database version"),
-        UpdateType("Update type"),
-        ABlockClassName("A block class name"),
-        BBlockClassName("B block class name"),
-        CBlockClassName("C block class name"),
-        DBlockClassName("D block class name"),
-        EBlockClassName("E block class name"),
-        FBlockClassName("F block class name"),
-        GBlockClassName("G block class name"),
-        HBlockClassName("H block class name");
-        private String value;
-        databaseValues(String value) {
-            this.value = value;
-        }
-        public String getName() {
-            return value;
-        }
-    }
-
-    public enum updateType {
-        BuiltIn,
-        Automatic,
-        ManualADay,
-        ManualEDay,
-        ManualFullDay,
-        ManualCustomDay
-    }
-
     @SuppressWarnings("SameParameterValue")
-    // TODO: Fix wiring the builtin value
+        // TODO: Fix wiring the builtin value
     void writeToDatabase(int databaseVersion, updateType UpdateType, String aBlockClassName, String bBlockClassName, String cBlockClassName, String dBlockClassName, String eBlockClassName, String fBlockClassName, String gBlockClassName, String hBlockClassName) {
         try {
             FileWriter writer = new FileWriter(databaseFile);
@@ -143,12 +114,89 @@ class Database {
                     databaseValues.FBlockClassName.getName(), fBlockClassName,
                     databaseValues.GBlockClassName.getName(), gBlockClassName,
                     databaseValues.HBlockClassName.getName(), hBlockClassName);
-            Log.i("Data",data);
+            Log.i("Data", data);
             writer.write(data);
             writer.flush();
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getBlockName(Block block) {
+
+        // Load the database content
+        String[] databaseContent = readFromDatabase();
+
+        Log.i("Database content", Arrays.toString(databaseContent));
+
+        // Go through each block provided, and return what that block is called in the database
+        switch (block) {
+            case ALong:
+                return databaseContent[2];
+            case BLong:
+                return databaseContent[3];
+            case CLong:
+                return databaseContent[4];
+            case DLong:
+                return databaseContent[5];
+            case ELong:
+                return databaseContent[6];
+            case FLong:
+                return databaseContent[7];
+            case GLong:
+                return databaseContent[8];
+            case HLong:
+                return databaseContent[9];
+            case ANormal:
+                return databaseContent[2];
+            case BNormal:
+                return databaseContent[3];
+            case CNormal:
+                return databaseContent[4];
+            case DNormal:
+                return databaseContent[5];
+            case ENormal:
+                return databaseContent[6];
+            case FNormal:
+                return databaseContent[7];
+            case GNormal:
+                return databaseContent[8];
+            case HNormal:
+                return databaseContent[9];
+            default:
+                return "";
+        }
+    }
+
+    public enum databaseValues {
+        DatabaseVersion("Database version"),
+        UpdateType("Update type"),
+        ABlockClassName("A block class name"),
+        BBlockClassName("B block class name"),
+        CBlockClassName("C block class name"),
+        DBlockClassName("D block class name"),
+        EBlockClassName("E block class name"),
+        FBlockClassName("F block class name"),
+        GBlockClassName("G block class name"),
+        HBlockClassName("H block class name");
+        private String value;
+
+        databaseValues(String value) {
+            this.value = value;
+        }
+
+        public String getName() {
+            return value;
+        }
+    }
+
+    public enum updateType {
+        BuiltIn,
+        Automatic,
+        ManualADay,
+        ManualEDay,
+        ManualFullDay,
+        ManualCustomDay
     }
 }
