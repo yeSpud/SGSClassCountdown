@@ -22,5 +22,7 @@ public enum Block {
     FLong,
     GLong,
     HLong,
-    NoBlock
+    NoBlock,
+    LunchNormal,
+    LunchLong
 }

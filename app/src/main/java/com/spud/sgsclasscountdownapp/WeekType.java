@@ -8,5 +8,6 @@ package com.spud.sgsclasscountdownapp;
 enum WeekType {
     Weekend,
     Normal,
-    Long
+    Long,
+    Special
 }

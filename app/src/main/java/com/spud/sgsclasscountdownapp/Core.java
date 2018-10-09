@@ -40,6 +40,7 @@ public class Core {
         return longTime;
     }
 
+    // TODO: Create a system for special schedules
     Block getBlock() {
         Block block = Block.NoBlock;
 
@@ -84,6 +85,8 @@ public class Core {
                     block = Block.GNormal;
                 } else if (timeToLong(getTime()) > timeToLong(14, 30, 0) && timeToLong(getTime()) < timeToLong(15, 10, 0)) {
                     block = Block.HNormal;
+                } else if (timeToLong(getTime()) > timeToLong(12,15,0) && timeToLong(getTime()) < timeToLong(12,55,0)) {
+                    block = Block.LunchNormal;
                 }
                 break;
             case Long:
@@ -120,6 +123,8 @@ public class Core {
                     } else {
                         block = Block.NoBlock;
                     }
+                } else if (timeToLong(getTime()) > timeToLong(11,25,0) && timeToLong(getTime()) < timeToLong(12,0,0)) {
+                    block = Block.LunchLong;
                 } else {
                     block = Block.NoBlock;
                 }
@@ -129,6 +134,7 @@ public class Core {
         return block;
     }
 
+    // TODO: Create a system for special schedules
     String getTimeRemaining() {
         long checkTime;
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
@@ -181,6 +187,12 @@ public class Core {
             case HLong:
                 checkTime = timeToLong(15, 10, 0);
                 break;
+            case LunchNormal:
+                checkTime = timeToLong(12,55,0);
+                break;
+            case LunchLong:
+                checkTime = timeToLong(12,0,0);
+                break;
             default:
                 checkTime = timeToLong(15, 10, 0);
                 break;
@@ -190,6 +202,7 @@ public class Core {
         return String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60));
     }
 
+    // TODO: Create a system for special schedules
     String changeBlock(Block block) {
         Database database = new Database();
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
@@ -227,6 +240,10 @@ public class Core {
                 return (database.getBlockName(Block.GLong).equals("")) ? "G block will end in:" : String.format("%s will end in:", database.getBlockName(Block.GLong));
             case HLong:
                 return (database.getBlockName(Block.HLong).equals("")) ? "H block will end in:" : String.format("%s will end in:", database.getBlockName(Block.HLong));
+            case LunchNormal:
+                return "Lunch will be over in:";
+            case LunchLong:
+                return "Lunch will be over in:";
             default:
                 return null;
         }
