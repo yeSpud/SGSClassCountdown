@@ -1,5 +1,6 @@
 package com.spud.sgsclasscountdownapp;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,7 +12,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -154,26 +157,95 @@ public class Settings extends AppCompatActivity {
     }
 
     // https://developer.android.com/guide/topics/ui/dialogs#java
+    @SuppressLint("InflateParams")
     public Dialog onCreateDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
 
+        // https://stackoverflow.com/questions/10313382/how-to-get-elementsfindviewbyid-for-a-layout-which-is-dynamically-loadedsetvi
+        final View view = inflater.inflate(R.layout.classnames, null);
+        
+        ((EditText) view.findViewById(R.id.ABlockName)).setText(database.getBlockName(Block.ANormal));
+        ((EditText) view.findViewById(R.id.BBlockName)).setText(database.getBlockName(Block.BNormal));
+        ((EditText) view.findViewById(R.id.CBlockName)).setText(database.getBlockName(Block.CNormal));
+        ((EditText) view.findViewById(R.id.DBlockName)).setText(database.getBlockName(Block.DNormal));
+        ((EditText) view.findViewById(R.id.EBlockName)).setText(database.getBlockName(Block.ENormal));
+        ((EditText) view.findViewById(R.id.FBlockName)).setText(database.getBlockName(Block.FNormal));
+        ((EditText) view.findViewById(R.id.GBlockName)).setText(database.getBlockName(Block.GNormal));
+        ((EditText) view.findViewById(R.id.HBlockName)).setText(database.getBlockName(Block.HNormal));
+
+        view.findViewById(R.id.ABlockReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) view.findViewById(R.id.ABlockName)).setText("");
+            }
+        });
+
+        view.findViewById(R.id.BBlockReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) view.findViewById(R.id.BBlockName)).setText("");
+            }
+        });
+
+        view.findViewById(R.id.CBlockReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) view.findViewById(R.id.CBlockName)).setText("");
+            }
+        });
+
+        view.findViewById(R.id.DBlockReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) view.findViewById(R.id.DBlockName)).setText("");
+            }
+        });
+
+        view.findViewById(R.id.EBlockReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) view.findViewById(R.id.EBlockName)).setText("");
+            }
+        });
+
+        view.findViewById(R.id.FBlockReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) view.findViewById(R.id.FBlockName)).setText("");
+            }
+        });
+
+        view.findViewById(R.id.GBlockReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) view.findViewById(R.id.GBlockName)).setText("");
+            }
+        });
+
+        view.findViewById(R.id.HBlockReset).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((EditText) view.findViewById(R.id.HBlockName)).setText("");
+            }
+        });
+
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.classnames, null))
+        builder.setView(view)
                 // Add action buttons
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // sign in the user ...
+                        // TODO: Save the names to the database
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Do nothing
                     }
                 });
+
         return builder.create();
     }
 }

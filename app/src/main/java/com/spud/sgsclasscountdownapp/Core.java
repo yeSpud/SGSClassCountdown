@@ -93,7 +93,7 @@ public class Core {
                     block = Block.GNormal;
                 } else if (timeToLong(getTime()) > timeToLong(14, 30, 0) && timeToLong(getTime()) < timeToLong(15, 10, 0)) {
                     block = Block.HNormal;
-                } else if (timeToLong(getTime()) > timeToLong(12,15,0) && timeToLong(getTime()) < timeToLong(12,55,0)) {
+                } else if (timeToLong(getTime()) > timeToLong(12, 15, 0) && timeToLong(getTime()) < timeToLong(12, 55, 0)) {
                     block = Block.LunchNormal;
                 }
                 break;
@@ -131,7 +131,7 @@ public class Core {
                     } else {
                         block = Block.NoBlock;
                     }
-                } else if (timeToLong(getTime()) > timeToLong(11,25,0) && timeToLong(getTime()) < timeToLong(12,0,0)) {
+                } else if (timeToLong(getTime()) > timeToLong(11, 25, 0) && timeToLong(getTime()) < timeToLong(12, 0, 0)) {
                     block = Block.LunchLong;
                 } else {
                     block = Block.NoBlock;
@@ -196,10 +196,10 @@ public class Core {
                 checkTime = timeToLong(15, 10, 0);
                 break;
             case LunchNormal:
-                checkTime = timeToLong(12,55,0);
+                checkTime = timeToLong(12, 55, 0);
                 break;
             case LunchLong:
-                checkTime = timeToLong(12,0,0);
+                checkTime = timeToLong(12, 0, 0);
                 break;
             default:
                 checkTime = timeToLong(15, 10, 0);
