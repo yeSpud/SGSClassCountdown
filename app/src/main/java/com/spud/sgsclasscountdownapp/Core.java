@@ -66,6 +66,14 @@ public class Core {
             Log.i("Weekday override", weekday.name());
         }
 
+        if (updateType.equals(UpdateType.ManualADay)) {
+            dayOfWeek = Calendar.WEDNESDAY;
+        } else if (updateType.equals(UpdateType.ManualEDay)) {
+            dayOfWeek = Calendar.THURSDAY;
+        } else if (updateType.equals(UpdateType.ManualFullDay)) {
+            dayOfWeek = Calendar.MONDAY;
+        }
+
         switch (weekday) {
             case Normal:
                 Log.i("Schedule", "Full day");
