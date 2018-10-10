@@ -154,7 +154,7 @@ public class Settings extends AppCompatActivity {
     }
 
     // https://developer.android.com/guide/topics/ui/dialogs#java
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public Dialog onCreateDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
