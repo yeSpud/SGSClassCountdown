@@ -165,7 +165,7 @@ public class Settings extends AppCompatActivity {
 
         // https://stackoverflow.com/questions/10313382/how-to-get-elementsfindviewbyid-for-a-layout-which-is-dynamically-loadedsetvi
         final View view = inflater.inflate(R.layout.classnames, null);
-        
+
         ((EditText) view.findViewById(R.id.ABlockName)).setText(database.getBlockName(Block.ANormal));
         ((EditText) view.findViewById(R.id.BBlockName)).setText(database.getBlockName(Block.BNormal));
         ((EditText) view.findViewById(R.id.CBlockName)).setText(database.getBlockName(Block.CNormal));
@@ -239,6 +239,16 @@ public class Settings extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // TODO: Save the names to the database
+                        database.writeToDatabase(database.getDatabaseVersion(),
+                                database.getUpdateType(),
+                                ((EditText) view.findViewById(R.id.ABlockName)).getText().toString(),
+                                ((EditText) view.findViewById(R.id.BBlockName)).getText().toString(),
+                                ((EditText) view.findViewById(R.id.CBlockName)).getText().toString(),
+                                ((EditText) view.findViewById(R.id.DBlockName)).getText().toString(),
+                                ((EditText) view.findViewById(R.id.EBlockName)).getText().toString(),
+                                ((EditText) view.findViewById(R.id.FBlockName)).getText().toString(),
+                                ((EditText) view.findViewById(R.id.GBlockName)).getText().toString(),
+                                ((EditText) view.findViewById(R.id.HBlockName)).getText().toString());
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
