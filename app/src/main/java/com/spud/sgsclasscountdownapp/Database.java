@@ -70,7 +70,6 @@ class Database {
         }
     }
 
-    // TODO: Check if database is empty, and re-initialize it
     private String[] readFromDatabase() {
         String data[] = new String[10];
         BufferedReader br = null;
@@ -79,6 +78,12 @@ class Database {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        // Check if the database is zero bytes in size
+        if (databaseFile.length() <= 0) {
+            initialiseDatabase();
+        }
+
         try {
             for (int i = 0; i < data.length; i++) {
                 assert br != null;
@@ -105,8 +110,13 @@ class Database {
         return update;
     }
 
-    // TODO: Check if database is empty, and re-initialize it
     void writeToDatabase(int databaseVersion, UpdateType UpdateType, String aBlockClassName, String bBlockClassName, String cBlockClassName, String dBlockClassName, String eBlockClassName, String fBlockClassName, String gBlockClassName, String hBlockClassName) {
+
+        // Check if the database is zero bytes in size
+        if (databaseFile.length() <= 0) {
+            initialiseDatabase();
+        }
+
         try {
             FileWriter writer = new FileWriter(databaseFile);
             String data = String.format("%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n%s:%s\n",

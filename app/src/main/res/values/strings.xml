@@ -13,8 +13,8 @@
     <string name="manual">Manual</string>
     <string name="override_options">Override options:</string>
     <string name="_8_period_day_normal">8 period day (Normal)</string>
-    <string name="a_day">A day</string>
-    <string name="e_day">E day</string>
+    <string name="a_day">A day (Long blocks)</string>
+    <string name="e_day">E day (Long blocks)</string>
     <string name="restore_to_default">Restore to default</string>
     <string name="set_class_names">Set class names</string>
     <string name="a_block">A Block:</string>

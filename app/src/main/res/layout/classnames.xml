@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:stretchColumns="8">
@@ -135,3 +137,322 @@
     </TableRow>
 
 </TableLayout>
+    <TextView
+        android:id="@+id/ABlockHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/a_block"
+        android:textColor="@color/white"
+        app:layout_constraintRight_toLeftOf="@id/ABlockName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/ABlockName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="90dp"
+        android:background="@color/backgroundgray"
+        android:importantForAutofill="no"
+        android:inputType="textAutoCorrect"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/ABlockReset"
+        app:layout_constraintRight_toLeftOf="@id/ABlockHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/ABlockReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/BBlockHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/b_block"
+        android:textColor="@color/white"
+        app:layout_constraintRight_toLeftOf="@id/BBlockName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ABlockHeader" />
+
+    <EditText
+        android:id="@+id/BBlockName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="90dp"
+        android:background="@color/backgroundgray"
+        android:importantForAutofill="no"
+        android:inputType="textAutoCorrect"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/CBlockReset"
+        app:layout_constraintRight_toLeftOf="@id/CBlockHeader"
+        app:layout_constraintTop_toTopOf="@id/ABlockName"
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/BBlockReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ABlockReset" />
+
+
+    <TextView
+        android:id="@+id/CBlockHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/c_block"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/BBlockHeader" />
+
+    <EditText
+        android:id="@+id/CBlockName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="90dp"
+        android:background="@color/backgroundgray"
+        android:importantForAutofill="no"
+        android:inputType="textAutoCorrect"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/CBlockReset"
+        app:layout_constraintRight_toLeftOf="@id/CBlockHeader"
+        app:layout_constraintTop_toTopOf="@id/BBlockName"
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/CBlockReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/BBlockReset" />
+
+
+    <TextView
+        android:id="@+id/DBlockHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/d_block"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/CBlockHeader" />
+
+    <EditText
+        android:id="@+id/DBlockName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="90dp"
+        android:background="@color/backgroundgray"
+        android:importantForAutofill="no"
+        android:inputType="textAutoCorrect"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/DBlockReset"
+        app:layout_constraintRight_toLeftOf="@id/DBlockHeader"
+        app:layout_constraintTop_toTopOf="@id/CBlockName"
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/DBlockReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/CBlockReset" />
+
+
+    <TextView
+        android:id="@+id/EBlockHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/e_block"
+        android:textColor="@color/white"
+        app:layout_constraintRight_toLeftOf="@id/ABlockName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/DBlockHeader" />
+
+    <EditText
+        android:id="@+id/EBlockName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="90dp"
+        android:background="@color/backgroundgray"
+        android:importantForAutofill="no"
+        android:inputType="textAutoCorrect"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/EBlockReset"
+        app:layout_constraintRight_toLeftOf="@id/EBlockHeader"
+        app:layout_constraintTop_toTopOf="@id/DBlockName"
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/EBlockReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/DBlockReset" />
+
+
+    <TextView
+        android:id="@+id/FBlockHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/e_block"
+        android:textColor="@color/white"
+        app:layout_constraintRight_toLeftOf="@id/FBlockName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/EBlockHeader" />
+
+    <EditText
+        android:id="@+id/FBlockName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="90dp"
+        android:background="@color/backgroundgray"
+        android:importantForAutofill="no"
+        android:inputType="textAutoCorrect"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/FBlockReset"
+        app:layout_constraintRight_toLeftOf="@id/FBlockHeader"
+        app:layout_constraintTop_toTopOf="@id/EBlockName"
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/FBlockReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/EBlockReset" />
+
+
+    <TextView
+        android:id="@+id/GBlockHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/g_block"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/FBlockHeader" />
+
+    <EditText
+        android:id="@+id/GBlockName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="90dp"
+        android:background="@color/backgroundgray"
+        android:importantForAutofill="no"
+        android:inputType="textAutoCorrect"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/GBlockReset"
+        app:layout_constraintRight_toLeftOf="@id/GBlockHeader"
+        app:layout_constraintTop_toTopOf="@id/FBlockName"
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/GBlockReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/FBlockReset" />
+
+
+    <TextView
+        android:id="@+id/HBlockHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/h_block"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/GBlockHeader" />
+
+    <EditText
+        android:id="@+id/HBlockName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="90dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/backgroundgray"
+        android:importantForAutofill="no"
+        android:inputType="textAutoCorrect"
+        android:text=""
+        android:textColor="@color/white"
+        app:layout_constraintLeft_toRightOf="@id/HBlockReset"
+        app:layout_constraintRight_toLeftOf="@id/HBlockHeader"
+        app:layout_constraintTop_toTopOf="@id/GBlockName"
+        tools:ignore="LabelFor"
+        tools:targetApi="o" />
+
+    <Button
+        android:id="@+id/HBlockReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/reset"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/GBlockReset" />
+
+</android.support.constraint.ConstraintLayout>
