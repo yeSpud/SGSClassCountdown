@@ -8,8 +8,8 @@ android {
         applicationId "com.spud.sgsclasscountdownapp"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 3
-        versionName "Alpha 3"
+        versionCode 4
+        versionName "Alpha 4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

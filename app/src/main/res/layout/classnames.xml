@@ -206,7 +206,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:text="@string/e_block"
+            android:text="@string/f_block"
             app:layout_constraintRight_toLeftOf="@id/FBlockName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/EBlockHeader" />
