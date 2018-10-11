@@ -2,11 +2,20 @@ package com.spud.sgsclasscountdownapp;
 
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Stephen Ogden on 4/10/18.
@@ -17,7 +26,7 @@ public class Core {
 
     private Calendar calendar = Calendar.getInstance();
 
-    private URL onelineDB = null;
+    private URL onlineDB = null;
 
     public int[] getTime() {
         int s = calendar.get(Calendar.SECOND), m = calendar.get(Calendar.MINUTE), h = calendar.get(Calendar.HOUR_OF_DAY);
@@ -47,43 +56,62 @@ public class Core {
     // TODO: Create a system for special schedules
     Block getBlock() {
         Block block = Block.NoBlock;
-
-        WeekType weekday = getWeekType();
-        Database database = new Database();
-        UpdateType updateType = database.getUpdateType();
+        WeekType weekType = getWeekType();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
 
-        if (updateType != UpdateType.BuiltIn) {
-            if (database.getUpdateType().equals(UpdateType.Automatic)) {
+        switch (UpdateType.getUpdateType()) {
+            case BuiltIn:
+                weekType = getWeekType();
+                break;
+            case Automatic:
                 // TODO: Finish this
                 try {
-                    onelineDB = new URL("https://raw.githubusercontent.com/jeffrypig23/SGSClassCountdown/database/database.json");
+                    onlineDB = new URL("https://raw.githubusercontent.com/jeffrypig23/SGSClassCountdown/database/database.json");
                 } catch (MalformedURLException e) {
-                    weekday = getWeekType();
+                    e.printStackTrace();
+                    weekType = getWeekType();
                 }
-                weekday = getWeekType();
-            } else if (updateType.equals(UpdateType.ManualADay) || updateType.equals(UpdateType.ManualEDay)) {
-                weekday = WeekType.Long;
-            } else if (updateType.equals(UpdateType.ManualFullDay)) {
-                weekday = WeekType.Normal;
-            } else if (updateType.equals(UpdateType.BuiltIn)) {
-                weekday = getWeekType();
-            } else {
-                Log.e("E", "Cannot identify the updateType from database");
-                weekday = getWeekType();
-            }
-            Log.i("Weekday override", weekday.name());
-        }
+                URLConnection connection = null;
+                try {
+                    connection = (HttpsURLConnection) onlineDB.openConnection();
+                    connection.setReadTimeout(5000);
 
-        if (updateType.equals(UpdateType.ManualADay)) {
-            dayOfWeek = Calendar.WEDNESDAY;
-        } else if (updateType.equals(UpdateType.ManualEDay)) {
-            dayOfWeek = Calendar.THURSDAY;
-        } else if (updateType.equals(UpdateType.ManualFullDay)) {
-            dayOfWeek = Calendar.MONDAY;
-        }
+                    String data;
 
-        switch (weekday) {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                    while ((br.readLine()) != null) {
+                        data = br.readLine();
+                    }
+                    br.close();
+                    ((HttpsURLConnection) connection).disconnect();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    weekType = getWeekType();
+                }
+                break;
+            case ManualADay:
+                dayOfWeek = Calendar.WEDNESDAY;
+                weekType = WeekType.Long;
+                break;
+            case ManualEDay:
+                dayOfWeek = Calendar.THURSDAY;
+                weekType = WeekType.Long;
+                break;
+            case ManualFullDay:
+                dayOfWeek = Calendar.MONDAY;
+                weekType = WeekType.Normal;
+                break;
+            case ManualCustomDay:
+                weekType = WeekType.Custom;
+                break;
+            default:
+                weekType = getWeekType();
+                break;
+
+        }
+        Log.i("WeekType", weekType.name());
+
+        switch (weekType) {
             case Normal:
                 Log.i("Schedule", "Full day");
                 if (timeToLong(getTime()) > timeToLong(8, 20, 0) && timeToLong(getTime()) < timeToLong(9, 0, 0)) {
@@ -109,33 +137,33 @@ public class Core {
             case Long:
                 Log.i("Schedule", "Long day");
                 if (timeToLong(getTime()) > timeToLong(8, 20, 0) && timeToLong(getTime()) < timeToLong(9, 45, 9)) {
-                    if (dayOfWeek == Calendar.WEDNESDAY || updateType.equals(UpdateType.ManualADay)) {
+                    if (dayOfWeek == Calendar.WEDNESDAY || UpdateType.getUpdateType().equals(UpdateType.ManualADay)) {
                         block = Block.ALong;
-                    } else if (dayOfWeek == Calendar.THURSDAY || updateType.equals(UpdateType.ManualEDay)) {
+                    } else if (dayOfWeek == Calendar.THURSDAY || UpdateType.getUpdateType().equals(UpdateType.ManualEDay)) {
                         block = Block.ELong;
                     } else {
                         block = Block.NoBlock;
                     }
                 } else if (timeToLong(getTime()) > timeToLong(10, 0, 0) && timeToLong(getTime()) < timeToLong(11, 25, 0)) {
-                    if (dayOfWeek == Calendar.WEDNESDAY || updateType.equals(UpdateType.ManualADay)) {
+                    if (dayOfWeek == Calendar.WEDNESDAY || UpdateType.getUpdateType().equals(UpdateType.ManualADay)) {
                         block = Block.BLong;
-                    } else if (dayOfWeek == Calendar.THURSDAY || updateType.equals(UpdateType.ManualEDay)) {
+                    } else if (dayOfWeek == Calendar.THURSDAY || UpdateType.getUpdateType().equals(UpdateType.ManualEDay)) {
                         block = Block.FLong;
                     } else {
                         block = Block.NoBlock;
                     }
                 } else if (timeToLong(getTime()) > timeToLong(12, 5, 0) && timeToLong(getTime()) < timeToLong(13, 30, 0)) {
-                    if (dayOfWeek == Calendar.WEDNESDAY || updateType.equals(UpdateType.ManualADay)) {
+                    if (dayOfWeek == Calendar.WEDNESDAY || UpdateType.getUpdateType().equals(UpdateType.ManualADay)) {
                         block = Block.CLong;
-                    } else if (dayOfWeek == Calendar.THURSDAY || updateType.equals(UpdateType.ManualEDay)) {
+                    } else if (dayOfWeek == Calendar.THURSDAY || UpdateType.getUpdateType().equals(UpdateType.ManualEDay)) {
                         block = Block.GLong;
                     } else {
                         block = Block.NoBlock;
                     }
                 } else if (timeToLong(getTime()) > timeToLong(13, 45, 0) && timeToLong(getTime()) < timeToLong(15, 10, 0)) {
-                    if (dayOfWeek == Calendar.WEDNESDAY || updateType.equals(UpdateType.ManualADay)) {
+                    if (dayOfWeek == Calendar.WEDNESDAY || UpdateType.getUpdateType().equals(UpdateType.ManualADay)) {
                         block = Block.DLong;
-                    } else if (dayOfWeek == Calendar.THURSDAY || updateType.equals(UpdateType.ManualEDay)) {
+                    } else if (dayOfWeek == Calendar.THURSDAY || UpdateType.getUpdateType().equals(UpdateType.ManualEDay)) {
                         block = Block.HLong;
                     } else {
                         block = Block.NoBlock;
@@ -294,7 +322,7 @@ public class Core {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.WEEK_OF_YEAR);
         year = calendar.get(Calendar.YEAR);
-        date[0]= month;
+        date[0] = month;
         date[1] = day;
         date[2] = year;
 
@@ -303,7 +331,15 @@ public class Core {
     }
 
     void parseJson(String data) {
-        
+        JSONObject object = null;
+        try {
+            object = new JSONObject(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (object != null) {
+
+        }
     }
 
 }

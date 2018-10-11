@@ -9,5 +9,5 @@ enum WeekType {
     Weekend,
     Normal,
     Long,
-    Special
+    Custom
 }

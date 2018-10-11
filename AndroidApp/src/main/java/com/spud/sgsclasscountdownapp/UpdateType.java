@@ -11,5 +11,10 @@ public enum UpdateType {
     ManualADay,
     ManualEDay,
     ManualFullDay,
-    ManualCustomDay
+    ManualCustomDay;
+
+    static UpdateType getUpdateType() {
+        Database database = new Database();
+        return database.getUpdateType();
+    }
 }

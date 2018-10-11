@@ -147,6 +147,18 @@
                     app:layout_constraintTop_toBottomOf="@id/overrideA"
                     tools:targetApi="lollipop" />
 
+                <RadioButton
+                    android:id="@+id/Custom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/white"
+                    android:text="@string/custom"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/overrideGroup"
+                    tools:targetApi="lollipop" />
+
             </RadioGroup>
 
             <Button
@@ -161,6 +173,17 @@
                 app:layout_constraintTop_toBottomOf="@id/overrideGroup" />
 
             <Button
+                android:id="@+id/customSchedule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/create_custom_schedule"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/classNames" />
+
+            <Button
                 android:id="@+id/Reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -172,7 +195,7 @@
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/classNames" />
+                app:layout_constraintTop_toBottomOf="@id/customSchedule" />
 
         </LinearLayout>
 

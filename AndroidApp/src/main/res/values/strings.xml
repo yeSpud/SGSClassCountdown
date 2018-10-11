@@ -28,5 +28,7 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="reset">Reset</string>
+    <string name="create_custom_schedule">Create custom schedule</string>
+    <string name="custom">Custom</string>
 
 </resources>
