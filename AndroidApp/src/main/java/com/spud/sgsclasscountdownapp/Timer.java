@@ -1,16 +1,21 @@
 package com.spud.sgsclasscountdownapp;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Timer extends AppCompatActivity {
 
     private TextView block, countdown, noClass;
     private CountDownTimer timer;
+
+    private ImageView background;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +33,21 @@ public class Timer extends AppCompatActivity {
                 finish();
             }
         });
+
+        // Setup the background (Unless out of RAM)
+        // https://stackoverflow.com/questions/10200256/out-of-memory-error-imageview-issue
+        try {
+            if (background != null) {
+                ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
+            }
+            background = findViewById(R.id.backgroundImage);
+            background.setImageResource(R.drawable.placeholderbackground);
+            background.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        } catch (OutOfMemoryError noRam) {
+            Log.e("Background generation", "Out of RAM!");
+            background = null;
+        }
+
     }
 
     protected void onPause() {
@@ -76,5 +96,9 @@ public class Timer extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         timer.cancel();
+
+        if (background != null) {
+            background.setImageDrawable(null);
+        }
     }
 }

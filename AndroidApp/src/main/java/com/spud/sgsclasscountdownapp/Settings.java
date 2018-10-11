@@ -6,15 +6,19 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -28,6 +32,8 @@ public class Settings extends AppCompatActivity {
     RadioGroup override;
 
     RadioButton automatic, builtin, manual, override8, overrideA, overrideE;
+
+    private ImageView background;
 
     private Database database = new Database();
 
@@ -60,6 +66,20 @@ public class Settings extends AppCompatActivity {
                 ((RadioButton) override.getChildAt(i)).setChecked(false);
                 (override.getChildAt(i)).setEnabled(false);
             }
+        }
+
+        // Setup the background (Unless out of RAM)
+        // https://stackoverflow.com/questions/10200256/out-of-memory-error-imageview-issue
+        try {
+            if (background != null) {
+                ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
+            }
+            background = findViewById(R.id.settingsbackgroundImage);
+            background.setImageResource(R.drawable.placeholderbackgroundblured);
+            background.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        } catch (OutOfMemoryError noRam) {
+            Log.e("Background generation", "Out of RAM!");
+            background = null;
         }
 
         // If the database does not exist, disable set the override buttons
@@ -145,6 +165,10 @@ public class Settings extends AppCompatActivity {
                 database.getBlockName(Block.FNormal),
                 database.getBlockName(Block.GNormal),
                 database.getBlockName(Block.HNormal));
+
+        if (background != null) {
+            background.setImageDrawable(null);
+        }
 
     }
 
