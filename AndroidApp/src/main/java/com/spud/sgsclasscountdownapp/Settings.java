@@ -262,7 +262,6 @@ public class Settings extends AppCompatActivity {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO: Save the names to the database
                         database.writeToDatabase(database.getDatabaseVersion(),
                                 database.getUpdateType(),
                                 ((EditText) view.findViewById(R.id.ABlockName)).getText().toString(),

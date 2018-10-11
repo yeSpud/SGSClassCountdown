@@ -2,6 +2,8 @@ package com.spud.sgsclasscountdownapp;
 
 import android.util.Log;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
@@ -14,6 +16,8 @@ import java.util.Locale;
 public class Core {
 
     private Calendar calendar = Calendar.getInstance();
+
+    private URL onelineDB = null;
 
     public int[] getTime() {
         int s = calendar.get(Calendar.SECOND), m = calendar.get(Calendar.MINUTE), h = calendar.get(Calendar.HOUR_OF_DAY);
@@ -51,7 +55,12 @@ public class Core {
 
         if (updateType != UpdateType.BuiltIn) {
             if (database.getUpdateType().equals(UpdateType.Automatic)) {
-                // TODO: Get from URL
+                // TODO: Finish this
+                try {
+                    onelineDB = new URL("https://raw.githubusercontent.com/jeffrypig23/SGSClassCountdown/database/database.json");
+                } catch (MalformedURLException e) {
+                    weekday = getWeekType();
+                }
                 weekday = getWeekType();
             } else if (updateType.equals(UpdateType.ManualADay) || updateType.equals(UpdateType.ManualEDay)) {
                 weekday = WeekType.Long;
@@ -277,6 +286,24 @@ public class Core {
             default:
                 return WeekType.Weekend;
         }
-
     }
+
+    int[] getDate() {
+        int date[] = new int[3];
+        int day, month, year;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+        month = calendar.get(Calendar.WEEK_OF_YEAR);
+        year = calendar.get(Calendar.YEAR);
+        date[0]= month;
+        date[1] = day;
+        date[2] = year;
+
+        Log.i("Date", Arrays.toString(date));
+        return date;
+    }
+
+    void parseJson(String data) {
+        
+    }
+
 }
