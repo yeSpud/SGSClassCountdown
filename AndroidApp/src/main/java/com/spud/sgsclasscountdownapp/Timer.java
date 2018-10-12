@@ -41,7 +41,7 @@ public class Timer extends AppCompatActivity {
                 ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
             }
             background = findViewById(R.id.backgroundImage);
-            background.setImageResource(R.drawable.placeholderbackground);
+            background.setImageResource(R.drawable.background1);
             background.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } catch (OutOfMemoryError noRam) {
             Log.e("Background generation", "Out of RAM!");

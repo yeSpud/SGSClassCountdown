@@ -7,11 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,7 +73,7 @@ public class Settings extends AppCompatActivity {
                 ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
             }
             background = findViewById(R.id.settingsbackgroundImage);
-            background.setImageResource(R.drawable.placeholderbackgroundblured);
+            background.setImageResource(R.drawable.settingsbackground);
             background.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } catch (OutOfMemoryError noRam) {
             Log.e("Background generation", "Out of RAM!");
