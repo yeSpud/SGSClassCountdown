@@ -66,20 +66,6 @@ public class Settings extends AppCompatActivity {
             }
         }
 
-        // Setup the background (Unless out of RAM)
-        // https://stackoverflow.com/questions/10200256/out-of-memory-error-imageview-issue
-        try {
-            if (background != null) {
-                ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
-            }
-            background = findViewById(R.id.settingsbackgroundImage);
-            background.setImageResource(R.drawable.settingsbackground);
-            background.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        } catch (OutOfMemoryError noRam) {
-            Log.e("Background generation", "Out of RAM!");
-            background = null;
-        }
-
         // If the database does not exist, disable set the override buttons
         manual.setEnabled(!database.doesNotExist());
         override.setEnabled(database.doesNotExist());
@@ -117,6 +103,10 @@ public class Settings extends AppCompatActivity {
                 onCreateDialog().show();
             }
         });
+
+        if (background != null) {
+            ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
+        }
     }
 
     @Override
@@ -125,6 +115,17 @@ public class Settings extends AppCompatActivity {
 
         // Check if there is a network connection available for the automatic portion
         automatic.setEnabled(isNetworkAvailable());
+
+        // Setup the background (Unless out of RAM)
+        // https://stackoverflow.com/questions/10200256/out-of-memory-error-imageview-issue
+        try {
+            background = findViewById(R.id.settingsbackgroundImage);
+            background.setImageResource(R.drawable.settingsbackground);
+            background.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        } catch (OutOfMemoryError noRam) {
+            Log.e("Background generation", "Out of RAM!");
+            background = null;
+        }
     }
 
     @Override

@@ -2,23 +2,11 @@ package com.spud.sgsclasscountdownapp;
 
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import static com.spud.sgsclasscountdownapp.Block.getBlock;
-import static com.spud.sgsclasscountdownapp.WeekType.getWeekType;
 
 // TODO: On april 1st, count up from the start of classs
 
@@ -41,7 +29,7 @@ public class Core {
         return time;
     }
 
-    public long timeToLong(int[] time) {
+    long timeToLong(int[] time) {
         int h = time[0], m = time[1], s = time[2];
         long longTime, hoursToSeconds = h * 3600, minutesToSeconds = m * 60;
         longTime = s + minutesToSeconds + hoursToSeconds;
@@ -49,7 +37,7 @@ public class Core {
         return longTime;
     }
 
-    public long timeToLong(int hour, int minute, int second) {
+    long timeToLong(int hour, int minute, int second) {
         long longTime, hoursToSeconds = hour * 3600, minutesToSeconds = minute * 60;
         longTime = second + minutesToSeconds + hoursToSeconds;
         Log.i("Time to long", String.format("%s:%s:%s -> %s", hour, minute, second, longTime));

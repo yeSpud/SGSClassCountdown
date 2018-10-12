@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Random;
+
+import static com.spud.sgsclasscountdownapp.Block.getBlock;
+
 public class Timer extends AppCompatActivity {
 
     private TextView block, countdown, noClass;
@@ -34,20 +38,9 @@ public class Timer extends AppCompatActivity {
             }
         });
 
-        // Setup the background (Unless out of RAM)
-        // https://stackoverflow.com/questions/10200256/out-of-memory-error-imageview-issue
-        try {
-            if (background != null) {
-                ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
-            }
-            background = findViewById(R.id.backgroundImage);
-            background.setImageResource(R.drawable.background1);
-            background.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        } catch (OutOfMemoryError noRam) {
-            Log.e("Background generation", "Out of RAM!");
-            background = null;
+        if (background != null) {
+            ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
         }
-
     }
 
     protected void onPause() {
@@ -65,7 +58,7 @@ public class Timer extends AppCompatActivity {
                 final Core Core = new Core();
 
                 // If there is no block, change the message to there is no block
-                if (Core.getBlock().equals(Block.NoBlock)) {
+                if (getBlock().equals(Block.NoBlock)) {
                     block.setVisibility(View.GONE);
                     countdown.setVisibility(View.GONE);
                     noClass.setVisibility(View.VISIBLE);
@@ -79,7 +72,7 @@ public class Timer extends AppCompatActivity {
                     }
 
                     // Update the time remaining and the current block
-                    block.setText(Core.changeBlock(Core.getBlock()));
+                    block.setText(Core.changeBlock(getBlock()));
                     countdown.setText(Core.getTimeRemaining());
                 }
             }
@@ -90,6 +83,17 @@ public class Timer extends AppCompatActivity {
                 recreate();
             }
         }.start(); // Start the timer
+
+        // Setup the background (Unless out of RAM)
+        // https://stackoverflow.com/questions/10200256/out-of-memory-error-imageview-issue
+        try {
+            background = findViewById(R.id.backgroundImage);
+            background.setImageResource(R.drawable.background1);
+            background.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        } catch (OutOfMemoryError noRam) {
+            Log.e("Background generation", "Out of RAM!");
+            background = null;
+        }
     }
 
     @Override
