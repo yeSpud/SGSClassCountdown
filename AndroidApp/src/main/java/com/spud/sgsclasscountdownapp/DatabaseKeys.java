@@ -6,7 +6,7 @@ package com.spud.sgsclasscountdownapp;
  * FRC 1595
  */
 public enum DatabaseKeys {
-    DatabaseVersion("Database version"),
+    DatabaseVersion("TimerFiles version"),
     UpdateType("Update type"),
     ABlockClassName("A block class name"),
     BBlockClassName("B block class name"),

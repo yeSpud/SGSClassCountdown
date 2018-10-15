@@ -20,8 +20,11 @@ public class FactoryResetDialog extends DialogFragment {
         builder.setMessage("Are you sure you want to restore to default settings?\nThis will close the app.")
                 .setPositiveButton("Yes, Im sure", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Database database = new Database();
-                        database.initialiseDatabase();
+                        TimerFiles timerFiles = new TimerFiles();
+                        timerFiles.initialiseDatabase();
+                        timerFiles.writeARegime();
+                        timerFiles.writeERegime();
+                        timerFiles.writeNormalRegime();
                         System.exit(0);
                     }
                 })

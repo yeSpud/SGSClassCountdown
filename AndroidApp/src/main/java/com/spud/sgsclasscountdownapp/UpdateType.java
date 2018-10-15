@@ -14,7 +14,7 @@ public enum UpdateType {
     ManualCustomDay;
 
     static UpdateType getUpdateType() {
-        Database database = new Database();
+        TimerFiles database = new TimerFiles();
         return database.getUpdateType();
     }
 }

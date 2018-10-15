@@ -3,6 +3,11 @@ package com.spud.sgsclasscountdownapp;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,18 +21,55 @@ import java.util.Arrays;
  * FTC 6128 | 7935
  * FRC 1595
  */
-class Database {
+class TimerFiles {
 
     @SuppressWarnings("FieldCanBeLocal")
     private final int DATABASE_VERSION = 1;
     Timer timer = new Timer();
-    @SuppressLint("SdCardPath")
-    private File databaseFile = new File("/data/data/" + this.getClass().getPackage().getName() + "/database.txt");
 
-    Database (){
-        if (doesNotExist()) {
+    @SuppressLint("SdCardPath")
+    private File databaseFile = new File("/data/data/" + this.getClass().getPackage().getName() + "/database.txt"),
+            normalRegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/BuiltinRegimes/Normal.json"),
+            ARegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/BuiltinRegimes/A.json"),
+            ERegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/BuiltinRegimes/E.json");
+
+    TimerFiles() {
+        if (databaseDoesNotExist()) {
             createNewDatabase();
         }
+        if (builtinNormalRegimeDoesNotExist()) {
+            createNormalRegime();
+        }
+        if (builtinARegimeDoesNotExist()) {
+            createARegime();
+        }
+        if (builtinERegimeDoesNotExist()) {
+            createERegime();
+        }
+    }
+
+    private boolean databaseDoesNotExist() {
+        boolean DNE = !(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead());
+        Log.w("Database missing", Boolean.toString(DNE));
+        return DNE;
+    }
+
+    private boolean builtinNormalRegimeDoesNotExist() {
+        boolean DNE = !(normalRegime.exists() && normalRegime.canRead());
+        Log.w("Normal regime missing", Boolean.toString(DNE));
+        return DNE;
+    }
+
+    private boolean builtinARegimeDoesNotExist() {
+        boolean DNE = !(ARegime.exists() && ARegime.canRead());
+        Log.w("A regime missing", Boolean.toString(!(ARegime.exists() && ARegime.canRead())));
+        return DNE;
+    }
+
+    private boolean builtinERegimeDoesNotExist() {
+        boolean DNE = !(ERegime.exists() && ERegime.canRead());
+        Log.w("E regime missing", Boolean.toString(DNE));
+        return DNE;
     }
 
     private void createNewDatabase() {
@@ -42,11 +84,6 @@ class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    boolean doesNotExist() {
-        Log.w("Database is missing", Boolean.toString(!(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead())));
-        return !(databaseFile.exists() && databaseFile.canWrite() && databaseFile.canRead());
     }
 
     void initialiseDatabase() {
@@ -68,6 +105,123 @@ class Database {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void createNormalRegime() {
+        try {
+            if (normalRegime.createNewFile()) {
+                writeNormalRegime();
+            } else {
+                if (normalRegime.length() == 0) {
+                    writeNormalRegime();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void writeNormalRegime() {
+        // TODO
+    }
+
+    private void createARegime() {
+        try {
+            if (ARegime.createNewFile()) {
+                writeARegime();
+            } else {
+                if (ARegime.length() == 0) {
+                    writeARegime();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void writeARegime() {
+        // TODO
+    }
+
+    private void createERegime() {
+        try {
+            if (ERegime.createNewFile()) {
+                writeERegime();
+            } else {
+                if (ERegime.length() == 0) {
+                    writeERegime();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void writeERegime() {
+        JSONObject FileContence = new JSONObject();
+
+        JSONArray eBlockValue = new JSONArray();
+        JSONObject eBlock = new JSONObject();
+        JSONArray eBlockTimes = new JSONArray();
+        eBlockTimes.put("8:20:00").put("9:45:00");
+        try {
+            eBlock.put("E block", eBlockTimes);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        eBlockValue.put(eBlock);
+
+        JSONArray fBlockValue = new JSONArray();
+        JSONObject fBlock = new JSONObject();
+        JSONArray fBlockTimes = new JSONArray();
+        fBlockTimes.put("10:00:00").put("11:25:00");
+        try {
+            fBlock.put("F block", fBlockTimes);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        fBlockValue.put(fBlock);
+
+        JSONArray LunchValue = new JSONArray();
+        JSONObject Lunch = new JSONObject();
+        JSONArray LunchTime = new JSONArray();
+        LunchTime.put("11:25:00").put("12:00:00");
+        try {
+            Lunch.put("Lunch", LunchTime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        LunchValue.put(Lunch);
+
+        JSONArray gBlockValue = new JSONArray();
+        JSONObject gBlock = new JSONObject();
+        JSONArray gBlockTimes = new JSONArray();
+        gBlockTimes.put("12:05:00").put("13:30:00");
+        try {
+            gBlock.put("G block", gBlockTimes);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        gBlockValue.put(gBlock);
+
+        JSONArray hBlockValue = new JSONArray();
+        JSONObject hBlock = new JSONObject();
+        JSONArray hBlockTimes = new JSONArray();
+        hBlockTimes.put("13:45:00").put("15:10:00");
+        try {
+            hBlock.put("H block", hBlockTimes);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        hBlockValue.put(hBlock);
+
+        JSONObject Version = new JSONObject();
+        try {
+            Version.put("Version", 1);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private String[] readFromDatabase() {
@@ -100,7 +254,7 @@ class Database {
     int getDatabaseVersion() {
         int version;
         version = Integer.parseInt(readFromDatabase()[0]);
-        Log.i("Database version", Integer.toString(version));
+        Log.i("TimerFiles version", Integer.toString(version));
         return version;
     }
 

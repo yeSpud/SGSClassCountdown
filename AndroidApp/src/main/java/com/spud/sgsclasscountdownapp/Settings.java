@@ -33,7 +33,7 @@ public class Settings extends AppCompatActivity {
 
     private ImageView background;
 
-    private Database database = new Database();
+    private TimerFiles database = new TimerFiles();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +65,6 @@ public class Settings extends AppCompatActivity {
                 (override.getChildAt(i)).setEnabled(false);
             }
         }
-
-        // If the database does not exist, disable set the override buttons
-        manual.setEnabled(!database.doesNotExist());
-        override.setEnabled(database.doesNotExist());
 
         // Setup back button
         findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
@@ -131,7 +127,7 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Database database = new Database();
+        TimerFiles database = new TimerFiles();
         //noinspection UnusedAssignment - Complaines about not being initalized if I make it uninitalized, which it says it can be...
         UpdateType updateType = null;
 

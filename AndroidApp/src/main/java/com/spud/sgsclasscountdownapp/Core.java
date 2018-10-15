@@ -8,7 +8,7 @@ import java.util.Locale;
 
 import static com.spud.sgsclasscountdownapp.Block.getBlock;
 
-// TODO: On april 1st, count up from the start of classs
+// TODO: On april 1st, count up from the start of class
 
 /**
  * Created by Stephen Ogden on 4/10/18.
@@ -45,6 +45,7 @@ public class Core {
     }
 
     // TODO: Create a system for special schedules
+    // TODO: Redo
     String getTimeRemaining() {
         long checkTime;
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
@@ -114,7 +115,7 @@ public class Core {
 
     // TODO: Create a system for special schedules
     String changeBlock(Block block) {
-        Database database = new Database();
+        TimerFiles database = new TimerFiles();
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
         // https://stackoverflow.com/questions/798545/what-is-the-java-operator-called-and-what-does-it-do
         switch (block) {
