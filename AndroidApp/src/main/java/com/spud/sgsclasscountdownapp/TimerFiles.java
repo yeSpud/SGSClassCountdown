@@ -6,7 +6,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,9 +28,9 @@ class TimerFiles {
 
     @SuppressLint("SdCardPath")
     private File databaseFile = new File("/data/data/" + this.getClass().getPackage().getName() + "/database.txt"),
-            normalRegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/BuiltinRegimes/Normal.json"),
-            ARegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/BuiltinRegimes/A.json"),
-            ERegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/BuiltinRegimes/E.json");
+            normalRegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/Normal.json"),
+            ARegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/A.json"),
+            ERegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/E.json");
 
     TimerFiles() {
         if (databaseDoesNotExist()) {
@@ -122,7 +121,102 @@ class TimerFiles {
     }
 
     void writeNormalRegime() {
-        // TODO
+        JSONObject FileContence = new JSONObject();
+        try {
+            FileContence.put("Version", "1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        Log.e("JSON", FileContence.toString());
+
+        JSONObject fullRegime = new JSONObject();
+
+        try {
+            fullRegime.put("A block", new JSONArray().put(0, "8:20:00").put(1, "9:00:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fullRegime.put("B block", new JSONArray().put(0, "9:05:00").put(1, "9:45:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fullRegime.put("C block", new JSONArray().put(0, "10:00:00").put(1, "10:45:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fullRegime.put("D block", new JSONArray().put(0, "10:50:00").put(1, "11:30:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fullRegime.put("E block", new JSONArray().put(0, "11:35:00").put(1, "12:15:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fullRegime.put("Lunch", new JSONArray().put(0, "12:15:00").put(1, "12:55:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fullRegime.put("F block", new JSONArray().put(0, "13:00:00").put(1, "13:40:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fullRegime.put("G block", new JSONArray().put(0, "13:45:00").put(1, "14:25:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            fullRegime.put("H block", new JSONArray().put(0, "14:30:00").put(1, "15:10:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileContence.put("Normal Regime", fullRegime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(normalRegime);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            assert writer != null;
+            writer.write(fullRegime.toString(4));
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createARegime() {
@@ -140,7 +234,73 @@ class TimerFiles {
     }
 
     void writeARegime() {
-        // TODO
+        JSONObject FileContence = new JSONObject();
+        try {
+            FileContence.put("Version", "1");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONObject aRegime = new JSONObject();
+
+        try {
+            aRegime.put("A block", new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            aRegime.put("B block", new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            aRegime.put("Lunch", new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            aRegime.put("C block", new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            aRegime.put("D block", new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileContence.put("A Regime", aRegime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(ARegime);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert writer != null;
+            writer.write(FileContence.toString(4));
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void createERegime() {
@@ -159,66 +319,70 @@ class TimerFiles {
 
     void writeERegime() {
         JSONObject FileContence = new JSONObject();
-
-        JSONArray eBlockValue = new JSONArray();
-        JSONObject eBlock = new JSONObject();
-        JSONArray eBlockTimes = new JSONArray();
-        eBlockTimes.put("8:20:00").put("9:45:00");
         try {
-            eBlock.put("E block", eBlockTimes);
+            FileContence.put("Version", "1");
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        eBlockValue.put(eBlock);
 
-        JSONArray fBlockValue = new JSONArray();
-        JSONObject fBlock = new JSONObject();
-        JSONArray fBlockTimes = new JSONArray();
-        fBlockTimes.put("10:00:00").put("11:25:00");
+        JSONObject eRegime = new JSONObject();
+
         try {
-            fBlock.put("F block", fBlockTimes);
+            eRegime.put("E block", new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        fBlockValue.put(fBlock);
 
-        JSONArray LunchValue = new JSONArray();
-        JSONObject Lunch = new JSONObject();
-        JSONArray LunchTime = new JSONArray();
-        LunchTime.put("11:25:00").put("12:00:00");
         try {
-            Lunch.put("Lunch", LunchTime);
+            eRegime.put("F block", new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        LunchValue.put(Lunch);
 
-        JSONArray gBlockValue = new JSONArray();
-        JSONObject gBlock = new JSONObject();
-        JSONArray gBlockTimes = new JSONArray();
-        gBlockTimes.put("12:05:00").put("13:30:00");
         try {
-            gBlock.put("G block", gBlockTimes);
+            eRegime.put("Lunch", new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        gBlockValue.put(gBlock);
 
-        JSONArray hBlockValue = new JSONArray();
-        JSONObject hBlock = new JSONObject();
-        JSONArray hBlockTimes = new JSONArray();
-        hBlockTimes.put("13:45:00").put("15:10:00");
         try {
-            hBlock.put("H block", hBlockTimes);
+            eRegime.put("G block", new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        hBlockValue.put(hBlock);
 
-        JSONObject Version = new JSONObject();
         try {
-            Version.put("Version", 1);
+            eRegime.put("H block", new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
         } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            FileContence.put("E Regime", eRegime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(ERegime);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            assert writer != null;
+            writer.write(FileContence.toString(4));
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            writer.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

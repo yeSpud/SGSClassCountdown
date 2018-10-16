@@ -32,7 +32,8 @@ public enum Block {
     HLong,
     NoBlock,
     LunchNormal,
-    LunchLong;
+    LunchLong,
+    Special;
 
     static Block getBlock() {
         Block block = NoBlock;
