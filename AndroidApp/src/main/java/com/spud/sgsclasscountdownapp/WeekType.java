@@ -17,7 +17,7 @@ enum WeekType {
 
     static WeekType getWeekType() {
         int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        Log.i("Weekday", Integer.toString(dayOfWeek));
+        Log.i("getWeekType", Integer.toString(dayOfWeek));
         switch (dayOfWeek) {
             case Calendar.SUNDAY:
                 return WeekType.Weekend;

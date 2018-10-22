@@ -74,7 +74,7 @@ public enum Block {
         // TODO: Redo all this to get times from json files
         switch (weekType) {
             case Normal:
-                Log.i("Schedule", "Full day");
+                Log.d("Schedule", "Full day");
                 if (core.timeToLong(core.getTime()) > core.timeToLong(8, 20, 0) && core.timeToLong(core.getTime()) < core.timeToLong(9, 0, 0)) {
                     block = Block.ANormal;
                 } else if (core.timeToLong(core.getTime()) > core.timeToLong(9, 5, 0) && core.timeToLong(core.getTime()) < core.timeToLong(9, 45, 0)) {
@@ -96,7 +96,7 @@ public enum Block {
                 }
                 break;
             case Long:
-                Log.i("Schedule", "Long day");
+                Log.d("Schedule", "Long day");
                 if (core.timeToLong(core.getTime()) > core.timeToLong(8, 20, 0) && core.timeToLong(core.getTime()) < core.timeToLong(9, 45, 9)) {
                     if (dayOfWeek == Calendar.WEDNESDAY || UpdateType.getUpdateType().equals(UpdateType.ManualADay)) {
                         block = Block.ALong;

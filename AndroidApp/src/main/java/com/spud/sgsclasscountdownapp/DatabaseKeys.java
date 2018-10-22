@@ -1,5 +1,7 @@
 package com.spud.sgsclasscountdownapp;
 
+import android.util.Log;
+
 /**
  * Created by Stephen Ogden on 10/9/18.
  * FTC 6128 | 7935
@@ -23,6 +25,7 @@ public enum DatabaseKeys {
     }
 
     public String getName() {
+        Log.i("getName", value);
         return value;
     }
 }

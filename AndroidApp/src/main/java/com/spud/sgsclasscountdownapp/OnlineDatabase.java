@@ -19,6 +19,8 @@ import static com.spud.sgsclasscountdownapp.WeekType.getWeekType;
  * FTC 6128 | 7935
  * FRC 1595
  */
+
+// TODO: Finish this
 public class OnlineDatabase {
 
     private URL onlineDB = null;
