@@ -16,6 +16,8 @@ enum WeekType {
     Custom;
 
     static WeekType getWeekType() {
+
+        // TODO: Check if override is in place before referring to built-in
         int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
         Log.i("getWeekType", Integer.toString(dayOfWeek));
         switch (dayOfWeek) {

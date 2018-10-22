@@ -70,7 +70,7 @@ public class Timer extends AppCompatActivity {
                     }
 
                     // Update the time remaining and the current block
-                    block.setText(Core.changeBlock(getBlock()));
+                    block.setText(Core.changeBlockHeader(getBlock()));
                     countdown.setText(Core.getTimeRemaining());
                 }
             }
@@ -95,7 +95,7 @@ public class Timer extends AppCompatActivity {
 
         RegimeFiles test = new RegimeFiles();
         Core testCore = new Core();
-        Log.w("Test", test.getBlock(testCore.timeToLong(testCore.getTime())).name());
+        Log.w("Test", test.getBlockFromRegime(testCore.timeToLong(testCore.getTime())).name());
     }
 
     @Override

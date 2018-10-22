@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static com.spud.sgsclasscountdownapp.Block.ANormal;
 import static com.spud.sgsclasscountdownapp.Block.getBlock;
 
 // TODO: On april 1st, count up from the start of class
@@ -47,8 +48,9 @@ public class Core {
     // TODO: Create a system for special schedules
     // TODO: Redo
     String getTimeRemaining() {
-        long checkTime;
+        String[] checkTime = new String[3];
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
+        /*
         switch (getBlock()) {
             case ANormal:
                 checkTime = timeToLong(9, 0, 0);
@@ -108,13 +110,35 @@ public class Core {
                 checkTime = timeToLong(15, 10, 0);
                 break;
         }
-        long seconds = checkTime - timeToLong(getTime()), minutes = seconds / 60;
-        Log.i("Time remaining", String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60)));
-        return String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60));
+        */
+        RegimeFiles regime = new RegimeFiles();
+        try {
+            checkTime = regime.getTimes(WeekType.getWeekType(), getBlock())[1].split(":");
+        } catch (NullPointerException NPE) {
+            // Wrong regime
+            checkTime[0] = "15";
+            checkTime[1] = "10";
+            checkTime[2] = "0";
+        }
+
+        int hours = Integer.parseInt(checkTime[0]);
+        int minutes = Integer.parseInt(checkTime[1]);
+        int seconds = Integer.parseInt(checkTime[2]);
+
+        Log.d("Check time", String.format(Locale.US, "%s:%s:%s", hours, minutes, seconds));
+
+        long longTime = timeToLong(hours, minutes, seconds);
+        long timeRemaining = longTime - timeToLong(getTime());
+        long remainingMinutes = timeRemaining / 60;
+        String returnString = String.format(Locale.US, "%s:%02d", remainingMinutes, timeRemaining - (remainingMinutes * 60));
+        Log.i("Time remaining", returnString);
+        //long seconds = checkTime - timeToLong(getTime()), minutes = seconds / 60;
+        //Log.i("Time remaining", String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60)));
+        return returnString;
     }
 
     // TODO: Create a system for special schedules
-    String changeBlock(Block block) {
+    String changeBlockHeader(Block block) {
         DatabaseFile database = new DatabaseFile();
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
         // https://stackoverflow.com/questions/798545/what-is-the-java-operator-called-and-what-does-it-do

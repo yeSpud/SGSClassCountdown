@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Stephen Ogden on 10/3/18.
@@ -85,7 +86,7 @@ class RegimeFiles {
             e.printStackTrace();
         }
 
-        Log.e("JSON", FileContence.toString());
+        Log.d("JSON", FileContence.toString());
 
         JSONObject fullRegime = new JSONObject();
 
@@ -389,6 +390,9 @@ class RegimeFiles {
             e.printStackTrace();
         }
 
+        if (NormalRegime != null) {
+            Log.i("Returning NormalRegime", NormalRegime.toString());
+        }
         return NormalRegime;
     }
 
@@ -431,7 +435,7 @@ class RegimeFiles {
         }
 
         try {
-            aRegime = new JSONObject(new String(buffer, "UTF-8"));
+            aRegime = new JSONObject(new String(buffer, "UTF-8")).getJSONObject("A Regime");
         } catch (JSONException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -478,7 +482,7 @@ class RegimeFiles {
         }
 
         try {
-            eRegime = new JSONObject(new String(buffer, "UTF-8"));
+            eRegime = new JSONObject(new String(buffer, "UTF-8")).getJSONObject("E Regime");
         } catch (JSONException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -486,7 +490,7 @@ class RegimeFiles {
         return eRegime;
     }
 
-    Block getBlock(long currentTimeAsLong) {
+    Block getBlockFromRegime(long currentTimeAsLong) {
 
         Block returnBlock = Block.NoBlock;
 
@@ -503,20 +507,6 @@ class RegimeFiles {
         switch (database.getUpdateType()) {
             case ManualFullDay:
                 fullJson = loadNormalRegime();
-                try {
-                    Log.w("Block names", fullJson.names().toString());
-                    blockTimes.add(0, fullJson.getJSONArray(Block.ANormal.name()));
-                    blockTimes.add(1, fullJson.getJSONArray(Block.BNormal.name()));
-                    blockTimes.add(2, fullJson.getJSONArray(Block.CNormal.name()));
-                    blockTimes.add(3, fullJson.getJSONArray(Block.DNormal.name()));
-                    blockTimes.add(4, fullJson.getJSONArray(Block.ENormal.name()));
-                    blockTimes.add(5, fullJson.getJSONArray(Block.LunchNormal.name()));
-                    blockTimes.add(6, fullJson.getJSONArray(Block.FNormal.name()));
-                    blockTimes.add(7, fullJson.getJSONArray(Block.GNormal.name()));
-                    blockTimes.add(8, fullJson.getJSONArray(Block.HNormal.name()));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 break;
             case ManualADay:
                 fullJson = loadARegime();
@@ -525,7 +515,14 @@ class RegimeFiles {
                 fullJson = loadERegime();
                 break;
             case BuiltIn:
-                // TODO: Built-in
+                switch (WeekType.getWeekType()) {
+                    case Normal:
+                        fullJson = loadNormalRegime();
+                        break;
+                    case Long:
+                        fullJson = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? loadARegime() : loadERegime();
+                        break;
+                }
                 break;
             case ManualCustomDay:
                 // TODO: Custom day
@@ -535,10 +532,18 @@ class RegimeFiles {
                 break;
         }
 
-        // TODO: Load the jsonTimes dynamically
+        // Load the block times int an array
         // https://stackoverflow.com/questions/30412603/get-jsonarray-key-name
+        try {
+            Log.d("Block names", fullJson != null ? fullJson.names().toString() : null);
+            for (int a = 0; a < (fullJson != null ? fullJson.names().length() : 0); a++) {
+                blockTimes.add(a, fullJson.getJSONArray(fullJson.names().getString(a)));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        Log.i("Times for blocks", blockTimes.toString());
+        Log.d("Times for blocks", blockTimes.toString());
 
         Core conversion = new Core();
 
@@ -556,7 +561,7 @@ class RegimeFiles {
             }
 
             // Check if its within a block
-            // TODO: Fix it returing DNormal during lunch
+            // TODO: Fix it returning DNormal during lunch
             if (currentTimeAsLong > startTime && currentTimeAsLong < endTime) {
                 // Success
                 try {
@@ -573,6 +578,72 @@ class RegimeFiles {
         Log.i("Returning block", returnBlock.name());
         return returnBlock;
 
+    }
+
+    String[] getTimes(WeekType weekType, Block block) {
+        String[] returnString = new String[2];
+        JSONObject regime;
+        JSONArray times = null;
+        switch (weekType) {
+            case Normal:
+                regime = loadARegime();
+                Log.d("regime", regime.toString());
+                try {
+                    times = regime.getJSONArray(block.name()); // TODO: Error here
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (times != null) {
+                        returnString[0] = times.getString(0);
+                        returnString[1] = times.getString(1);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case Long:
+                switch (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
+                    case Calendar.WEDNESDAY:
+                        regime = loadARegime();
+                        try {
+                            times = regime.getJSONArray(block.name());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            if (times != null) {
+                                returnString[0] = times.getString(0);
+                                returnString[1] = times.getString(1);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    case Calendar.THURSDAY:
+                        regime = loadERegime();
+                        try {
+                            times = regime.getJSONArray(block.name());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            if (times != null) {
+                                returnString[0] = times.getString(0);
+                                returnString[1] = times.getString(1);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                }
+                break;
+            case Custom:
+                // TODO: Add custom case
+                break;
+
+        }
+        return returnString;
     }
 
 }
