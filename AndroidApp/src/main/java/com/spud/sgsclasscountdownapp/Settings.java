@@ -33,7 +33,7 @@ public class Settings extends AppCompatActivity {
 
     private ImageView background;
 
-    private TimerFiles database = new TimerFiles();
+    private DatabaseFile database = new DatabaseFile();
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,7 +127,7 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        TimerFiles database = new TimerFiles();
+        DatabaseFile database = new DatabaseFile();
         //noinspection UnusedAssignment - Complaines about not being initalized if I make it uninitalized, which it says it can be...
         UpdateType updateType = null;
 

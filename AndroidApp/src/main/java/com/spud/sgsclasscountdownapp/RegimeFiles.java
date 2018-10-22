@@ -16,7 +16,7 @@ import java.io.IOException;
  * FTC 6128 | 7935
  * FRC 1595
  */
-class TimerFiles {
+class RegimeFiles {
 
     Timer timer = new Timer();
 
@@ -25,7 +25,7 @@ class TimerFiles {
             ARegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/A.json"),
             ERegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/E.json");
 
-    TimerFiles() {
+    RegimeFiles() {
         if (builtinNormalRegimeDoesNotExist()) {
             createNormalRegime();
         }
