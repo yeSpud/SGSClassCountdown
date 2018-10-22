@@ -10,13 +10,11 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Stephen Ogden on 10/3/18.
@@ -47,18 +45,21 @@ class RegimeFiles {
     private boolean builtinNormalRegimeDoesNotExist() {
         boolean DNE = !(normalRegime.exists() && normalRegime.canRead());
         Log.w("Normal regime missing", Boolean.toString(DNE));
+        createNormalRegime();
         return DNE;
     }
 
     private boolean builtinARegimeDoesNotExist() {
         boolean DNE = !(ARegime.exists() && ARegime.canRead());
         Log.w("A regime missing", Boolean.toString(!(ARegime.exists() && ARegime.canRead())));
+        createARegime();
         return DNE;
     }
 
     private boolean builtinERegimeDoesNotExist() {
         boolean DNE = !(ERegime.exists() && ERegime.canRead());
         Log.w("E regime missing", Boolean.toString(DNE));
+        createERegime();
         return DNE;
     }
 
@@ -89,55 +90,55 @@ class RegimeFiles {
         JSONObject fullRegime = new JSONObject();
 
         try {
-            fullRegime.put("A block", new JSONArray().put(0, "8:20:00").put(1, "9:00:00"));
+            fullRegime.put(Block.ANormal.name(), new JSONArray().put(0, "8:20:00").put(1, "9:00:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            fullRegime.put("B block", new JSONArray().put(0, "9:05:00").put(1, "9:45:00"));
+            fullRegime.put(Block.BNormal.name(), new JSONArray().put(0, "9:05:00").put(1, "9:45:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            fullRegime.put("C block", new JSONArray().put(0, "10:00:00").put(1, "10:45:00"));
+            fullRegime.put(Block.CNormal.name(), new JSONArray().put(0, "10:00:00").put(1, "10:45:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            fullRegime.put("D block", new JSONArray().put(0, "10:50:00").put(1, "11:30:00"));
+            fullRegime.put(Block.DNormal.name(), new JSONArray().put(0, "10:50:00").put(1, "11:30:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            fullRegime.put("E block", new JSONArray().put(0, "11:35:00").put(1, "12:15:00"));
+            fullRegime.put(Block.ENormal.name(), new JSONArray().put(0, "11:35:00").put(1, "12:15:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            fullRegime.put("Lunch", new JSONArray().put(0, "12:15:00").put(1, "12:55:00"));
+            fullRegime.put(Block.LunchNormal.name(), new JSONArray().put(0, "12:15:00").put(1, "12:55:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            fullRegime.put("F block", new JSONArray().put(0, "13:00:00").put(1, "13:40:00"));
+            fullRegime.put(Block.FNormal.name(), new JSONArray().put(0, "13:00:00").put(1, "13:40:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            fullRegime.put("G block", new JSONArray().put(0, "13:45:00").put(1, "14:25:00"));
+            fullRegime.put(Block.GNormal.name(), new JSONArray().put(0, "13:45:00").put(1, "14:25:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            fullRegime.put("H block", new JSONArray().put(0, "14:30:00").put(1, "15:10:00"));
+            fullRegime.put(Block.HNormal.name(), new JSONArray().put(0, "14:30:00").put(1, "15:10:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -200,31 +201,31 @@ class RegimeFiles {
         JSONObject aRegime = new JSONObject();
 
         try {
-            aRegime.put("A block", new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
+            aRegime.put(Block.ALong.name(), new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            aRegime.put("B block", new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
+            aRegime.put(Block.BLong.name(), new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            aRegime.put("Lunch", new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
+            aRegime.put(Block.LunchLong.name(), new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            aRegime.put("C block", new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
+            aRegime.put(Block.CLong.name(), new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            aRegime.put("D block", new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
+            aRegime.put(Block.DLong.name(), new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -270,31 +271,31 @@ class RegimeFiles {
         JSONObject eRegime = new JSONObject();
 
         try {
-            eRegime.put("E block", new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
+            eRegime.put(Block.ELong.name(), new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            eRegime.put("F block", new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
+            eRegime.put(Block.FLong.name(), new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            eRegime.put("Lunch", new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
+            eRegime.put(Block.LunchLong.name(), new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            eRegime.put("G block", new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
+            eRegime.put(Block.GLong.name(), new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            eRegime.put("H block", new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
+            eRegime.put(Block.HLong.name(), new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -368,7 +369,7 @@ class RegimeFiles {
         try {
             if (inStream != null) {
                 int read = inStream.read(buffer);
-                Log.i("Stream", Integer.toString(read));
+                Log.d("Stream", Integer.toString(read));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -383,7 +384,7 @@ class RegimeFiles {
         }
 
         try {
-            NormalRegime = new JSONObject(new String(buffer, "UTF-8"));
+            NormalRegime = new JSONObject(new String(buffer, "UTF-8")).getJSONObject("Normal Regime");
         } catch (JSONException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -496,27 +497,26 @@ class RegimeFiles {
         JSONObject fullJson = null;
 
         // Create an array of all the blocks from the jsonFile
-        ArrayList <JSONObject> block = new ArrayList<>();
+        ArrayList<JSONArray> blockTimes = new ArrayList<>();
 
         // Load the respective jSON file
-        Log.w("Database update", database.getUpdateType().name());
         switch (database.getUpdateType()) {
             case ManualFullDay:
                 fullJson = loadNormalRegime();
                 try {
-                    block.add(fullJson.getJSONObject("A block")); // TODO: Error here: org.json.JSONException: Value ["8:20:00","9:00:00"] at A block of type org.json.JSONArray cannot be converted to JSONObject
-                    block.add(fullJson.getJSONObject("B block"));
-                    block.add(fullJson.getJSONObject("C block"));
-                    block.add(fullJson.getJSONObject("D block"));
-                    block.add(fullJson.getJSONObject("E block"));
-                    block.add(fullJson.getJSONObject("Lunch"));
-                    block.add(fullJson.getJSONObject("F block"));
-                    block.add(fullJson.getJSONObject("G block"));
-                    block.add(fullJson.getJSONObject("H block"));
+                    Log.w("Block names", fullJson.names().toString());
+                    blockTimes.add(0, fullJson.getJSONArray(Block.ANormal.name()));
+                    blockTimes.add(1, fullJson.getJSONArray(Block.BNormal.name()));
+                    blockTimes.add(2, fullJson.getJSONArray(Block.CNormal.name()));
+                    blockTimes.add(3, fullJson.getJSONArray(Block.DNormal.name()));
+                    blockTimes.add(4, fullJson.getJSONArray(Block.ENormal.name()));
+                    blockTimes.add(5, fullJson.getJSONArray(Block.LunchNormal.name()));
+                    blockTimes.add(6, fullJson.getJSONArray(Block.FNormal.name()));
+                    blockTimes.add(7, fullJson.getJSONArray(Block.GNormal.name()));
+                    blockTimes.add(8, fullJson.getJSONArray(Block.HNormal.name()));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.w("Size of block", Integer.toString(block.size()));
                 break;
             case ManualADay:
                 fullJson = loadARegime();
@@ -535,13 +535,9 @@ class RegimeFiles {
                 break;
         }
 
-        ArrayList <JSONArray> blockTimes = new ArrayList<>();
+        // TODO: Load the jsonTimes dynamically
+        // https://stackoverflow.com/questions/30412603/get-jsonarray-key-name
 
-        // Load the start and end times of each block into blockTimes
-        for (int i = 0; i < block.size(); i++) {
-            blockTimes.add(new JSONArray().put(block.get(i).names()));
-            Log.i("Block times", block.get(i).names().toString());
-        }
         Log.i("Times for blocks", blockTimes.toString());
 
         Core conversion = new Core();
@@ -560,12 +556,21 @@ class RegimeFiles {
             }
 
             // Check if its within a block
+            // TODO: Fix it returing DNormal during lunch
             if (currentTimeAsLong > startTime && currentTimeAsLong < endTime) {
                 // Success
-                // TODO: Change to the new block
+                try {
+                    // Set the returned block
+                    returnBlock = Block.valueOf(String.valueOf(fullJson != null ? fullJson.names().get(blockTimes.lastIndexOf(blockTimes.get(k))) : null));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
             }
+
         }
 
+        Log.i("Returning block", returnBlock.name());
         return returnBlock;
 
     }
