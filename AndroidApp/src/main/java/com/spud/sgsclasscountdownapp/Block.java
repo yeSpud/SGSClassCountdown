@@ -71,6 +71,7 @@ public enum Block {
         }
         Log.i("WeekType", weekType.name());
 
+        // TODO: Redo all this to get times from json files
         switch (weekType) {
             case Normal:
                 Log.i("Schedule", "Full day");

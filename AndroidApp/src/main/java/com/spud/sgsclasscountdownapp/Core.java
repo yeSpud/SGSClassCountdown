@@ -115,7 +115,7 @@ public class Core {
 
     // TODO: Create a system for special schedules
     String changeBlock(Block block) {
-        TimerFiles database = new TimerFiles();
+        DatabaseFile database = new DatabaseFile();
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
         // https://stackoverflow.com/questions/798545/what-is-the-java-operator-called-and-what-does-it-do
         switch (block) {

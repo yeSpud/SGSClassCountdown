@@ -21,7 +21,8 @@ public class FactoryResetDialog extends DialogFragment {
                 .setPositiveButton("Yes, Im sure", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         TimerFiles timerFiles = new TimerFiles();
-                        timerFiles.initialiseDatabase();
+                        DatabaseFile databaseFile = new DatabaseFile();
+                        databaseFile.initialiseDatabase();
                         timerFiles.writeARegime();
                         timerFiles.writeERegime();
                         timerFiles.writeNormalRegime();
