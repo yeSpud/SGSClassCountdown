@@ -25,7 +25,7 @@ public class Core {
         time[0] = h;
         time[1] = m;
         time[2] = s;
-        Log.i("Formatted time", Arrays.toString(time));
+        Log.d("Formatted time", Arrays.toString(time));
         return time;
     }
 
@@ -33,14 +33,14 @@ public class Core {
         int h = time[0], m = time[1], s = time[2];
         long longTime, hoursToSeconds = h * 3600, minutesToSeconds = m * 60;
         longTime = s + minutesToSeconds + hoursToSeconds;
-        Log.i("Time to long", Arrays.toString(time) + "->" + Long.toString(longTime));
+        Log.d("Time to long", Arrays.toString(time) + "->" + Long.toString(longTime));
         return longTime;
     }
 
     long timeToLong(int hour, int minute, int second) {
         long longTime, hoursToSeconds = hour * 3600, minutesToSeconds = minute * 60;
         longTime = second + minutesToSeconds + hoursToSeconds;
-        Log.i("Time to long", String.format("%s:%s:%s -> %s", hour, minute, second, longTime));
+        Log.d("Time to long", String.format("%s:%s:%s -> %s", hour, minute, second, longTime));
         return longTime;
     }
 
@@ -109,7 +109,7 @@ public class Core {
                 break;
         }
         long seconds = checkTime - timeToLong(getTime()), minutes = seconds / 60;
-        Log.i("Time remaining", String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60)));
+        Log.d("Time remaining", String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60)));
         return String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60));
     }
 
@@ -170,7 +170,7 @@ public class Core {
         date[1] = day;
         date[2] = year;
 
-        Log.i("Date", Arrays.toString(date));
+        Log.d("Date", Arrays.toString(date));
         return date;
     }
 

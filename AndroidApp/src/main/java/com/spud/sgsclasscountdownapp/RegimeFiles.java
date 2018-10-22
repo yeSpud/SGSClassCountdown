@@ -8,8 +8,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Stephen Ogden on 10/3/18.
@@ -150,7 +157,7 @@ class RegimeFiles {
 
         try {
             assert writer != null;
-            writer.write(fullRegime.toString(4));
+            writer.write(FileContence.toString(4));
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
@@ -335,6 +342,232 @@ class RegimeFiles {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private JSONObject loadNormalRegime() {
+        // https://stackoverflow.com/questions/13814503/reading-a-json-file-in-android
+        JSONObject NormalRegime = null;
+
+        InputStream inStream = null;
+        try {
+            inStream = new FileInputStream(normalRegime);
+        } catch (FileNotFoundException e) {
+            createNormalRegime();
+            e.printStackTrace();
+        }
+
+        int size = 0;
+        try {
+            size = inStream != null ? inStream.available() : 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        byte[] buffer = new byte[size];
+
+        try {
+            if (inStream != null) {
+                int read = inStream.read(buffer);
+                Log.i("Stream", Integer.toString(read));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (inStream != null) {
+                inStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            NormalRegime = new JSONObject(new String(buffer, "UTF-8"));
+        } catch (JSONException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return NormalRegime;
+    }
+
+    private JSONObject loadARegime() {
+        // https://stackoverflow.com/questions/13814503/reading-a-json-file-in-android
+        JSONObject aRegime = null;
+
+        InputStream inStream = null;
+        try {
+            inStream = new FileInputStream(ARegime);
+        } catch (FileNotFoundException e) {
+            createNormalRegime();
+            e.printStackTrace();
+        }
+
+        int size = 0;
+        try {
+            size = inStream != null ? inStream.available() : 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        byte[] buffer = new byte[size];
+
+        try {
+            if (inStream != null) {
+                int read = inStream.read(buffer);
+                Log.i("Stream", Integer.toString(read));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (inStream != null) {
+                inStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            aRegime = new JSONObject(new String(buffer, "UTF-8"));
+        } catch (JSONException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return aRegime;
+    }
+
+    private JSONObject loadERegime() {
+        // https://stackoverflow.com/questions/13814503/reading-a-json-file-in-android
+        JSONObject eRegime = null;
+
+        InputStream inStream = null;
+        try {
+            inStream = new FileInputStream(ERegime);
+        } catch (FileNotFoundException e) {
+            createNormalRegime();
+            e.printStackTrace();
+        }
+
+        int size = 0;
+        try {
+            size = inStream != null ? inStream.available() : 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        byte[] buffer = new byte[size];
+
+        try {
+            if (inStream != null) {
+                int read = inStream.read(buffer);
+                Log.i("Stream", Integer.toString(read));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            if (inStream != null) {
+                inStream.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            eRegime = new JSONObject(new String(buffer, "UTF-8"));
+        } catch (JSONException | UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return eRegime;
+    }
+
+    Block getBlock(long currentTimeAsLong) {
+
+        Block returnBlock = Block.NoBlock;
+
+        // Create a database object
+        DatabaseFile database = new DatabaseFile();
+
+        // Create a jsonObject for getting jSon data
+        JSONObject fullJson = null;
+
+        // Create an array of all the blocks from the jsonFile
+        ArrayList <JSONObject> block = new ArrayList<>();
+
+        // Load the respective jSON file
+        Log.w("Database update", database.getUpdateType().name());
+        switch (database.getUpdateType()) {
+            case ManualFullDay:
+                fullJson = loadNormalRegime();
+                try {
+                    block.add(fullJson.getJSONObject("A block")); // TODO: Error here: org.json.JSONException: Value ["8:20:00","9:00:00"] at A block of type org.json.JSONArray cannot be converted to JSONObject
+                    block.add(fullJson.getJSONObject("B block"));
+                    block.add(fullJson.getJSONObject("C block"));
+                    block.add(fullJson.getJSONObject("D block"));
+                    block.add(fullJson.getJSONObject("E block"));
+                    block.add(fullJson.getJSONObject("Lunch"));
+                    block.add(fullJson.getJSONObject("F block"));
+                    block.add(fullJson.getJSONObject("G block"));
+                    block.add(fullJson.getJSONObject("H block"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.w("Size of block", Integer.toString(block.size()));
+                break;
+            case ManualADay:
+                fullJson = loadARegime();
+                break;
+            case ManualEDay:
+                fullJson = loadERegime();
+                break;
+            case BuiltIn:
+                // TODO: Built-in
+                break;
+            case ManualCustomDay:
+                // TODO: Custom day
+                break;
+            case Automatic:
+                // TODO: Automatic day
+                break;
+        }
+
+        ArrayList <JSONArray> blockTimes = new ArrayList<>();
+
+        // Load the start and end times of each block into blockTimes
+        for (int i = 0; i < block.size(); i++) {
+            blockTimes.add(new JSONArray().put(block.get(i).names()));
+            Log.i("Block times", block.get(i).names().toString());
+        }
+        Log.i("Times for blocks", blockTimes.toString());
+
+        Core conversion = new Core();
+
+        // Check if the current time is within a block
+        for (int k = 0; k < blockTimes.size(); k++) {
+            long startTime = 0;
+            long endTime = 0;
+            try {
+                String[] startTimeString = blockTimes.get(k).getString(0).split(":");
+                String[] endTimeString = blockTimes.get(k).getString(1).split(":");
+                startTime = conversion.timeToLong(Integer.parseInt(startTimeString[0]), Integer.parseInt(startTimeString[1]), Integer.parseInt(startTimeString[2]));
+                endTime = conversion.timeToLong(Integer.parseInt(endTimeString[0]), Integer.parseInt(endTimeString[1]), Integer.parseInt(endTimeString[2]));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            // Check if its within a block
+            if (currentTimeAsLong > startTime && currentTimeAsLong < endTime) {
+                // Success
+                // TODO: Change to the new block
+            }
+        }
+
+        return returnBlock;
+
     }
 
 }

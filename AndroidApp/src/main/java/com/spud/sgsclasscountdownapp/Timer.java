@@ -92,6 +92,10 @@ public class Timer extends AppCompatActivity {
             Log.e("Background generation", "Out of RAM!");
             background = null;
         }
+
+        RegimeFiles test = new RegimeFiles();
+        Core testCore = new Core();
+        Log.w("Test", test.getBlock(testCore.timeToLong(testCore.getTime())).name());
     }
 
     @Override
