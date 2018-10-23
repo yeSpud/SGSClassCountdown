@@ -29,7 +29,8 @@ class RegimeFiles {
     @SuppressLint("SdCardPath")
     private File normalRegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/Normal.json"),
             ARegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/A.json"),
-            ERegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/E.json");
+            ERegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/E.json"),
+            CustomRegime = new File("/data/data/" + this.getClass().getPackage().getName() + "/Custom.json");
 
     RegimeFiles() {
         if (builtinNormalRegimeDoesNotExist()) {
@@ -41,26 +42,44 @@ class RegimeFiles {
         if (builtinERegimeDoesNotExist()) {
             createERegime();
         }
+        if (customRegimeDoesNotExist()) {
+            createCustomRegime();
+        }
     }
 
     private boolean builtinNormalRegimeDoesNotExist() {
         boolean DNE = !(normalRegime.exists() && normalRegime.canRead());
         Log.w("Normal regime missing", Boolean.toString(DNE));
-        createNormalRegime();
+        if (DNE) {
+            createNormalRegime();
+        }
         return DNE;
     }
 
     private boolean builtinARegimeDoesNotExist() {
         boolean DNE = !(ARegime.exists() && ARegime.canRead());
         Log.w("A regime missing", Boolean.toString(!(ARegime.exists() && ARegime.canRead())));
-        createARegime();
+        if (DNE) {
+            createARegime();
+        }
         return DNE;
     }
 
     private boolean builtinERegimeDoesNotExist() {
         boolean DNE = !(ERegime.exists() && ERegime.canRead());
         Log.w("E regime missing", Boolean.toString(DNE));
-        createERegime();
+        if (DNE) {
+            createERegime();
+        }
+        return DNE;
+    }
+
+    private boolean customRegimeDoesNotExist() {
+        boolean DNE = !(CustomRegime.exists() && CustomRegime.canRead() && CustomRegime.canWrite());
+        Log.w("CustomRegimeExists", Boolean.toString(!DNE));
+        if (DNE) {
+            createCustomRegime();
+        }
         return DNE;
     }
 
@@ -187,6 +206,22 @@ class RegimeFiles {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    void createCustomRegime() {
+        try {
+            Log.i("CustomRegimeCreated", Boolean.toString(CustomRegime.createNewFile()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void deleteCustomRegime() {
+        try {
+            Log.w("CustomRegimeDeleted", Boolean.toString(CustomRegime.delete()));
+        } catch (SecurityException CannotDelete) {
+            CannotDelete.printStackTrace();
         }
     }
 
@@ -405,8 +440,8 @@ class RegimeFiles {
                     fullJson = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? loadARegime() : loadERegime();
                 } else //noinspection StatementWithEmptyBody
                     if (WeekType.getWeekType() == WeekType.Custom) {
-                    // TODO: Add custom support
-                }
+                        // TODO: Add custom support
+                    }
                 break;
             case ManualCustomDay:
                 // TODO: Custom day
@@ -488,7 +523,7 @@ class RegimeFiles {
                             returnString[1] = times.getString(1);
                         }
 
-                    } else if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY || database.getUpdateTypeFromDatabase().equals(UpdateType.ManualEDay)){
+                    } else if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY || database.getUpdateTypeFromDatabase().equals(UpdateType.ManualEDay)) {
                         // Load the E regime
                         regime = loadERegime();
 

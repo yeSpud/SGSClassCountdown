@@ -26,6 +26,9 @@ public class FactoryResetDialog extends DialogFragment {
                         regimeFiles.writeARegime();
                         regimeFiles.writeERegime();
                         regimeFiles.writeNormalRegime();
+                        // Reset the custom regime file
+                        regimeFiles.deleteCustomRegime();
+                        regimeFiles.createCustomRegime();
                         System.exit(0);
                     }
                 })
