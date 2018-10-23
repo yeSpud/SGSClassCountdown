@@ -26,15 +26,17 @@
 
         <EditText
             android:id="@+id/ABlockStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="300dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/ABlockHeader"
             app:layout_constraintRight_toLeftOf="@id/ABlockEnd"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +45,7 @@
 
         <EditText
             android:id="@+id/ABlockEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
@@ -51,7 +53,9 @@
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/ABlockStart"
             app:layout_constraintRight_toLeftOf="@id/NoABlock"
             app:layout_constraintTop_toTopOf="parent"
@@ -62,11 +66,10 @@
             android:id="@+id/NoABlock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="No A block"
+            android:layout_marginTop="15dp"
+            android:text="@string/no_a_block"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
 
         <TextView
@@ -81,15 +84,17 @@
 
         <EditText
             android:id="@+id/BBlockStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/BBlockHeader"
             app:layout_constraintRight_toLeftOf="@id/BBlockEnd"
             app:layout_constraintTop_toTopOf="@id/ABlockStart"
@@ -98,15 +103,17 @@
 
         <EditText
             android:id="@+id/BBlockEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/BBlockStart"
             app:layout_constraintRight_toLeftOf="@id/NoBBlock"
             app:layout_constraintTop_toTopOf="@id/ABlockEnd"
@@ -118,10 +125,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="No B block"
+            android:text="@string/no_b_block"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/NoABlock" />
-
 
 
         <TextView
@@ -136,15 +142,17 @@
 
         <EditText
             android:id="@+id/CBlockStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/CBlockHeader"
             app:layout_constraintRight_toLeftOf="@id/CBlockEnd"
             app:layout_constraintTop_toTopOf="@id/BBlockStart"
@@ -153,15 +161,17 @@
 
         <EditText
             android:id="@+id/CBlockEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/CBlockStart"
             app:layout_constraintRight_toLeftOf="@id/NoCBlock"
             app:layout_constraintTop_toTopOf="@id/BBlockEnd"
@@ -173,10 +183,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="No C block"
+            android:text="@string/no_c_block"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/NoBBlock" />
-
 
 
         <TextView
@@ -191,15 +200,17 @@
 
         <EditText
             android:id="@+id/DBlockStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/DBlockHeader"
             app:layout_constraintRight_toLeftOf="@id/DBlockEnd"
             app:layout_constraintTop_toTopOf="@id/CBlockStart"
@@ -208,15 +219,17 @@
 
         <EditText
             android:id="@+id/DBlockEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/DBlockStart"
             app:layout_constraintRight_toLeftOf="@id/NoDBlock"
             app:layout_constraintTop_toTopOf="@id/CBlockEnd"
@@ -228,10 +241,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="No D block"
+            android:text="@string/no_d_block"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/NoCBlock" />
-
 
 
         <TextView
@@ -240,21 +252,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:text="Lunch:"
+            android:text="@string/lunch"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/DBlockHeader" />
 
         <EditText
             android:id="@+id/LunchStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/LunchHeader"
             app:layout_constraintRight_toLeftOf="@id/LunchEnd"
             app:layout_constraintTop_toTopOf="@id/DBlockStart"
@@ -263,15 +277,17 @@
 
         <EditText
             android:id="@+id/LunchEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/LunchStart"
             app:layout_constraintRight_toLeftOf="@id/NoLunch"
             app:layout_constraintTop_toTopOf="@id/DBlockEnd"
@@ -283,10 +299,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="No Lunch"
+            android:text="@string/no_lunch"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/NoDBlock" />
-
 
 
         <TextView
@@ -301,15 +316,17 @@
 
         <EditText
             android:id="@+id/EBlockStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/EBlockHeader"
             app:layout_constraintRight_toLeftOf="@id/EBlockEnd"
             app:layout_constraintTop_toTopOf="@id/LunchStart"
@@ -318,15 +335,17 @@
 
         <EditText
             android:id="@+id/EBlockEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/EBlockStart"
             app:layout_constraintRight_toLeftOf="@id/NoEBlock"
             app:layout_constraintTop_toTopOf="@id/LunchEnd"
@@ -338,10 +357,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="No E block"
+            android:text="@string/no_e_block"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/NoLunch" />
-
 
 
         <TextView
@@ -357,15 +375,17 @@
 
         <EditText
             android:id="@+id/FBlockStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/FBlockHeader"
             app:layout_constraintRight_toLeftOf="@id/FBlockEnd"
             app:layout_constraintTop_toTopOf="@id/EBlockStart"
@@ -374,15 +394,17 @@
 
         <EditText
             android:id="@+id/FBlockEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/FBlockStart"
             app:layout_constraintRight_toLeftOf="@id/NoFBlock"
             app:layout_constraintTop_toTopOf="@id/EBlockEnd"
@@ -394,10 +416,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="No F block"
+            android:text="@string/no_f_block"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/NoEBlock" />
-
 
 
         <TextView
@@ -412,15 +433,17 @@
 
         <EditText
             android:id="@+id/GBlockStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
-            android:time="no"
-            android:inputType="textAutoCorrect"
-            android:text=""
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/GBlockHeader"
             app:layout_constraintRight_toLeftOf="@id/GBlockEnd"
             app:layout_constraintTop_toTopOf="@id/FBlockStart"
@@ -429,15 +452,17 @@
 
         <EditText
             android:id="@+id/GBlockEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
-            android:time="no"
-            android:inputType="textAutoCorrect"
-            android:text=""
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/GBlockStart"
             app:layout_constraintRight_toLeftOf="@id/NoGBlock"
             app:layout_constraintTop_toTopOf="@id/FBlockEnd"
@@ -449,10 +474,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="No G block"
+            android:text="@string/no_g_block"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/NoFBlock" />
-
 
 
         <TextView
@@ -468,16 +492,17 @@
 
         <EditText
             android:id="@+id/HBlockStart"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/HBlockHeader"
             app:layout_constraintRight_toLeftOf="@id/HBlockEnd"
             app:layout_constraintTop_toTopOf="@id/GBlockStart"
@@ -486,16 +511,17 @@
 
         <EditText
             android:id="@+id/HBlockEnd"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="5dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="90dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="5dp"
             android:background="@color/fbutton_color_silver"
             android:importantForAutofill="no"
             android:inputType="time"
-            android:text=""
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/TimeFiller"
             app:layout_constraintLeft_toRightOf="@id/HBlockStart"
             app:layout_constraintRight_toLeftOf="@id/NoHBlock"
             app:layout_constraintTop_toTopOf="@id/GBlockEnd"
@@ -508,7 +534,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:layout_marginBottom="10dp"
-            android:text="No H block"
+            android:text="@string/no_h_block"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/NoGBlock" />
 

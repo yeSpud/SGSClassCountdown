@@ -94,7 +94,7 @@ class RegimeFiles {
             // Add B block, with its respective start and end times
             fullRegime.put(Block.BNormal.name(), new JSONArray().put(0, "9:05:00").put(1, "9:45:00"));
             // Add C block, with its respective start and end times
-            fullRegime.put(Block.CNormal.name(), new JSONArray().put(0, "10:00:00").put(1, "10:45:00"));
+            fullRegime.put(Block.CNormal.name(), new JSONArray().put(0, "10:05:00").put(1, "10:45:00"));
             // Add D block, with its respective start and end times
             fullRegime.put(Block.DNormal.name(), new JSONArray().put(0, "10:50:00").put(1, "11:30:00"));
             // Add E block, with its respective start and end times
