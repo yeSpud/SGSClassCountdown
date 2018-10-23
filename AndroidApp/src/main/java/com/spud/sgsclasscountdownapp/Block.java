@@ -35,6 +35,7 @@ public enum Block {
     LunchLong,
     Special;
 
+    @Deprecated
     static Block getBlock() {
         Block block = NoBlock;
         WeekType weekType;

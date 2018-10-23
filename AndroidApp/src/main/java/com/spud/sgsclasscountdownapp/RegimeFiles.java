@@ -79,101 +79,49 @@ class RegimeFiles {
     }
 
     void writeNormalRegime() {
-        JSONObject FileContence = new JSONObject();
         try {
+            JSONObject FileContence = new JSONObject();
+
+            // Add the database version
             FileContence.put("Version", "1");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        Log.d("JSON", FileContence.toString());
+            Log.d("JSON", FileContence.toString());
 
-        JSONObject fullRegime = new JSONObject();
+            JSONObject fullRegime = new JSONObject();
 
-        try {
+            // Add A block, with its respective start and end times
             fullRegime.put(Block.ANormal.name(), new JSONArray().put(0, "8:20:00").put(1, "9:00:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add B block, with its respective start and end times
             fullRegime.put(Block.BNormal.name(), new JSONArray().put(0, "9:05:00").put(1, "9:45:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add C block, with its respective start and end times
             fullRegime.put(Block.CNormal.name(), new JSONArray().put(0, "10:00:00").put(1, "10:45:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add D block, with its respective start and end times
             fullRegime.put(Block.DNormal.name(), new JSONArray().put(0, "10:50:00").put(1, "11:30:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add E block, with its respective start and end times
             fullRegime.put(Block.ENormal.name(), new JSONArray().put(0, "11:35:00").put(1, "12:15:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add Lunch time, with its respective start and end times
             fullRegime.put(Block.LunchNormal.name(), new JSONArray().put(0, "12:15:00").put(1, "12:55:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add F block, with its respective start and end times
             fullRegime.put(Block.FNormal.name(), new JSONArray().put(0, "13:00:00").put(1, "13:40:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add G block, with its respective start and end times
             fullRegime.put(Block.GNormal.name(), new JSONArray().put(0, "13:45:00").put(1, "14:25:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add H block, with its respective start and end times
             fullRegime.put(Block.HNormal.name(), new JSONArray().put(0, "14:30:00").put(1, "15:10:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        try {
+            // Add all that crap to the json structure
             FileContence.put("Normal Regime", fullRegime);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(normalRegime);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            assert writer != null;
-            writer.write(FileContence.toString(4));
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Write the regime to the file
+            try {
+                FileWriter writer = new FileWriter(normalRegime);
+                writer.write(FileContence.toString(4));
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (JSONException jSONError) {
+            jSONError.printStackTrace();
         }
     }
 
@@ -192,144 +140,40 @@ class RegimeFiles {
     }
 
     void writeARegime() {
-        JSONObject FileContence = new JSONObject();
         try {
+            JSONObject FileContence = new JSONObject();
+
+            // Add the database version
             FileContence.put("Version", "1");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        JSONObject aRegime = new JSONObject();
+            JSONObject aRegime = new JSONObject();
 
-        try {
+            // Add A block, with its respective start and end times
             aRegime.put(Block.ALong.name(), new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add A block, with its respective start and end times
             aRegime.put(Block.BLong.name(), new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add Lunch time, with its respective start and end times
             aRegime.put(Block.LunchLong.name(), new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add C block, with its respective start and end times
             aRegime.put(Block.CLong.name(), new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
+            // Add D block, with its respective start and end times
             aRegime.put(Block.DLong.name(), new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        try {
+            // Add that crap to the jSON database
             FileContence.put("A Regime", aRegime);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(ARegime);
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Write it to the file
+            try {
+                FileWriter writer = new FileWriter(ARegime);
+                writer.write(FileContence.toString(4));
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (JSONException jSONError) {
+            jSONError.printStackTrace();
         }
-        try {
-            assert writer != null;
-            writer.write(FileContence.toString(4));
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    void writeERegime() {
-        JSONObject FileContence = new JSONObject();
-        try {
-            FileContence.put("Version", "1");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JSONObject eRegime = new JSONObject();
-
-        try {
-            eRegime.put(Block.ELong.name(), new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            eRegime.put(Block.FLong.name(), new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            eRegime.put(Block.LunchLong.name(), new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            eRegime.put(Block.GLong.name(), new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            eRegime.put(Block.HLong.name(), new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            FileContence.put("E Regime", eRegime);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter(ERegime);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            assert writer != null;
-            writer.write(FileContence.toString(4));
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
     }
 
     private void createERegime() {
@@ -344,6 +188,45 @@ class RegimeFiles {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    void writeERegime() {
+        try {
+            JSONObject FileContence = new JSONObject();
+
+            // Add the database version
+            FileContence.put("Version", "1");
+
+
+            JSONObject eRegime = new JSONObject();
+
+            // Add E block, with its respective start and end times
+            eRegime.put(Block.ELong.name(), new JSONArray().put(0, "8:20:00").put(1, "9:45:00"));
+            // Add F block, with its respective start and end times
+            eRegime.put(Block.FLong.name(), new JSONArray().put(0, "10:00:00").put(1, "11:25:00"));
+            // Add Lunch time, with its respective start and end times
+            eRegime.put(Block.LunchLong.name(), new JSONArray().put(0, "11:25:00").put(1, "12:00:00"));
+            // Add G block, with its respective start and end times
+            eRegime.put(Block.GLong.name(), new JSONArray().put(0, "12:05:00").put(1, "13:30:00"));
+            // Add H block, with its respective start and end times
+            eRegime.put(Block.HLong.name(), new JSONArray().put(0, "13:45:00").put(1, "15:10:00"));
+
+            // Add that crap to the jSON database
+            FileContence.put("E Regime", eRegime);
+
+            // Write that to the file
+            try {
+                FileWriter writer = new FileWriter(ERegime);
+                writer.write(FileContence.toString(4));
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (JSONException jSONError) {
+            jSONError.printStackTrace();
+        }
+
     }
 
     private JSONObject loadNormalRegime() {
@@ -492,6 +375,7 @@ class RegimeFiles {
 
     Block getBlockFromRegime(long currentTimeAsLong) {
 
+        // Declare the return variable
         Block returnBlock = Block.NoBlock;
 
         // Create a database object
@@ -515,13 +399,13 @@ class RegimeFiles {
                 fullJson = loadERegime();
                 break;
             case BuiltIn:
-                switch (WeekType.getWeekType()) {
-                    case Normal:
-                        fullJson = loadNormalRegime();
-                        break;
-                    case Long:
-                        fullJson = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? loadARegime() : loadERegime();
-                        break;
+                if (WeekType.getWeekType() == WeekType.Normal) {
+                    fullJson = loadNormalRegime();
+                } else if (WeekType.getWeekType() == WeekType.Long) {
+                    fullJson = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? loadARegime() : loadERegime();
+                } else //noinspection StatementWithEmptyBody
+                    if (WeekType.getWeekType() == WeekType.Custom) {
+                    // TODO: Add custom support
                 }
                 break;
             case ManualCustomDay:
@@ -530,49 +414,43 @@ class RegimeFiles {
             case Automatic:
                 // TODO: Automatic day
                 break;
+            default:
+                fullJson = null;
+                break;
         }
 
         // Load the block times int an array
         // https://stackoverflow.com/questions/30412603/get-jsonarray-key-name
-        try {
-            Log.d("Block names", fullJson != null ? fullJson.names().toString() : null);
-            for (int a = 0; a < (fullJson != null ? fullJson.names().length() : 0); a++) {
-                blockTimes.add(a, fullJson.getJSONArray(fullJson.names().getString(a)));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("Times for blocks", blockTimes.toString());
-
-        Core conversion = new Core();
-
-        // Check if the current time is within a block
-        for (int k = 0; k < blockTimes.size(); k++) {
-            long startTime = 0;
-            long endTime = 0;
+        if (fullJson != null) {
             try {
-                String[] startTimeString = blockTimes.get(k).getString(0).split(":");
-                String[] endTimeString = blockTimes.get(k).getString(1).split(":");
-                startTime = conversion.timeToLong(Integer.parseInt(startTimeString[0]), Integer.parseInt(startTimeString[1]), Integer.parseInt(startTimeString[2]));
-                endTime = conversion.timeToLong(Integer.parseInt(endTimeString[0]), Integer.parseInt(endTimeString[1]), Integer.parseInt(endTimeString[2]));
+                Log.d("Block names", fullJson.names().toString());
+                for (int a = 0; a < fullJson.names().length(); a++) {
+                    blockTimes.add(a, fullJson.getJSONArray(fullJson.names().getString(a)));
+                }
+
+                Log.d("Times for blocks", blockTimes.toString());
+
+                Core conversion = new Core();
+
+                // Check if the current time is within a block
+                for (int k = 0; k < blockTimes.size(); k++) {
+                    String[] startTimeString = blockTimes.get(k).getString(0).split(":");
+                    String[] endTimeString = blockTimes.get(k).getString(1).split(":");
+                    long startTime = conversion.timeToLong(Integer.parseInt(startTimeString[0]), Integer.parseInt(startTimeString[1]), Integer.parseInt(startTimeString[2]));
+                    long endTime = conversion.timeToLong(Integer.parseInt(endTimeString[0]), Integer.parseInt(endTimeString[1]), Integer.parseInt(endTimeString[2]));
+
+                    // Check if its within a block
+                    // TODO: Fix it returning DNormal during lunch
+                    if (currentTimeAsLong > startTime && currentTimeAsLong < endTime) {
+                        // Success!
+                        // Set the returned block, and then end the loop
+                        returnBlock = Block.valueOf(String.valueOf(fullJson.names().get(blockTimes.lastIndexOf(blockTimes.get(k)))));
+                        break;
+                    }
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
-            // Check if its within a block
-            // TODO: Fix it returning DNormal during lunch
-            if (currentTimeAsLong > startTime && currentTimeAsLong < endTime) {
-                // Success
-                try {
-                    // Set the returned block
-                    returnBlock = Block.valueOf(String.valueOf(fullJson != null ? fullJson.names().get(blockTimes.lastIndexOf(blockTimes.get(k))) : null));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-
         }
 
         Log.i("Returning block", returnBlock.name());
@@ -580,70 +458,53 @@ class RegimeFiles {
 
     }
 
+    // TODO: fix for overrides
     String[] getTimes(WeekType weekType, Block block) {
         String[] returnString = new String[2];
         JSONObject regime;
-        JSONArray times = null;
-        switch (weekType) {
-            case Normal:
-                regime = loadARegime();
-                Log.d("regime", regime.toString());
-                try {
-                    times = regime.getJSONArray(block.name()); // TODO: Error here
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
+        JSONArray times;
+        try {
+            switch (weekType) {
+                case Normal:
+                    regime = loadNormalRegime();
+                    Log.d("Regime", regime.toString());
+
+                    times = regime.getJSONArray(block.name());
+
                     if (times != null) {
                         returnString[0] = times.getString(0);
                         returnString[1] = times.getString(1);
                     }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case Long:
-                switch (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) {
-                    case Calendar.WEDNESDAY:
+                    break;
+                case Long:
+                    if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
                         regime = loadARegime();
-                        try {
-                            times = regime.getJSONArray(block.name());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            if (times != null) {
-                                returnString[0] = times.getString(0);
-                                returnString[1] = times.getString(1);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case Calendar.THURSDAY:
-                        regime = loadERegime();
-                        try {
-                            times = regime.getJSONArray(block.name());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            if (times != null) {
-                                returnString[0] = times.getString(0);
-                                returnString[1] = times.getString(1);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                }
-                break;
-            case Custom:
-                // TODO: Add custom case
-                break;
+                        times = regime.getJSONArray(block.name());
 
+                        if (times != null) {
+                            returnString[0] = times.getString(0);
+                            returnString[1] = times.getString(1);
+                        }
+
+                    } else {
+
+                        // Load the E regime
+                        regime = loadERegime();
+
+                        times = regime.getJSONArray(block.name());
+                        if (times != null) {
+                            returnString[0] = times.getString(0);
+                            returnString[1] = times.getString(1);
+                        }
+                    }
+                case Custom:
+                    // TODO: Add custom case
+                    break;
+
+            }
+        } catch (JSONException jSONError) {
+            jSONError.printStackTrace();
         }
         return returnString;
     }
-
 }

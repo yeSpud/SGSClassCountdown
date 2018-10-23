@@ -6,9 +6,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
-import static com.spud.sgsclasscountdownapp.Block.ANormal;
-import static com.spud.sgsclasscountdownapp.Block.getBlock;
-
 // TODO: On april 1st, count up from the start of class
 
 /**
@@ -113,7 +110,7 @@ public class Core {
         */
         RegimeFiles regime = new RegimeFiles();
         try {
-            checkTime = regime.getTimes(WeekType.getWeekType(), getBlock())[1].split(":");
+            checkTime = regime.getTimes(WeekType.getWeekType(), regime.getBlockFromRegime(timeToLong(getTime())))[1].split(":");
         } catch (NullPointerException NPE) {
             // Wrong regime
             checkTime[0] = "15";
@@ -197,6 +194,14 @@ public class Core {
 
         Log.i("Date", Arrays.toString(date));
         return date;
+    }
+
+    boolean isDayOver() {
+        // Return if the time is either before 8:20 or after 3:10
+        long currentTime = timeToLong(getTime());
+        boolean isOver = ((currentTime < 30000) || (currentTime > 54600));
+        Log.i("isDayOver", Boolean.toString(isOver));
+        return isOver;
     }
 
 }
