@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,7 +30,7 @@ public class Settings extends AppCompatActivity {
 
     RadioGroup override;
 
-    RadioButton automatic, builtin, manual, override8, overrideA, overrideE;
+    RadioButton automatic, builtin, manual, override8, overrideA, overrideE, CustomRegimeButton;
 
     private ImageView background;
 
@@ -41,14 +42,23 @@ public class Settings extends AppCompatActivity {
 
         override = findViewById(R.id.overrideGroup);
 
-        // TODO: Add it so when custom is checked, but no regime has been set, automatically open the editor
-
         automatic = findViewById(R.id.AutomaticUpdate);
         builtin = findViewById(R.id.Builtin);
         manual = findViewById(R.id.Manual);
         override8 = findViewById(R.id.override8);
         overrideA = findViewById(R.id.overrideA);
         overrideE = findViewById(R.id.overrideE);
+        CustomRegimeButton = findViewById(R.id.Custom);
+
+        CustomRegimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CustomRegime custom = new CustomRegime();
+                if (custom.isEmpty()) {
+                    regimeEditorDialog().show();
+                }
+            }
+        });
 
         automatic.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.Automatic));
         builtin.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.BuiltIn));
@@ -61,6 +71,7 @@ public class Settings extends AppCompatActivity {
             override8.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.ManualFullDay));
             overrideA.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.ManualADay));
             overrideE.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.ManualEDay));
+            CustomRegimeButton.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.ManualCustomDay));
         } else {
             for (int i = 0; i < override.getChildCount(); i++) {
                 ((RadioButton) override.getChildAt(i)).setChecked(false);
@@ -98,7 +109,15 @@ public class Settings extends AppCompatActivity {
         findViewById(R.id.classNames).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onCreateDialog().show();
+                editClassNamesDialog().show();
+            }
+        });
+
+        // Set up the regime editor to show when the user clicks the custom schedule button
+        findViewById(R.id.customSchedule).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                regimeEditorDialog().show();
             }
         });
 
@@ -149,10 +168,14 @@ public class Settings extends AppCompatActivity {
                 updateType = UpdateType.ManualADay;
             } else if (override8.isChecked()) {
                 updateType = UpdateType.ManualFullDay;
+            } else if (CustomRegimeButton.isChecked()) {
+                updateType = UpdateType.ManualCustomDay;
             } else {
+                // Fall back
                 updateType = UpdateType.BuiltIn;
             }
         } else {
+            // Fall back
             updateType = UpdateType.BuiltIn;
         }
 
@@ -183,14 +206,14 @@ public class Settings extends AppCompatActivity {
     }
 
     // https://developer.android.com/guide/topics/ui/dialogs#java
-    @SuppressLint("InflateParams")
-    public Dialog onCreateDialog() {
+    public Dialog editClassNamesDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         // Get the layout inflater
         LayoutInflater inflater = this.getLayoutInflater();
 
         // https://stackoverflow.com/questions/10313382/how-to-get-elementsfindviewbyid-for-a-layout-which-is-dynamically-loadedsetvi
-        final View view = inflater.inflate(R.layout.classnames, null);
+        // https://stackoverflow.com/questions/26404951/avoid-passing-null-as-the-view-root-warning-when-inflating-view-for-use-by-ale/26596164
+        @SuppressLint("InflateParams") final View view = inflater.inflate(R.layout.classnames, null);
 
         ((EditText) view.findViewById(R.id.ABlockName)).setText(database.getBlockName(Block.ANormal));
         ((EditText) view.findViewById(R.id.BBlockName)).setText(database.getBlockName(Block.BNormal));
@@ -280,6 +303,39 @@ public class Settings extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
+
+        return builder.create();
+    }
+
+    public Dialog regimeEditorDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // Get the layout inflater
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        // https://stackoverflow.com/questions/10313382/how-to-get-elementsfindviewbyid-for-a-layout-which-is-dynamically-loadedsetvi
+        // https://stackoverflow.com/questions/26404951/avoid-passing-null-as-the-view-root-warning-when-inflating-view-for-use-by-ale/26596164
+        @SuppressLint("InflateParams") final View view = inflater.inflate(R.layout.customregime, null);
+
+        // TODO: If the custom regime file isnt empty, update the times to that stored in the file
+        // TODO: If the time is 24-hour time, be sure to to set the display to 12-hour time if they have it set that way
+
+        // Inflate and set the layout for the dialog
+        // Pass null as the parent view because its going in the dialog layout
+        builder.setTitle("Create custom schedule");
+        builder.setView(view)
+                // Add action buttons
+                .setPositiveButton("Save", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // TODO: Write the regime
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        CustomRegimeButton.setChecked(false);
+                    }
+                });
+
 
         return builder.create();
     }

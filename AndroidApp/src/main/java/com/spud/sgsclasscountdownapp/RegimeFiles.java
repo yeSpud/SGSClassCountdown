@@ -475,7 +475,6 @@ class RegimeFiles {
                     long endTime = conversion.timeToLong(Integer.parseInt(endTimeString[0]), Integer.parseInt(endTimeString[1]), Integer.parseInt(endTimeString[2]));
 
                     // Check if its within a block
-                    // TODO: Fix it returning DNormal during lunch
                     if (currentTimeAsLong > startTime && currentTimeAsLong < endTime) {
                         // Success!
                         // Set the returned block, and then end the loop

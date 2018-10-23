@@ -11,7 +11,7 @@
     <string name="automatic">Automatic\n(Coming soon!)</string>
     <string name="builtin">Built-in</string>
     <string name="manual">Manual</string>
-    <string name="override_options">Override options:</string>
+    <string name="override_options">Manual options:</string>
     <string name="_8_period_day_normal">8 period day (Normal)</string>
     <string name="a_day">A day (Long blocks)</string>
     <string name="e_day">E day (Long blocks)</string>
@@ -21,6 +21,7 @@
     <string name="b_block">B Block:</string>
     <string name="c_block">C Block:</string>
     <string name="d_block">D Block:</string>
+    <string name="lunch">Lunch:</string>
     <string name="e_block">E Block:</string>
     <string name="f_block">F Block:</string>
     <string name="g_block">G Block:</string>
@@ -30,12 +31,10 @@
     <string name="reset">Reset</string>
     <string name="create_custom_schedule">Create custom schedule</string>
     <string name="custom">Custom</string>
-    <string name="TimeFiller" translatable="false">00:00:00</string>
     <string name="no_a_block">No A block</string>
     <string name="no_b_block">No B block</string>
     <string name="no_c_block">No C block</string>
     <string name="no_d_block">No D block</string>
-    <string name="lunch">Lunch:</string>
     <string name="no_lunch">No Lunch</string>
     <string name="no_e_block">No E block</string>
     <string name="no_f_block">No F block</string>
