@@ -10,8 +10,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static com.spud.sgsclasscountdownapp.Block.getBlock;
-
 public class Timer extends AppCompatActivity {
 
     private TextView block, countdown, noClass;
@@ -23,6 +21,7 @@ public class Timer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timer);
 
+        // Find the block, countdown, and noClass header text fields from the XML file
         block = findViewById(R.id.blockInfo);
         countdown = findViewById(R.id.countdown);
         noClass = findViewById(R.id.noClass);
@@ -36,6 +35,7 @@ public class Timer extends AppCompatActivity {
             }
         });
 
+        // If the background isn't null, recycle it (RAM management)
         if (background != null) {
             ((BitmapDrawable) background.getDrawable()).getBitmap().recycle();
         }
@@ -43,35 +43,44 @@ public class Timer extends AppCompatActivity {
 
     protected void onPause() {
         super.onPause();
+        // Kill the timer if the app isn't being used (RAM management)
         timer.cancel();
     }
 
     protected void onResume() {
         super.onResume();
 
+        // Create a new timer object, for updating the info about every half second
         timer = new CountDownTimer(Long.MAX_VALUE - 1, 500) {
             @Override
             public void onTick(long l) {
 
                 final Core Core = new Core();
 
-                // If there is no block, change the message to there is no block
-                if (getBlock().equals(Block.NoBlock)) {
+                // Check if the day is not over
+                if (!Core.isDayOver()) {
+                    // Check if its the weekend
+                    if (!WeekType.getWeekType().equals(WeekType.Weekend)) {
+                        final RegimeFiles regime = new RegimeFiles();
+
+                        // Check if there's a block
+                        if (!regime.getBlockFromRegime(Core.timeToLong(Core.getTime())).equals(Block.NoBlock)) {
+                            // Show the block and countdown
+                            block.setVisibility(View.VISIBLE);
+                            countdown.setVisibility(View.VISIBLE);
+                            // Hide the no class header
+                            noClass.setVisibility(View.GONE);
+                            // Update the block and countdown
+                            block.setText(Core.changeBlockHeader(regime.getBlockFromRegime(Core.timeToLong(Core.getTime()))));
+                            countdown.setText(Core.getTimeRemaining());
+                        }
+                    }
+                } else {
+                    // Hide the block and countdown
                     block.setVisibility(View.GONE);
                     countdown.setVisibility(View.GONE);
+                    // Show the no class header
                     noClass.setVisibility(View.VISIBLE);
-                } else {
-
-                    // If the countdown is not showing, set it to visible
-                    if (noClass.getVisibility() == View.VISIBLE) {
-                        block.setVisibility(View.VISIBLE);
-                        countdown.setVisibility(View.VISIBLE);
-                        noClass.setVisibility(View.GONE);
-                    }
-
-                    // Update the time remaining and the current block
-                    block.setText(Core.changeBlockHeader(getBlock()));
-                    countdown.setText(Core.getTimeRemaining());
                 }
             }
 
@@ -92,15 +101,13 @@ public class Timer extends AppCompatActivity {
             Log.e("Background generation", "Out of RAM!");
             background = null;
         }
-
-        RegimeFiles test = new RegimeFiles();
-        Core testCore = new Core();
-        Log.w("Test", test.getBlockFromRegime(testCore.timeToLong(testCore.getTime())).name());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        // If the page is queued to be destroyed, remove the timer, and background (RAM management)
         timer.cancel();
 
         if (background != null) {
