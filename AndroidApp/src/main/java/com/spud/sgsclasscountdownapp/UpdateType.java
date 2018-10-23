@@ -17,7 +17,7 @@ public enum UpdateType {
 
     static UpdateType getUpdateType() {
         DatabaseFile database = new DatabaseFile();
-        Log.i("UpdateType", database.getUpdateType().name());
-        return database.getUpdateType();
+        Log.i("UpdateType", database.getUpdateTypeFromDatabase().name());
+        return database.getUpdateTypeFromDatabase();
     }
 }

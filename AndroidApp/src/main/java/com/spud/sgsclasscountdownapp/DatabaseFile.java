@@ -180,7 +180,7 @@ class DatabaseFile {
         }
     }
 
-    UpdateType getUpdateType() {
+    UpdateType getUpdateTypeFromDatabase() {
         UpdateType update = UpdateType.valueOf(readFromDatabase()[1]);
         Log.i("Update type", update.name());
         return update;

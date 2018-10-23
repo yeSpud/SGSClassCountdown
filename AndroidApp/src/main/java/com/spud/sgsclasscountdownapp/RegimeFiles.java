@@ -388,7 +388,7 @@ class RegimeFiles {
         ArrayList<JSONArray> blockTimes = new ArrayList<>();
 
         // Load the respective jSON file
-        switch (database.getUpdateType()) {
+        switch (database.getUpdateTypeFromDatabase()) {
             case ManualFullDay:
                 fullJson = loadNormalRegime();
                 break;
@@ -464,6 +464,10 @@ class RegimeFiles {
         JSONObject regime;
         JSONArray times;
         try {
+
+            // Get from database in case of overrides
+            DatabaseFile database = new DatabaseFile();
+
             switch (weekType) {
                 case Normal:
                     regime = loadNormalRegime();
@@ -477,7 +481,7 @@ class RegimeFiles {
                     }
                     break;
                 case Long:
-                    if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY) {
+                    if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY || database.getUpdateTypeFromDatabase().equals(UpdateType.ManualADay)) {
                         regime = loadARegime();
                         times = regime.getJSONArray(block.name());
 
@@ -486,7 +490,7 @@ class RegimeFiles {
                             returnString[1] = times.getString(1);
                         }
 
-                    } else {
+                    } else if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY || database.getUpdateTypeFromDatabase().equals(UpdateType.ManualEDay)){
 
                         // Load the E regime
                         regime = loadERegime();

@@ -48,17 +48,17 @@ public class Settings extends AppCompatActivity {
         overrideA = findViewById(R.id.overrideA);
         overrideE = findViewById(R.id.overrideE);
 
-        automatic.setChecked(database.getUpdateType().equals(UpdateType.Automatic));
-        builtin.setChecked(database.getUpdateType().equals(UpdateType.BuiltIn));
-        manual.setChecked(database.getUpdateType().equals(UpdateType.ManualADay) ||
-                database.getUpdateType().equals(UpdateType.ManualEDay) ||
-                database.getUpdateType().equals(UpdateType.ManualFullDay) ||
-                database.getUpdateType().equals(UpdateType.ManualCustomDay));
+        automatic.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.Automatic));
+        builtin.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.BuiltIn));
+        manual.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.ManualADay) ||
+                database.getUpdateTypeFromDatabase().equals(UpdateType.ManualEDay) ||
+                database.getUpdateTypeFromDatabase().equals(UpdateType.ManualFullDay) ||
+                database.getUpdateTypeFromDatabase().equals(UpdateType.ManualCustomDay));
 
         if (manual.isChecked()) {
-            override8.setChecked(database.getUpdateType().equals(UpdateType.ManualFullDay));
-            overrideA.setChecked(database.getUpdateType().equals(UpdateType.ManualADay));
-            overrideE.setChecked(database.getUpdateType().equals(UpdateType.ManualEDay));
+            override8.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.ManualFullDay));
+            overrideA.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.ManualADay));
+            overrideE.setChecked(database.getUpdateTypeFromDatabase().equals(UpdateType.ManualEDay));
         } else {
             for (int i = 0; i < override.getChildCount(); i++) {
                 ((RadioButton) override.getChildAt(i)).setChecked(false);
@@ -258,7 +258,7 @@ public class Settings extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         database.writeToDatabase(database.getDatabaseVersion(),
-                                database.getUpdateType(),
+                                database.getUpdateTypeFromDatabase(),
                                 ((EditText) view.findViewById(R.id.ABlockName)).getText().toString(),
                                 ((EditText) view.findViewById(R.id.BBlockName)).getText().toString(),
                                 ((EditText) view.findViewById(R.id.CBlockName)).getText().toString(),

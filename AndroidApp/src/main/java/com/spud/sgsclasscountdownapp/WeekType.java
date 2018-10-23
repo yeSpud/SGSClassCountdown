@@ -17,27 +17,52 @@ enum WeekType {
 
     static WeekType getWeekType() {
 
-        // TODO: Check if override is in place before referring to built-in
-        int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-        Log.i("getWeekType", Integer.toString(dayOfWeek));
-        switch (dayOfWeek) {
-            case Calendar.SUNDAY:
-                return WeekType.Weekend;
-            case Calendar.MONDAY:
-                return WeekType.Normal;
-            case Calendar.TUESDAY:
-                return WeekType.Normal;
-            case Calendar.WEDNESDAY:
-                return WeekType.Long;
-            case Calendar.THURSDAY:
-                return WeekType.Long;
-            case Calendar.FRIDAY:
-                return WeekType.Normal;
-            case Calendar.SATURDAY:
-                return WeekType.Weekend;
-            default:
-                return WeekType.Weekend;
+        WeekType returnWeek = Weekend;
+
+        DatabaseFile databaseFile = new DatabaseFile();
+        if (databaseFile.getUpdateTypeFromDatabase().equals(UpdateType.BuiltIn)) {
+            int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+            Log.d("DayOfWeek", Integer.toString(dayOfWeek));
+            switch (dayOfWeek) {
+                case Calendar.SUNDAY:
+                    returnWeek = Weekend;
+                    break;
+                case Calendar.MONDAY:
+                    returnWeek = Normal;
+                    break;
+                case Calendar.TUESDAY:
+                    returnWeek = Normal;
+                    break;
+                case Calendar.WEDNESDAY:
+                    returnWeek = Long;
+                    break;
+                case Calendar.THURSDAY:
+                    returnWeek = Long;
+                    break;
+                case Calendar.FRIDAY:
+                    returnWeek = Normal;
+                    break;
+                case Calendar.SATURDAY:
+                    returnWeek = Weekend;
+                    break;
+                default:
+                    returnWeek = Weekend;
+                    break;
+            }
+        } else if (databaseFile.getUpdateTypeFromDatabase().equals(UpdateType.ManualFullDay)) {
+            returnWeek = Normal;
+        } else if (databaseFile.getUpdateTypeFromDatabase().equals(UpdateType.ManualADay)) {
+            returnWeek = Long;
+        } else if (databaseFile.getUpdateTypeFromDatabase().equals(UpdateType.ManualEDay)) {
+            returnWeek = Long;
+        } else if (databaseFile.getUpdateTypeFromDatabase().equals(UpdateType.Automatic)) {
+            // TODO: Add automatic updates
+        } else if (databaseFile.getUpdateTypeFromDatabase().equals(UpdateType.ManualCustomDay)) {
+            returnWeek = Custom;
         }
+
+        Log.i("ReturnWeek", returnWeek.name());
+        return returnWeek;
     }
 
 }

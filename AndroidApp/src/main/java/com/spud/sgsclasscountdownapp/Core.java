@@ -46,68 +46,6 @@ public class Core {
     // TODO: Redo
     String getTimeRemaining() {
         String[] checkTime = new String[3];
-        // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if
-        /*
-        switch (getBlock()) {
-            case ANormal:
-                checkTime = timeToLong(9, 0, 0);
-                break;
-            case BNormal:
-                checkTime = timeToLong(9, 45, 0);
-                break;
-            case CNormal:
-                checkTime = timeToLong(10, 45, 0);
-                break;
-            case DNormal:
-                checkTime = timeToLong(11, 30, 0);
-                break;
-            case ENormal:
-                checkTime = timeToLong(12, 15, 0);
-                break;
-            case FNormal:
-                checkTime = timeToLong(13, 40, 0);
-                break;
-            case GNormal:
-                checkTime = timeToLong(14, 25, 0);
-                break;
-            case HNormal:
-                checkTime = timeToLong(15, 10, 0);
-                break;
-            case ALong:
-                checkTime = timeToLong(9, 45, 0);
-                break;
-            case BLong:
-                checkTime = timeToLong(11, 25, 0);
-                break;
-            case CLong:
-                checkTime = timeToLong(13, 30, 0);
-                break;
-            case DLong:
-                checkTime = timeToLong(15, 10, 0);
-                break;
-            case ELong:
-                checkTime = timeToLong(9, 45, 0);
-                break;
-            case FLong:
-                checkTime = timeToLong(11, 25, 0);
-                break;
-            case GLong:
-                checkTime = timeToLong(13, 30, 0);
-                break;
-            case HLong:
-                checkTime = timeToLong(15, 10, 0);
-                break;
-            case LunchNormal:
-                checkTime = timeToLong(12, 55, 0);
-                break;
-            case LunchLong:
-                checkTime = timeToLong(12, 0, 0);
-                break;
-            default:
-                checkTime = timeToLong(15, 10, 0);
-                break;
-        }
-        */
         RegimeFiles regime = new RegimeFiles();
         try {
             checkTime = regime.getTimes(WeekType.getWeekType(), regime.getBlockFromRegime(timeToLong(getTime())))[1].split(":");
@@ -129,8 +67,6 @@ public class Core {
         long remainingMinutes = timeRemaining / 60;
         String returnString = String.format(Locale.US, "%s:%02d", remainingMinutes, timeRemaining - (remainingMinutes * 60));
         Log.i("Time remaining", returnString);
-        //long seconds = checkTime - timeToLong(getTime()), minutes = seconds / 60;
-        //Log.i("Time remaining", String.format(Locale.US, "%s:%02d", minutes, seconds - (minutes * 60)));
         return returnString;
     }
 

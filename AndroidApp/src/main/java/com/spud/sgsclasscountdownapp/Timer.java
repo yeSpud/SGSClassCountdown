@@ -15,10 +15,18 @@ public class Timer extends AppCompatActivity {
     private TextView block, countdown, noClass;
     private CountDownTimer timer;
 
+    DatabaseFile database;
+    RegimeFiles regime;
+
     private ImageView background;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        database = new DatabaseFile();
+        regime = new RegimeFiles();
+
+        // Set the view to the timer XML file
         setContentView(R.layout.timer);
 
         // Find the block, countdown, and noClass header text fields from the XML file
