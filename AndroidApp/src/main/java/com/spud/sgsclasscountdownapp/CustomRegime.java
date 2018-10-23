@@ -1,6 +1,9 @@
 package com.spud.sgsclasscountdownapp;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
+
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -16,6 +19,23 @@ class CustomRegime {
 
     boolean isEmpty() {
         return CustomRegimeFile.length() == 0;
+    }
+
+    JSONObject loadCustomRegime() throws CustomRegimeError {
+
+        // Check if the regime is empty
+        if (isEmpty()) {
+            throw new CustomRegimeError("The custom regime is empty!");
+        } else {
+            JSONObject jSON = null;
+            // TODO: Finish me
+            Log.i("CustomRegime", jSON.toString());
+            return jSON;
+        }
+    }
+
+    void writeCustomRegime() {
+        // TODO: Finsish me
     }
 
 }

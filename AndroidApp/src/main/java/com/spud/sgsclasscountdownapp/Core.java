@@ -46,7 +46,7 @@ public class Core {
         String[] checkTime = new String[3];
         RegimeFiles regime = new RegimeFiles();
         try {
-            checkTime = regime.getTimes(WeekType.getWeekType(), regime.getBlockFromRegime(timeToLong(getTime())))[1].split(":");
+            checkTime = regime.getTimesFromRegime(WeekType.getWeekType(), regime.getBlockFromRegime(timeToLong(getTime())))[1].split(":");
         } catch (NullPointerException NPE) {
             // Bad regime, just go to 3:10 PM
             checkTime[0] = "15";
@@ -68,7 +68,6 @@ public class Core {
         return returnString;
     }
 
-    // TODO: Create a system for special schedules
     String changeBlockHeader(Block block) {
         DatabaseFile database = new DatabaseFile();
         // https://stackoverflow.com/questions/6705955/why-switch-is-faster-than-if

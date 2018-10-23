@@ -76,7 +76,7 @@
                     app:layout_constraintTop_toTopOf="@id/overrideGroup"
                     tools:targetApi="lollipop" />
 
-                <!-- TODO: Finish automatic updates! -->
+                <!-- TODO: Add automatic updates -->
                 <RadioButton
                     android:id="@+id/AutomaticUpdate"
                     android:layout_width="wrap_content"

@@ -422,6 +422,8 @@ class RegimeFiles {
         // Create an array of all the blocks from the jsonFile
         ArrayList<JSONArray> blockTimes = new ArrayList<>();
 
+        CustomRegime customRegime = new CustomRegime();
+
         // Load the respective jSON file
         switch (database.getUpdateTypeFromDatabase()) {
             case ManualFullDay:
@@ -438,16 +440,26 @@ class RegimeFiles {
                     fullJson = loadNormalRegime();
                 } else if (WeekType.getWeekType() == WeekType.Long) {
                     fullJson = Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY ? loadARegime() : loadERegime();
-                } else //noinspection StatementWithEmptyBody
-                    if (WeekType.getWeekType() == WeekType.Custom) {
-                        // TODO: Add custom support
+                } else if (WeekType.getWeekType() == WeekType.Custom) {
+                    try {
+                        fullJson = customRegime.loadCustomRegime();
+                    } catch (CustomRegimeError customRegimeError) {
+                        customRegimeError.printStackTrace();
+                        fullJson = null;
                     }
+                }
                 break;
             case ManualCustomDay:
-                // TODO: Custom day
+                try {
+                    fullJson = customRegime.loadCustomRegime();
+                } catch (CustomRegimeError customRegimeError) {
+                    customRegimeError.printStackTrace();
+                    // TODO: Set the database type to built-in on fail
+                    fullJson = null;
+                }
                 break;
             case Automatic:
-                // TODO: Automatic day
+                // TODO: Add automatic updates
                 break;
             default:
                 fullJson = null;
@@ -492,9 +504,9 @@ class RegimeFiles {
 
     }
 
-    String[] getTimes(WeekType weekType, Block block) {
+    String[] getTimesFromRegime(WeekType weekType, Block block) {
         String[] returnString = new String[2];
-        JSONObject regime;
+        JSONObject regime = null;
         JSONArray times;
         try {
             // Get from database in case of overrides
@@ -532,8 +544,21 @@ class RegimeFiles {
                             returnString[1] = times.getString(1);
                         }
                     }
+                    break;
                 case Custom:
-                    // TODO: Finish custom case
+                    // Load the custom regime
+                    CustomRegime customRegime = new CustomRegime();
+                    try {
+                        regime = customRegime.loadCustomRegime();
+                    } catch (CustomRegimeError customRegimeError) {
+                        customRegimeError.printStackTrace();
+                    }
+
+                    times = regime.getJSONArray(block.name());
+                    if (times != null) {
+                        returnString[0] = times.getString(0);
+                        returnString[1] = times.getString(1);
+                    }
                     break;
             }
         } catch (JSONException jSONError) {
