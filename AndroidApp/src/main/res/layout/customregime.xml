@@ -1,8 +1,516 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/buttongray">
+
+        <!-- TODO: Use time pickers for setting the time https://developer.android.com/guide/topics/ui/controls/pickers -->
+
+        <TextView
+            android:id="@+id/ABlockHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/a_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/ABlockStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="300dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/ABlockHeader"
+            app:layout_constraintRight_toLeftOf="@id/ABlockEnd"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/ABlockEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/ABlockStart"
+            app:layout_constraintRight_toLeftOf="@id/NoABlock"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoABlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="No A block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
 
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/BBlockHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/b_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ABlockHeader" />
+
+        <EditText
+            android:id="@+id/BBlockStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/BBlockHeader"
+            app:layout_constraintRight_toLeftOf="@id/BBlockEnd"
+            app:layout_constraintTop_toTopOf="@id/ABlockStart"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/BBlockEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/BBlockStart"
+            app:layout_constraintRight_toLeftOf="@id/NoBBlock"
+            app:layout_constraintTop_toTopOf="@id/ABlockEnd"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoBBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="No B block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/NoABlock" />
+
+
+
+        <TextView
+            android:id="@+id/CBlockHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/c_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/BBlockHeader" />
+
+        <EditText
+            android:id="@+id/CBlockStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/CBlockHeader"
+            app:layout_constraintRight_toLeftOf="@id/CBlockEnd"
+            app:layout_constraintTop_toTopOf="@id/BBlockStart"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/CBlockEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/CBlockStart"
+            app:layout_constraintRight_toLeftOf="@id/NoCBlock"
+            app:layout_constraintTop_toTopOf="@id/BBlockEnd"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoCBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="No C block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/NoBBlock" />
+
+
+
+        <TextView
+            android:id="@+id/DBlockHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/d_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/CBlockHeader" />
+
+        <EditText
+            android:id="@+id/DBlockStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/DBlockHeader"
+            app:layout_constraintRight_toLeftOf="@id/DBlockEnd"
+            app:layout_constraintTop_toTopOf="@id/CBlockStart"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/DBlockEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/DBlockStart"
+            app:layout_constraintRight_toLeftOf="@id/NoDBlock"
+            app:layout_constraintTop_toTopOf="@id/CBlockEnd"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoDBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="No D block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/NoCBlock" />
+
+
+
+        <TextView
+            android:id="@+id/LunchHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
+            android:text="Lunch:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/DBlockHeader" />
+
+        <EditText
+            android:id="@+id/LunchStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/LunchHeader"
+            app:layout_constraintRight_toLeftOf="@id/LunchEnd"
+            app:layout_constraintTop_toTopOf="@id/DBlockStart"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/LunchEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/LunchStart"
+            app:layout_constraintRight_toLeftOf="@id/NoLunch"
+            app:layout_constraintTop_toTopOf="@id/DBlockEnd"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoLunch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="No Lunch"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/NoDBlock" />
+
+
+
+        <TextView
+            android:id="@+id/EBlockHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/e_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/LunchHeader" />
+
+        <EditText
+            android:id="@+id/EBlockStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/EBlockHeader"
+            app:layout_constraintRight_toLeftOf="@id/EBlockEnd"
+            app:layout_constraintTop_toTopOf="@id/LunchStart"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/EBlockEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/EBlockStart"
+            app:layout_constraintRight_toLeftOf="@id/NoEBlock"
+            app:layout_constraintTop_toTopOf="@id/LunchEnd"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoEBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="No E block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/NoLunch" />
+
+
+
+        <TextView
+            android:id="@+id/FBlockHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/f_block"
+            app:layout_constraintRight_toLeftOf="@id/FBlockName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/EBlockHeader" />
+
+        <EditText
+            android:id="@+id/FBlockStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/FBlockHeader"
+            app:layout_constraintRight_toLeftOf="@id/FBlockEnd"
+            app:layout_constraintTop_toTopOf="@id/EBlockStart"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/FBlockEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/FBlockStart"
+            app:layout_constraintRight_toLeftOf="@id/NoFBlock"
+            app:layout_constraintTop_toTopOf="@id/EBlockEnd"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoFBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="No F block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/NoEBlock" />
+
+
+
+        <TextView
+            android:id="@+id/GBlockHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/g_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/FBlockHeader" />
+
+        <EditText
+            android:id="@+id/GBlockStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:time="no"
+            android:inputType="textAutoCorrect"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/GBlockHeader"
+            app:layout_constraintRight_toLeftOf="@id/GBlockEnd"
+            app:layout_constraintTop_toTopOf="@id/FBlockStart"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/GBlockEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:background="@color/fbutton_color_silver"
+            android:time="no"
+            android:inputType="textAutoCorrect"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/GBlockStart"
+            app:layout_constraintRight_toLeftOf="@id/NoGBlock"
+            app:layout_constraintTop_toTopOf="@id/FBlockEnd"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoGBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="No G block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/NoFBlock" />
+
+
+
+        <TextView
+            android:id="@+id/HBlockHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/h_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/GBlockHeader" />
+
+        <EditText
+            android:id="@+id/HBlockStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/HBlockHeader"
+            app:layout_constraintRight_toLeftOf="@id/HBlockEnd"
+            app:layout_constraintTop_toTopOf="@id/GBlockStart"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <EditText
+            android:id="@+id/HBlockEnd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/fbutton_color_silver"
+            android:importantForAutofill="no"
+            android:inputType="time"
+            android:text=""
+            app:layout_constraintLeft_toRightOf="@id/HBlockStart"
+            app:layout_constraintRight_toLeftOf="@id/NoHBlock"
+            app:layout_constraintTop_toTopOf="@id/GBlockEnd"
+            tools:ignore="LabelFor"
+            tools:targetApi="o" />
+
+        <CheckBox
+            android:id="@+id/NoHBlock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="10dp"
+            android:text="No H block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/NoGBlock" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

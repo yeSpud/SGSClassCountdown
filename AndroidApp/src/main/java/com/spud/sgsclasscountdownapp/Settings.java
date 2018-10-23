@@ -41,6 +41,8 @@ public class Settings extends AppCompatActivity {
 
         override = findViewById(R.id.overrideGroup);
 
+        // TODO: Add it so when custom is checked, but no regime has been set, automatically open the editor
+
         automatic = findViewById(R.id.AutomaticUpdate);
         builtin = findViewById(R.id.Builtin);
         manual = findViewById(R.id.Manual);
@@ -110,7 +112,10 @@ public class Settings extends AppCompatActivity {
         super.onResume();
 
         // Check if there is a network connection available for the automatic portion
-        automatic.setEnabled(isNetworkAvailable());
+        //automatic.setEnabled(isNetworkAvailable());
+        // TODO: Finish automatic updates!
+        // Until then, it will be disabled
+        automatic.setEnabled(false);
 
         // Setup the background (Unless out of RAM)
         // https://stackoverflow.com/questions/10200256/out-of-memory-error-imageview-issue
@@ -130,6 +135,8 @@ public class Settings extends AppCompatActivity {
         DatabaseFile database = new DatabaseFile();
         //noinspection UnusedAssignment - Complaines about not being initalized if I make it uninitalized, which it says it can be...
         UpdateType updateType = null;
+
+        // TODO: Add it so when custom is checked, but no regime has been set, automatically open the editor
 
         if (builtin.isChecked()) {
             updateType = UpdateType.BuiltIn;

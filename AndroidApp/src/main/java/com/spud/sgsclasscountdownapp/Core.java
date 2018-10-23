@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
-// TODO: On april 1st, count up from the start of class
+// TODO: On april 1st, count up from the start of class ;)
 
 /**
  * Created by Stephen Ogden on 4/10/18.
@@ -42,15 +42,13 @@ public class Core {
         return longTime;
     }
 
-    // TODO: Create a system for special schedules
-    // TODO: Redo
     String getTimeRemaining() {
         String[] checkTime = new String[3];
         RegimeFiles regime = new RegimeFiles();
         try {
             checkTime = regime.getTimes(WeekType.getWeekType(), regime.getBlockFromRegime(timeToLong(getTime())))[1].split(":");
         } catch (NullPointerException NPE) {
-            // Wrong regime
+            // Bad regime, just go to 3:10 PM
             checkTime[0] = "15";
             checkTime[1] = "10";
             checkTime[2] = "0";

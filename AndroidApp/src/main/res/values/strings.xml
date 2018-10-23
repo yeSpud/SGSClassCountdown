@@ -8,7 +8,7 @@
     <string name="bluredbackgroundImageDescription">The blurred background image to be displayed</string>
     <string name="settings">Settings</string>
     <string name="schedule_update_method">Schedule update method:</string>
-    <string name="automatic">Automatic</string>
+    <string name="automatic">Automatic\n(Coming soon!)</string>
     <string name="builtin">Built-in</string>
     <string name="manual">Manual</string>
     <string name="override_options">Override options:</string>

@@ -1,12 +1,8 @@
 package com.spud.sgsclasscountdownapp;
 
-import android.util.Log;
-
 import java.util.Calendar;
 
 import static com.spud.sgsclasscountdownapp.WeekType.getWeekType;
-
-// TODO: Create a system for special schedules
 
 /**
  * Created by Stephen Ogden on 10/3/18.
@@ -33,7 +29,7 @@ public enum Block {
     NoBlock,
     LunchNormal,
     LunchLong,
-    Special;
+    Custom;
 
     @Deprecated
     static Block getBlock() {
@@ -47,7 +43,6 @@ public enum Block {
                 weekType = getWeekType();
                 break;
             case Automatic:
-                // TODO: Finish this
                 weekType = getWeekType();
                 break;
             case ManualADay:
@@ -70,12 +65,9 @@ public enum Block {
                 break;
 
         }
-        Log.i("WeekType", weekType.name());
 
-        // TODO: Redo all this to get times from json files
         switch (weekType) {
             case Normal:
-                Log.d("Schedule", "Full day");
                 if (core.timeToLong(core.getTime()) > core.timeToLong(8, 20, 0) && core.timeToLong(core.getTime()) < core.timeToLong(9, 0, 0)) {
                     block = Block.ANormal;
                 } else if (core.timeToLong(core.getTime()) > core.timeToLong(9, 5, 0) && core.timeToLong(core.getTime()) < core.timeToLong(9, 45, 0)) {
@@ -97,7 +89,6 @@ public enum Block {
                 }
                 break;
             case Long:
-                Log.d("Schedule", "Long day");
                 if (core.timeToLong(core.getTime()) > core.timeToLong(8, 20, 0) && core.timeToLong(core.getTime()) < core.timeToLong(9, 45, 9)) {
                     if (dayOfWeek == Calendar.WEDNESDAY || UpdateType.getUpdateType().equals(UpdateType.ManualADay)) {
                         block = Block.ALong;
@@ -137,7 +128,6 @@ public enum Block {
                 }
                 break;
         }
-        Log.i("Block", block.name());
         return block;
     }
 

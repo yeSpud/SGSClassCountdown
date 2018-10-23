@@ -12,12 +12,10 @@ import android.widget.TextView;
 
 public class Timer extends AppCompatActivity {
 
-    private TextView block, countdown, noClass;
-    private CountDownTimer timer;
-
     DatabaseFile database;
     RegimeFiles regime;
-
+    private TextView block, countdown, noClass;
+    private CountDownTimer timer;
     private ImageView background;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +79,19 @@ public class Timer extends AppCompatActivity {
                             // Update the block and countdown
                             block.setText(Core.changeBlockHeader(regime.getBlockFromRegime(Core.timeToLong(Core.getTime()))));
                             countdown.setText(Core.getTimeRemaining());
+                        } else {
+                            // Hide the block and countdown
+                            block.setVisibility(View.GONE);
+                            countdown.setVisibility(View.GONE);
+                            // Show the no class header
+                            noClass.setVisibility(View.VISIBLE);
                         }
+                    } else {
+                        // Hide the block and countdown
+                        block.setVisibility(View.GONE);
+                        countdown.setVisibility(View.GONE);
+                        // Show the no class header
+                        noClass.setVisibility(View.VISIBLE);
                     }
                 } else {
                     // Hide the block and countdown

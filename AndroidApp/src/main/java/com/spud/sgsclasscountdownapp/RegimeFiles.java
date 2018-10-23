@@ -458,13 +458,11 @@ class RegimeFiles {
 
     }
 
-    // TODO: fix for overrides
     String[] getTimes(WeekType weekType, Block block) {
         String[] returnString = new String[2];
         JSONObject regime;
         JSONArray times;
         try {
-
             // Get from database in case of overrides
             DatabaseFile database = new DatabaseFile();
 
@@ -491,7 +489,6 @@ class RegimeFiles {
                         }
 
                     } else if (Calendar.getInstance().get(Calendar.DAY_OF_WEEK) == Calendar.THURSDAY || database.getUpdateTypeFromDatabase().equals(UpdateType.ManualEDay)){
-
                         // Load the E regime
                         regime = loadERegime();
 
@@ -502,9 +499,8 @@ class RegimeFiles {
                         }
                     }
                 case Custom:
-                    // TODO: Add custom case
+                    // TODO: Finish custom case
                     break;
-
             }
         } catch (JSONException jSONError) {
             jSONError.printStackTrace();
