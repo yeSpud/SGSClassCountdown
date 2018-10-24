@@ -15,11 +15,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import java.util.ArrayList;
 
 /**
  * Created by Stephen Ogden on 4/23/18.
@@ -177,7 +180,6 @@ public class Settings extends AppCompatActivity {
             updateType = UpdateType.BuiltIn;
         }
 
-
         database.writeToDatabase(database.getDatabaseVersion(),
                 updateType,
                 database.getBlockName(Block.ANormal),
@@ -317,7 +319,6 @@ public class Settings extends AppCompatActivity {
         final CustomRegime customRegime = new CustomRegime();
 
         // TODO: If the custom regime file isn't empty, update the times to that stored in the file
-        // TODO: If the time is 24-hour time, be sure to to set the display to 12-hour time if they have it set that way
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
@@ -327,7 +328,84 @@ public class Settings extends AppCompatActivity {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        customRegime.writeCustomRegime();
+
+                        // Create an array of times for classes
+                        ArrayList<ClassTime> classes = new ArrayList<>();
+
+                        // Get the custom regime times
+                        if (!((CheckBox) view.findViewById(R.id.NoABlock)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.ANormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.ABlockStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.ABlockEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        if (!((CheckBox) view.findViewById(R.id.NoBBlock)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.BNormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.BBlockStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.BBlockEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        if (!((CheckBox) view.findViewById(R.id.NoCBlock)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.CNormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.CBlockStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.CBlockEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        if (!((CheckBox) view.findViewById(R.id.NoDBlock)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.DNormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.DBlockStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.DBlockEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        if (!((CheckBox) view.findViewById(R.id.NoLunch)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.LunchNormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.LunchStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.LunchEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        if (!((CheckBox) view.findViewById(R.id.NoEBlock)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.ENormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.EBlockStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.EBlockEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        if (!((CheckBox) view.findViewById(R.id.NoFBlock)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.FNormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.FBlockStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.FBlockEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        if (!((CheckBox) view.findViewById(R.id.NoGBlock)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.GNormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.GBlockStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.GBlockEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        if (!((CheckBox) view.findViewById(R.id.NoHBlock)).isChecked()) {
+                            ClassTime clss = new ClassTime();
+                            clss.block = Block.HNormal;
+                            clss.startTime = ((EditText) view.findViewById(R.id.HBlockStart)).getText().toString();
+                            clss.endTime = ((EditText) view.findViewById(R.id.HBlockEnd)).getText().toString();
+                            classes.add(clss);
+                        }
+
+                        customRegime.writeCustomRegime(classes);
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

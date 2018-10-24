@@ -3,12 +3,14 @@ package com.spud.sgsclasscountdownapp;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -35,8 +37,6 @@ class CustomRegime {
         if (isEmpty()) {
             throw new CustomRegimeError("The custom regime is empty!");
         } else {
-
-            // TODO: Finish me
 
             // https://stackoverflow.com/questions/13814503/reading-a-json-file-in-android
             InputStream inStream = null;
@@ -89,8 +89,40 @@ class CustomRegime {
     }
 
     void writeCustomRegime(ArrayList<ClassTime> classes) {
-        // TODO: Finish me
-        
+        // Delete and recreate the regime if one exists
+        if (!isEmpty()) {
+            RegimeFiles regime = new RegimeFiles();
+            regime.deleteCustomRegime();
+            regime.createCustomRegime();
+        }
+
+        try {
+            JSONObject FileContence = new JSONObject();
+            JSONObject customRegime = new JSONObject();
+
+            // For each block entered, get the name, and times
+            for (int i = 0; i < classes.size(); i++) {
+                ClassTime clss = classes.get(i);
+                Log.d("AddingClass", clss.block.name());
+                customRegime.put(clss.block.name(), new JSONArray().put(0, clss.startTime).put(1, clss.endTime));
+            }
+
+            // Add that crap to the custom database
+            FileContence.put("Custom Regime", customRegime);
+
+            // Write it to the file
+            try {
+                FileWriter writer = new FileWriter(CustomRegimeFile);
+                writer.write(FileContence.toString(4));
+                writer.flush();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (JSONException jSONError) {
+            jSONError.printStackTrace();
+        }
+
     }
 
 }

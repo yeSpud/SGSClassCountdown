@@ -506,7 +506,7 @@ class RegimeFiles {
     String[] getTimesFromRegime(WeekType weekType, Block block) {
         String[] returnString = new String[2];
         JSONObject regime = null;
-        JSONArray times;
+        JSONArray times = null;
         try {
             // Get from database in case of overrides
             DatabaseFile database = new DatabaseFile();
@@ -553,7 +553,9 @@ class RegimeFiles {
                         customRegimeError.printStackTrace();
                     }
 
-                    times = regime.getJSONArray(block.name());
+                    if (regime != null) {
+                        times = regime.getJSONArray(block.name());
+                    }
                     if (times != null) {
                         returnString[0] = times.getString(0);
                         returnString[1] = times.getString(1);
