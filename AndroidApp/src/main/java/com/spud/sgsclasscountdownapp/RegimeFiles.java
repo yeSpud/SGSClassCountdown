@@ -482,6 +482,7 @@ class RegimeFiles {
                 for (int k = 0; k < blockTimes.size(); k++) {
                     String[] startTimeString = blockTimes.get(k).getString(0).split(":");
                     String[] endTimeString = blockTimes.get(k).getString(1).split(":");
+                    // TODO: Check if seconds is missing (Will produce java.lang.ArrayIndexOutOfBoundsException: length=2; index=2)
                     long startTime = conversion.timeToLong(Integer.parseInt(startTimeString[0]), Integer.parseInt(startTimeString[1]), Integer.parseInt(startTimeString[2]));
                     long endTime = conversion.timeToLong(Integer.parseInt(endTimeString[0]), Integer.parseInt(endTimeString[1]), Integer.parseInt(endTimeString[2]));
 

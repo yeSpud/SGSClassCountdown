@@ -104,6 +104,9 @@ class CustomRegime {
             for (int i = 0; i < classes.size(); i++) {
                 ClassTime clss = classes.get(i);
                 Log.d("AddingClass", clss.block.name());
+                // Have to manually add seconds :P
+                clss.startTime = clss.startTime + ":00";
+                clss.endTime = clss.endTime + ":00";
                 customRegime.put(clss.block.name(), new JSONArray().put(0, clss.startTime).put(1, clss.endTime));
             }
 
