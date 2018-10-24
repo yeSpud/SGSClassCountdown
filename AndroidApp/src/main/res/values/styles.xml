@@ -4,6 +4,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+        <item name="colorAccent">@color/fbutton_color_concrete</item>
+        <item name="colorPrimary">@color/fbutton_color_clouds</item>
     </style>
 
 </resources>

@@ -320,6 +320,118 @@ public class Settings extends AppCompatActivity {
 
         // TODO: If the custom regime file isn't empty, update the times to that stored in the file
 
+        final CheckBox NoABlock = view.findViewById(R.id.NoABlock),
+                NoBBlock = view.findViewById(R.id.NoBBlock),
+                NoCBlock = view.findViewById(R.id.NoCBlock),
+                NoDBlock = view.findViewById(R.id.NoDBlock),
+                NoLunch = view.findViewById(R.id.NoLunch),
+                NoEBlock = view.findViewById(R.id.NoEBlock),
+                NoFBlock = view.findViewById(R.id.NoFBlock),
+                NoGBlock = view.findViewById(R.id.NoGBlock),
+                NoHBlock = view.findViewById(R.id.NoHBlock);
+
+        final EditText ABlockStart = view.findViewById(R.id.ABlockStart), ABlockEnd = view.findViewById(R.id.ABlockEnd),
+                BBlockStart = view.findViewById(R.id.BBlockStart), BBlockEnd = view.findViewById(R.id.BBlockEnd),
+                CBlockStart = view.findViewById(R.id.CBlockStart), CBlockEnd = view.findViewById(R.id.CBlockEnd),
+                DBlockStart = view.findViewById(R.id.DBlockStart), DBlockEnd = view.findViewById(R.id.DBlockEnd),
+                LunchStart = view.findViewById(R.id.LunchStart), LunchEnd = view.findViewById(R.id.LunchEnd),
+                EBlockStart = view.findViewById(R.id.EBlockStart), EBlockEnd = view.findViewById(R.id.EBlockEnd),
+                FBlockStart = view.findViewById(R.id.FBlockStart), FBlockEnd = view.findViewById(R.id.FBlockEnd),
+                GBlockStart = view.findViewById(R.id.GBlockStart), GBlockEnd = view.findViewById(R.id.GBlockEnd),
+                HBlockStart = view.findViewById(R.id.HBlockStart), HBlockEnd = view.findViewById(R.id.HBlockEnd);
+
+        // Initialize the edit-texts based on whether or not the button is checked
+        ABlockStart.setEnabled(!NoABlock.isChecked());
+        ABlockEnd.setEnabled(!NoABlock.isChecked());
+        BBlockStart.setEnabled(!NoBBlock.isChecked());
+        BBlockEnd.setEnabled(!NoBBlock.isChecked());
+        CBlockStart.setEnabled(!NoCBlock.isChecked());
+        CBlockEnd.setEnabled(!NoCBlock.isChecked());
+        DBlockStart.setEnabled(!NoDBlock.isChecked());
+        DBlockEnd.setEnabled(!NoDBlock.isChecked());
+        LunchStart.setEnabled(!NoLunch.isChecked());
+        LunchEnd.setEnabled(!NoLunch.isChecked());
+        EBlockStart.setEnabled(!NoEBlock.isChecked());
+        EBlockEnd.setEnabled(!NoEBlock.isChecked());
+        FBlockStart.setEnabled(!NoFBlock.isChecked());
+        FBlockEnd.setEnabled(!NoFBlock.isChecked());
+        GBlockStart.setEnabled(!NoGBlock.isChecked());
+        GBlockEnd.setEnabled(!NoGBlock.isChecked());
+        HBlockStart.setEnabled(!NoHBlock.isChecked());
+        HBlockEnd.setEnabled(!NoHBlock.isChecked());
+
+        NoABlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                ABlockStart.setEnabled(!isChecked);
+                ABlockEnd.setEnabled(!isChecked);
+            }
+        });
+
+        NoBBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                BBlockStart.setEnabled(!isChecked);
+                BBlockEnd.setEnabled(!isChecked);
+            }
+        });
+
+        NoCBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                CBlockStart.setEnabled(!isChecked);
+                CBlockEnd.setEnabled(!isChecked);
+            }
+        });
+
+        NoDBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                DBlockStart.setEnabled(!isChecked);
+                DBlockEnd.setEnabled(!isChecked);
+            }
+        });
+
+        NoLunch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                LunchStart.setEnabled(!isChecked);
+                LunchEnd.setEnabled(!isChecked);
+            }
+        });
+
+        NoEBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                EBlockStart.setEnabled(!isChecked);
+                EBlockEnd.setEnabled(!isChecked);
+            }
+        });
+
+        NoFBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                FBlockStart.setEnabled(!isChecked);
+                FBlockEnd.setEnabled(!isChecked);
+            }
+        });
+
+        NoGBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                GBlockStart.setEnabled(!isChecked);
+                GBlockEnd.setEnabled(!isChecked);
+            }
+        });
+
+        NoHBlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                HBlockStart.setEnabled(!isChecked);
+                HBlockEnd.setEnabled(!isChecked);
+            }
+        });
+
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
         builder.setTitle("Create custom schedule");
@@ -333,75 +445,75 @@ public class Settings extends AppCompatActivity {
                         ArrayList<ClassTime> classes = new ArrayList<>();
 
                         // Get the custom regime times
-                        if (!((CheckBox) view.findViewById(R.id.NoABlock)).isChecked()) {
+                        if (!NoABlock.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.ANormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.ABlockStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.ABlockEnd)).getText().toString();
+                            clss.startTime = ABlockStart.getText().toString();
+                            clss.endTime = ABlockEnd.getText().toString();
                             classes.add(clss);
                         }
 
-                        if (!((CheckBox) view.findViewById(R.id.NoBBlock)).isChecked()) {
+                        if (!NoBBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.BNormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.BBlockStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.BBlockEnd)).getText().toString();
+                            clss.startTime = BBlockStart.getText().toString();
+                            clss.endTime = BBlockEnd.getText().toString();
                             classes.add(clss);
                         }
 
-                        if (!((CheckBox) view.findViewById(R.id.NoCBlock)).isChecked()) {
+                        if (!NoCBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.CNormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.CBlockStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.CBlockEnd)).getText().toString();
+                            clss.startTime = CBlockStart.getText().toString();
+                            clss.endTime = CBlockEnd.getText().toString();
                             classes.add(clss);
                         }
 
-                        if (!((CheckBox) view.findViewById(R.id.NoDBlock)).isChecked()) {
+                        if (!NoDBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.DNormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.DBlockStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.DBlockEnd)).getText().toString();
+                            clss.startTime = DBlockStart.getText().toString();
+                            clss.endTime = DBlockEnd.getText().toString();
                             classes.add(clss);
                         }
 
-                        if (!((CheckBox) view.findViewById(R.id.NoLunch)).isChecked()) {
+                        if (!NoLunch.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.LunchNormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.LunchStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.LunchEnd)).getText().toString();
+                            clss.startTime = LunchStart.getText().toString();
+                            clss.endTime = LunchEnd.getText().toString();
                             classes.add(clss);
                         }
 
-                        if (!((CheckBox) view.findViewById(R.id.NoEBlock)).isChecked()) {
+                        if (!NoEBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.ENormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.EBlockStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.EBlockEnd)).getText().toString();
+                            clss.startTime = EBlockStart.getText().toString();
+                            clss.endTime = EBlockEnd.getText().toString();
                             classes.add(clss);
                         }
 
-                        if (!((CheckBox) view.findViewById(R.id.NoFBlock)).isChecked()) {
+                        if (!NoFBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.FNormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.FBlockStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.FBlockEnd)).getText().toString();
+                            clss.startTime = FBlockStart.getText().toString();
+                            clss.endTime = FBlockEnd.getText().toString();
                             classes.add(clss);
                         }
 
-                        if (!((CheckBox) view.findViewById(R.id.NoGBlock)).isChecked()) {
+                        if (!NoGBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.GNormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.GBlockStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.GBlockEnd)).getText().toString();
+                            clss.startTime = GBlockStart.getText().toString();
+                            clss.endTime = GBlockEnd.getText().toString();
                             classes.add(clss);
                         }
 
-                        if (!((CheckBox) view.findViewById(R.id.NoHBlock)).isChecked()) {
+                        if (!NoHBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
                             clss.block = Block.HNormal;
-                            clss.startTime = ((EditText) view.findViewById(R.id.HBlockStart)).getText().toString();
-                            clss.endTime = ((EditText) view.findViewById(R.id.HBlockEnd)).getText().toString();
+                            clss.startTime = HBlockStart.getText().toString();
+                            clss.endTime = HBlockEnd.getText().toString();
                             classes.add(clss);
                         }
 

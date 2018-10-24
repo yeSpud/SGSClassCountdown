@@ -56,6 +56,7 @@ public class Timer extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        // TODO: Why not just use a new thread and run this on a while condition loop...
         // Create a new timer object, for updating the info about every half second
         timer = new CountDownTimer(Long.MAX_VALUE - 1, 500) {
             @Override
