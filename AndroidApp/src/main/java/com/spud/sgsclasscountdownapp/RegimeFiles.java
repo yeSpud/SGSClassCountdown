@@ -454,7 +454,6 @@ class RegimeFiles {
                     fullJson = customRegime.loadCustomRegime();
                 } catch (CustomRegimeError customRegimeError) {
                     customRegimeError.printStackTrace();
-                    // TODO: Set the database type to built-in on fail
                     fullJson = null;
                 }
                 break;

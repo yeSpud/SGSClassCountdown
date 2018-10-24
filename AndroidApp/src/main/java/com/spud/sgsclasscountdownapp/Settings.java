@@ -155,8 +155,6 @@ public class Settings extends AppCompatActivity {
         //noinspection UnusedAssignment - Complaines about not being initalized if I make it uninitalized, which it says it can be...
         UpdateType updateType = null;
 
-        // TODO: Add it so when custom is checked, but no regime has been set, automatically open the editor
-
         if (builtin.isChecked()) {
             updateType = UpdateType.BuiltIn;
         } else if (automatic.isChecked()) {
@@ -316,7 +314,9 @@ public class Settings extends AppCompatActivity {
         // https://stackoverflow.com/questions/26404951/avoid-passing-null-as-the-view-root-warning-when-inflating-view-for-use-by-ale/26596164
         @SuppressLint("InflateParams") final View view = inflater.inflate(R.layout.customregime, null);
 
-        // TODO: If the custom regime file isnt empty, update the times to that stored in the file
+        final CustomRegime customRegime = new CustomRegime();
+
+        // TODO: If the custom regime file isn't empty, update the times to that stored in the file
         // TODO: If the time is 24-hour time, be sure to to set the display to 12-hour time if they have it set that way
 
         // Inflate and set the layout for the dialog
@@ -327,7 +327,7 @@ public class Settings extends AppCompatActivity {
                 .setPositiveButton("Save", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        // TODO: Write the regime
+                        customRegime.writeCustomRegime();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

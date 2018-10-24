@@ -63,7 +63,12 @@ public class Core {
         long longTime = timeToLong(hours, minutes, seconds);
         long timeRemaining = longTime - timeToLong(getTime());
         long remainingMinutes = timeRemaining / 60;
-        String returnString = String.format(Locale.US, "%s:%02d", remainingMinutes, timeRemaining - (remainingMinutes * 60));
+        String returnString;
+        if ((timeRemaining - (remainingMinutes * 60) <= 60) && remainingMinutes == 0) {
+            returnString = String.format(Locale.US, "%02d", timeRemaining - (remainingMinutes * 60));
+        } else {
+            returnString = String.format(Locale.US, "%s:%02d", remainingMinutes, timeRemaining - (remainingMinutes * 60));
+        }
         Log.i("Time remaining", returnString);
         return returnString;
     }
