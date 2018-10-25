@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TimePicker;
 
 import java.util.ArrayList;
 
@@ -429,6 +430,14 @@ public class Settings extends AppCompatActivity {
             }
 
         }
+
+        // https://www.tutorialspoint.com/android/android_timepicker_control.htm
+        ABlockStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TimePicker timePicker = new TimePicker();
+            }
+        });
 
         NoABlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
