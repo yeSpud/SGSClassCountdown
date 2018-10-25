@@ -128,4 +128,23 @@ class CustomRegime {
 
     }
 
+    boolean isBlockNotInCustomRegime(Block block) {
+        boolean returnBool = false;
+
+        try {
+            // Load the custom regime
+            JSONObject regime = loadCustomRegime();
+            Log.d("CustomRegime", regime.toString());
+
+            // If we can get the block name from the regime, then return true
+            returnBool = regime.toString().contains(block.name());
+
+        } catch (CustomRegimeError customRegimeError) {
+            customRegimeError.printStackTrace();
+        }
+
+        Log.i("BlockInCustomRegime", Boolean.toString(returnBool));
+        return !returnBool;
+    }
+
 }

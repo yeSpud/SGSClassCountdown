@@ -26,4 +26,6 @@ public enum Block {
     LunchNormal,
     LunchLong,
     Custom
+
+    // TODO: Add a group of blocks thats just for names, no long vs normal stuff
 }

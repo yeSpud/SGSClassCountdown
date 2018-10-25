@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -318,8 +317,6 @@ public class Settings extends AppCompatActivity {
 
         final CustomRegime customRegime = new CustomRegime();
 
-        // TODO: If the custom regime file isn't empty, update the times to that stored in the file
-
         final CheckBox NoABlock = view.findViewById(R.id.NoABlock),
                 NoBBlock = view.findViewById(R.id.NoBBlock),
                 NoCBlock = view.findViewById(R.id.NoCBlock),
@@ -340,6 +337,19 @@ public class Settings extends AppCompatActivity {
                 GBlockStart = view.findViewById(R.id.GBlockStart), GBlockEnd = view.findViewById(R.id.GBlockEnd),
                 HBlockStart = view.findViewById(R.id.HBlockStart), HBlockEnd = view.findViewById(R.id.HBlockEnd);
 
+        // If the custom regime file isn't empty, set the check boxes to whether or not the block is in the regime
+        if (!customRegime.isEmpty()) {
+            NoABlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.ANormal));
+            NoBBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.BNormal));
+            NoCBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.CNormal));
+            NoDBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.DNormal));
+            NoLunch.setChecked(customRegime.isBlockNotInCustomRegime(Block.LunchNormal));
+            NoEBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.ENormal));
+            NoFBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.FNormal));
+            NoGBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.GNormal));
+            NoHBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.HNormal));
+        }
+
         // Initialize the edit-texts based on whether or not the button is checked
         ABlockStart.setEnabled(!NoABlock.isChecked());
         ABlockEnd.setEnabled(!NoABlock.isChecked());
@@ -359,6 +369,66 @@ public class Settings extends AppCompatActivity {
         GBlockEnd.setEnabled(!NoGBlock.isChecked());
         HBlockStart.setEnabled(!NoHBlock.isChecked());
         HBlockEnd.setEnabled(!NoHBlock.isChecked());
+
+        // If the custom regime file isn't empty, set the correct start and end times
+        if (!customRegime.isEmpty()) {
+            RegimeFiles regime = new RegimeFiles();
+
+            if (!customRegime.isBlockNotInCustomRegime(Block.ANormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.ANormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.ANormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.ANormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.ANormal)[1].length() - 3));
+            }
+            // TODO: Error after A block for getting time from database
+            if (!customRegime.isBlockNotInCustomRegime(Block.BNormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.BNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.BNormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.BNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.BNormal)[1].length() - 3));
+            }
+
+            if (!customRegime.isBlockNotInCustomRegime(Block.CNormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.CNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.CNormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.CNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.CNormal)[1].length() - 3));
+            }
+
+            if (!customRegime.isBlockNotInCustomRegime(Block.DNormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.DNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.DNormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.DNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.DNormal)[1].length() - 3));
+            }
+
+            if (!customRegime.isBlockNotInCustomRegime(Block.LunchNormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.LunchNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.LunchNormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.LunchNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.LunchNormal)[1].length() - 3));
+            }
+
+            if (!customRegime.isBlockNotInCustomRegime(Block.ENormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.ENormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.ENormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.ENormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.ENormal)[1].length() - 3));
+            }
+
+            if (!customRegime.isBlockNotInCustomRegime(Block.FNormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.FNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.FNormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.FNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.FNormal)[1].length() - 3));
+            }
+
+            if (!customRegime.isBlockNotInCustomRegime(Block.GNormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.GNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.GNormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.GNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.GNormal)[1].length() - 3));
+            }
+
+            if (!customRegime.isBlockNotInCustomRegime(Block.HNormal)) {
+                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.HNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.HNormal)[0].length() - 3));
+                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.HNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.HNormal)[1].length() - 3));
+            }
+
+        }
 
         NoABlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
