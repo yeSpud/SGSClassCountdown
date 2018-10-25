@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -451,15 +450,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("A block starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -481,15 +471,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("A block ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
@@ -512,15 +493,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("B block starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -542,15 +514,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("B block ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
@@ -573,15 +536,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("C block starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -603,15 +557,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("C block ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
@@ -634,15 +579,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("D block starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -664,15 +600,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("D block ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
@@ -695,15 +622,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Lunch starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -725,15 +643,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Lunch ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
@@ -756,15 +665,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("E block starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -786,15 +686,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("E block ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
@@ -817,15 +708,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("F block starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -847,15 +729,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("F block ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
@@ -878,15 +751,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("G block starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -908,15 +772,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("G block ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
@@ -939,15 +794,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("H block starts at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
             }
         });
@@ -969,15 +815,6 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("H block ends at:");
-                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
-                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
-                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
-                        getString(R.string.cancel),
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do stuff
-                            }
-                        });
                 mTimePicker.show();
 
             }
