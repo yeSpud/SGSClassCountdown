@@ -375,62 +375,15 @@ public class Settings extends AppCompatActivity {
 
         // If the custom regime file isn't empty, set the correct start and end times
         if (!customRegime.isEmpty()) {
-            RegimeFiles regime = new RegimeFiles();
-
-            if (!customRegime.isBlockNotInCustomRegime(Block.ANormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.ANormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.ANormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.ANormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.ANormal)[1].length() - 3));
-            }
-            // TODO: Error after A block for getting time from database
-            if (!customRegime.isBlockNotInCustomRegime(Block.BNormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.BNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.BNormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.BNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.BNormal)[1].length() - 3));
-            }
-
-            if (!customRegime.isBlockNotInCustomRegime(Block.CNormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.CNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.CNormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.CNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.CNormal)[1].length() - 3));
-            }
-
-            if (!customRegime.isBlockNotInCustomRegime(Block.DNormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.DNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.DNormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.DNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.DNormal)[1].length() - 3));
-            }
-
-            if (!customRegime.isBlockNotInCustomRegime(Block.LunchNormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.LunchNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.LunchNormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.LunchNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.LunchNormal)[1].length() - 3));
-            }
-
-            if (!customRegime.isBlockNotInCustomRegime(Block.ENormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.ENormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.ENormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.ENormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.ENormal)[1].length() - 3));
-            }
-
-            if (!customRegime.isBlockNotInCustomRegime(Block.FNormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.FNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.FNormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.FNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.FNormal)[1].length() - 3));
-            }
-
-            if (!customRegime.isBlockNotInCustomRegime(Block.GNormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.GNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.GNormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.GNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.GNormal)[1].length() - 3));
-            }
-
-            if (!customRegime.isBlockNotInCustomRegime(Block.HNormal)) {
-                // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-                ABlockStart.setText(regime.getTimesFromRegime(WeekType.Custom, Block.HNormal)[0].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.HNormal)[0].length() - 3));
-                ABlockEnd.setText(regime.getTimesFromRegime(WeekType.Custom, Block.HNormal)[1].substring(0, regime.getTimesFromRegime(WeekType.Custom, Block.HNormal)[1].length() - 3));
-            }
-
+            setEditText(ABlockStart, ABlockEnd, Block.ANormal);
+            setEditText(BBlockStart, BBlockEnd, Block.BNormal);
+            setEditText(CBlockStart, CBlockEnd, Block.CNormal);
+            setEditText(DBlockStart, DBlockEnd, Block.DNormal);
+            setEditText(LunchStart, LunchEnd, Block.LunchNormal);
+            setEditText(EBlockStart, EBlockEnd, Block.ENormal);
+            setEditText(FBlockStart, FBlockEnd, Block.FNormal);
+            setEditText(GBlockStart, GBlockEnd, Block.GNormal);
+            setEditText(HBlockStart, HBlockEnd, Block.HNormal);
         }
 
         // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
@@ -988,4 +941,16 @@ public class Settings extends AppCompatActivity {
 
         return builder.create();
     }
+
+    private void setEditText(EditText startText, EditText endText, Block block) {
+        if (!new CustomRegime().isBlockNotInCustomRegime(block)) {
+            RegimeFiles regimeFiles = new RegimeFiles();
+            // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
+            startText.setText(regimeFiles.getTimesFromRegime(WeekType.Custom, block)[0].substring(0, regimeFiles.getTimesFromRegime(WeekType.Custom, block)[0].length() - 3));
+            endText.setText(regimeFiles.getTimesFromRegime(WeekType.Custom, block)[1].substring(0, regimeFiles.getTimesFromRegime(WeekType.Custom, block)[1].length() - 3));
+        }
+    }
+
+    
+
 }
