@@ -25,6 +25,7 @@ import android.widget.TimePicker;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by Stephen Ogden on 4/23/18.
@@ -404,7 +405,7 @@ public class Settings extends AppCompatActivity {
         setTimePicker(GBlockEnd, "G block ends at:");
         setTimePicker(HBlockStart, "H block starts at:");
         setTimePicker(HBlockEnd, "H block ends at:");
-        
+
         NoABlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -595,7 +596,7 @@ public class Settings extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        String time = String.format(Locale.US,"%s:%02d", selectedHour, selectedMinute);
                         Log.d("SettingCustomTime", time);
                         text.setText(time);
                     }

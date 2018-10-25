@@ -12,8 +12,6 @@
         android:layout_height="wrap_content"
         android:background="@color/buttongray">
 
-        <!-- TODO: Use time pickers for setting the time https://developer.android.com/guide/topics/ui/controls/pickers -->
-
         <TextView
             android:id="@+id/ABlockHeader"
             android:layout_width="wrap_content"
