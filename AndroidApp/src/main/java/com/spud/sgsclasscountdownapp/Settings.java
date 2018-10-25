@@ -386,393 +386,25 @@ public class Settings extends AppCompatActivity {
             setEditText(HBlockStart, HBlockEnd, Block.HNormal);
         }
 
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        ABlockStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        ABlockStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("A block starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        ABlockEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        ABlockEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("A block ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        BBlockStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        BBlockStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("B block starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        BBlockEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        BBlockEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("B block ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        CBlockStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        CBlockStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("C block starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        CBlockEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        CBlockEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("C block ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        DBlockStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        DBlockStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("D block starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        DBlockEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        DBlockEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("D block ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        LunchStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        LunchStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Lunch starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        LunchEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        LunchEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("Lunch ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        EBlockStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        EBlockStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("E block starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        EBlockEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        EBlockEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("E block ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        FBlockStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        FBlockStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("F block starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        FBlockEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        FBlockEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("F block ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        GBlockStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        GBlockStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("G block starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        GBlockEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        GBlockEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("G block ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        HBlockStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        HBlockStart.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("H block starts at:");
-                mTimePicker.show();
-            }
-        });
-
-        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
-        HBlockEnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar mcurrentTime = Calendar.getInstance();
-                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-                int minute = mcurrentTime.get(Calendar.MINUTE);
-                TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String time = String.format("%s:%s", selectedHour, selectedMinute);
-                        Log.d("SettingCustomTime", time);
-                        HBlockEnd.setText(time);
-                    }
-                }, hour, minute, true);//Yes 24 hour time
-                mTimePicker.setTitle("H block ends at:");
-                mTimePicker.show();
-
-            }
-        });
-
+        setTimePicker(ABlockStart, "A block starts at:");
+        setTimePicker(ABlockEnd, "A block ends at:");
+        setTimePicker(BBlockStart, "B block starts at:");
+        setTimePicker(BBlockEnd, "B block ends at:");
+        setTimePicker(CBlockStart, "C block starts at:");
+        setTimePicker(CBlockEnd, "C block ends at:");
+        setTimePicker(DBlockStart, "D block starts at:");
+        setTimePicker(DBlockEnd, "D block ends at:");
+        setTimePicker(LunchStart, "Lunch starts at:");
+        setTimePicker(LunchEnd, "Lunch ends at:");
+        setTimePicker(EBlockStart, "E block starts at:");
+        setTimePicker(EBlockEnd, "E block ends at:");
+        setTimePicker(FBlockStart, "F block starts at:");
+        setTimePicker(FBlockEnd, "F block ends at:");
+        setTimePicker(GBlockStart, "G block starts at:");
+        setTimePicker(GBlockEnd, "G block ends at:");
+        setTimePicker(HBlockStart, "H block starts at:");
+        setTimePicker(HBlockEnd, "H block ends at:");
+        
         NoABlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -951,6 +583,27 @@ public class Settings extends AppCompatActivity {
         }
     }
 
-    
+    private void setTimePicker(final EditText text, final String title) {
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        text.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        text.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle(title);
+                mTimePicker.show();
+            }
+        });
+    }
 
 }
