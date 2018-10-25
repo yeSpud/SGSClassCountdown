@@ -15,7 +15,6 @@
     <string name="_8_period_day_normal">8 period day (Normal)</string>
     <string name="a_day">A day (Long blocks)</string>
     <string name="e_day">E day (Long blocks)</string>
-    <string name="restore_to_default">Reset</string>
     <string name="set_class_names">Set class names</string>
     <string name="a_block">A Block:</string>
     <string name="b_block">B Block:</string>
@@ -40,4 +39,22 @@
     <string name="no_f_block">No F block</string>
     <string name="no_g_block">No G block</string>
     <string name="no_h_block">No H block</string>
+    <string name="aBlockTime" translatable="false">8:20</string>
+    <string name="aBlockTimeEnd" translatable="false">9:00</string>
+    <string name="bBlockTime" translatable="false">9:05</string>
+    <string name="bBlockTimeEnd" translatable="false">9:45</string>
+    <string name="cBlockTime" translatable="false">10:05</string>
+    <string name="cBlockTimeEnd" translatable="false">10:45</string>
+    <string name="dBlockTime" translatable="false">10:50</string>
+    <string name="dBlockTimeEnd" translatable="false">11:30</string>
+    <string name="lunchTime" translatable="false">12:15</string>
+    <string name="lunchTimeEnd" translatable="false">12:55</string>
+    <string name="eBlockTime" translatable="false">11:35</string>
+    <string name="eBlockTimeEnd" translatable="false">12:15</string>
+    <string name="fBlockTime" translatable="false">13:00</string>
+    <string name="fBlockTimeEnd" translatable="false">13:40</string>
+    <string name="gBlockTime" translatable="false">13:45</string>
+    <string name="gBlockTimeEnd" translatable="false">14:25</string>
+    <string name="hBlockTime" translatable="false">14:30</string>
+    <string name="hBlockTimeEnd" translatable="false">15:10</string>
 </resources>
