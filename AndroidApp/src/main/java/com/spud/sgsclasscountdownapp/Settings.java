@@ -3,6 +3,7 @@ package com.spud.sgsclasscountdownapp;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -23,6 +25,7 @@ import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by Stephen Ogden on 4/23/18.
@@ -431,11 +434,552 @@ public class Settings extends AppCompatActivity {
 
         }
 
-        // https://www.tutorialspoint.com/android/android_timepicker_control.htm
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
         ABlockStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePicker timePicker = new TimePicker();
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        ABlockStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("A block starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        ABlockEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        ABlockEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("A block ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        BBlockStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        BBlockStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("B block starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        BBlockEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        BBlockEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("B block ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        CBlockStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        CBlockStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("C block starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        CBlockEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        CBlockEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("C block ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        DBlockStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        DBlockStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("D block starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        DBlockEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        DBlockEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("D block ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        LunchStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        LunchStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Lunch starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        LunchEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        LunchEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Lunch ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        EBlockStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        EBlockStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("E block starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        EBlockEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        EBlockEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("E block ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        FBlockStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        FBlockStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("F block starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        FBlockEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        FBlockEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("F block ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        GBlockStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        GBlockStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("G block starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        GBlockEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        GBlockEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("G block ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        HBlockStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        HBlockStart.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("H block starts at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+            }
+        });
+
+        // https://stackoverflow.com/questions/17901946/timepicker-dialog-from-clicking-edittext
+        HBlockEnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(Settings.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String time = String.format("%s:%s", selectedHour, selectedMinute);
+                        Log.d("SettingCustomTime", time);
+                        HBlockEnd.setText(time);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("H block ends at:");
+                // https://stackoverflow.com/questions/4724781/timepickerdialog-cancel-button
+                // https://stackoverflow.com/questions/3125879/how-to-make-a-listener-for-a-datepickers-cancel-button-in-android
+                mTimePicker.setButton(DialogInterface.BUTTON_NEGATIVE,
+                        getString(R.string.cancel),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do stuff
+                            }
+                        });
+                mTimePicker.show();
+
             }
         });
 
@@ -604,7 +1148,6 @@ public class Settings extends AppCompatActivity {
                         CustomRegimeButton.setChecked(false);
                     }
                 });
-
 
         return builder.create();
     }
