@@ -27,7 +27,7 @@ public class Timer extends AppCompatActivity {
         // Set the view to the timer XML file
         setContentView(R.layout.timer);
 
-        // Find the block, countdown, and noClass header text fields from the XML file
+        // Find the blockType, countdown, and noClass header text fields from the XML file
         block = findViewById(R.id.blockInfo);
         countdown = findViewById(R.id.countdown);
         noClass = findViewById(R.id.noClass);
@@ -56,13 +56,12 @@ public class Timer extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // TODO: Why not just use a new thread and run this on a while condition loop...
         // Create a new timer object, for updating the info about every half second
         timer = new CountDownTimer(Long.MAX_VALUE - 1, 500) {
             @Override
             public void onTick(long l) {
 
-                final Core Core = new Core();
+                Core Core = new Core();
 
                 // Check if the day is not over
                 if (!Core.isDayOver()) {
@@ -70,32 +69,32 @@ public class Timer extends AppCompatActivity {
                     if (!WeekType.getWeekType().equals(WeekType.Weekend)) {
                         final RegimeFiles regime = new RegimeFiles();
 
-                        // Check if there's a block
-                        if (!regime.getBlockFromRegime(Core.timeToLong(Core.getTime())).equals(Block.NoBlock)) {
-                            // Show the block and countdown
+                        // Check if there's a blockType
+                        if (!regime.getBlockFromRegime(Core.getTimeAsLong()).equals(BlockNames.NoBlock)) {
+                            // Show the blockType and countdown
                             block.setVisibility(View.VISIBLE);
                             countdown.setVisibility(View.VISIBLE);
                             // Hide the no class header
                             noClass.setVisibility(View.GONE);
-                            // Update the block and countdown
-                            block.setText(Core.changeBlockHeader(regime.getBlockFromRegime(Core.timeToLong(Core.getTime()))));
+                            // Update the blockType and countdown
+                            block.setText(Core.changeBlockHeader(regime.getBlockFromRegime(Core.getTimeAsLong())));
                             countdown.setText(Core.getTimeRemaining());
                         } else {
-                            // Hide the block and countdown
+                            // Hide the blockType and countdown
                             block.setVisibility(View.GONE);
                             countdown.setVisibility(View.GONE);
                             // Show the no class header
                             noClass.setVisibility(View.VISIBLE);
                         }
                     } else {
-                        // Hide the block and countdown
+                        // Hide the blockType and countdown
                         block.setVisibility(View.GONE);
                         countdown.setVisibility(View.GONE);
                         // Show the no class header
                         noClass.setVisibility(View.VISIBLE);
                     }
                 } else {
-                    // Hide the block and countdown
+                    // Hide the blockType and countdown
                     block.setVisibility(View.GONE);
                     countdown.setVisibility(View.GONE);
                     // Show the no class header

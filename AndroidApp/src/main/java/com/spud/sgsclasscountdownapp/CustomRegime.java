@@ -37,7 +37,6 @@ class CustomRegime {
         if (isEmpty()) {
             throw new CustomRegimeError("The custom regime is empty!");
         } else {
-
             // https://stackoverflow.com/questions/13814503/reading-a-json-file-in-android
             InputStream inStream = null;
             try {
@@ -48,25 +47,14 @@ class CustomRegime {
                 regime.createCustomRegime();
             }
 
-            int size = 0;
+            byte[] buffer = null;
             try {
-                size = inStream != null ? inStream.available() : 0;
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            byte[] buffer = new byte[size];
-
-            try {
+                int size = inStream != null ? inStream.available() : 0;
+                buffer = new byte[size];
                 if (inStream != null) {
                     int read = inStream.read(buffer);
                     Log.d("Stream", Integer.toString(read));
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            try {
                 if (inStream != null) {
                     inStream.close();
                 }
@@ -75,11 +63,12 @@ class CustomRegime {
             }
 
             try {
-                jSON = new JSONObject(new String(buffer, "UTF-8")).getJSONObject("Custom Regime");
+                if (buffer != null) {
+                    jSON = new JSONObject(new String(buffer, "UTF-8")).getJSONObject("Custom Regime");
+                }
             } catch (JSONException | UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-
         }
 
         if (jSON != null) {
@@ -100,14 +89,14 @@ class CustomRegime {
             JSONObject FileContence = new JSONObject();
             JSONObject customRegime = new JSONObject();
 
-            // For each block entered, get the name, and times
+            // For each blockType entered, get the name, and times
             for (int i = 0; i < classes.size(); i++) {
                 ClassTime clss = classes.get(i);
-                Log.d("AddingClass", clss.block.name());
+                Log.d("AddingClass", clss.blockName.getName());
                 // Have to manually add seconds :P
                 clss.startTime = clss.startTime + ":00";
                 clss.endTime = clss.endTime + ":00";
-                customRegime.put(clss.block.name(), new JSONArray().put(0, clss.startTime).put(1, clss.endTime));
+                customRegime.put(clss.blockName.getName(), new JSONArray().put(0, clss.startTime).put(1, clss.endTime));
             }
 
             // Add that crap to the custom database
@@ -128,7 +117,7 @@ class CustomRegime {
 
     }
 
-    boolean isBlockNotInCustomRegime(Block block) {
+    boolean isBlockNotInCustomRegime(BlockNames blockNames) {
         boolean returnBool = false;
 
         try {
@@ -136,8 +125,8 @@ class CustomRegime {
             JSONObject regime = loadCustomRegime();
             Log.d("CustomRegime", regime.toString());
 
-            // If we can get the block name from the regime, then return true
-            returnBool = regime.toString().contains(block.name());
+            // If we can get the blockType name from the regime, then return true
+            returnBool = regime.toString().contains(blockNames.getName());
 
         } catch (CustomRegimeError customRegimeError) {
             customRegimeError.printStackTrace();

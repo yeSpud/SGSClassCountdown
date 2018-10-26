@@ -134,49 +134,33 @@ class DatabaseFile {
         }
     }
 
-    String getBlockName(Block block) {
+    String getBlockName(BlockNames blockName) {
 
         // Load the database content
         String[] databaseContent = readFromDatabase();
 
         Log.i("Database content", Arrays.toString(databaseContent));
 
-        // Go through each block provided, and return what that block is called in the database
-        switch (block) {
-            case ALong:
+        // Go through each blockType provided, and return what that blockType is called in the database
+        switch (blockName) {
+            case A:
                 return databaseContent[2];
-            case BLong:
+            case B:
                 return databaseContent[3];
-            case CLong:
+            case C:
                 return databaseContent[4];
-            case DLong:
+            case D:
                 return databaseContent[5];
-            case ELong:
+            case E:
                 return databaseContent[6];
-            case FLong:
+            case F:
                 return databaseContent[7];
-            case GLong:
+            case G:
                 return databaseContent[8];
-            case HLong:
-                return databaseContent[9];
-            case ANormal:
-                return databaseContent[2];
-            case BNormal:
-                return databaseContent[3];
-            case CNormal:
-                return databaseContent[4];
-            case DNormal:
-                return databaseContent[5];
-            case ENormal:
-                return databaseContent[6];
-            case FNormal:
-                return databaseContent[7];
-            case GNormal:
-                return databaseContent[8];
-            case HNormal:
+            case H:
                 return databaseContent[9];
             default:
-                return "";
+                return null;
         }
     }
 

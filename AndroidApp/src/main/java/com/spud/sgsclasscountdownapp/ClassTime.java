@@ -7,7 +7,7 @@ package com.spud.sgsclasscountdownapp;
  */
 class ClassTime {
 
-    Block block;
+    BlockNames blockName;
     String startTime;
     String endTime;
 

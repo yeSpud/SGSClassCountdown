@@ -5,7 +5,7 @@ package com.spud.sgsclasscountdownapp;
  * FTC 6128 | 7935
  * FRC 1595
  */
-public enum Block {
+public enum BlockType {
     ANormal,
     BNormal,
     CNormal,
@@ -24,8 +24,5 @@ public enum Block {
     HLong,
     NoBlock,
     LunchNormal,
-    LunchLong,
-    Custom
-
-    // TODO: Add a group of blocks thats just for names, no long vs normal stuff
+    LunchLong
 }

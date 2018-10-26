@@ -25,7 +25,7 @@ public enum DatabaseKeys {
     }
 
     public String getName() {
-        Log.i("getName", value);
+        Log.i("DatabaseKey", value);
         return value;
     }
 }

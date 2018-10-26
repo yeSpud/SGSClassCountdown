@@ -185,14 +185,14 @@ public class Settings extends AppCompatActivity {
 
         database.writeToDatabase(database.getDatabaseVersion(),
                 updateType,
-                database.getBlockName(Block.ANormal),
-                database.getBlockName(Block.BNormal),
-                database.getBlockName(Block.CNormal),
-                database.getBlockName(Block.DNormal),
-                database.getBlockName(Block.ENormal),
-                database.getBlockName(Block.FNormal),
-                database.getBlockName(Block.GNormal),
-                database.getBlockName(Block.HNormal));
+                database.getBlockName(BlockNames.A),
+                database.getBlockName(BlockNames.B),
+                database.getBlockName(BlockNames.C),
+                database.getBlockName(BlockNames.D),
+                database.getBlockName(BlockNames.E),
+                database.getBlockName(BlockNames.F),
+                database.getBlockName(BlockNames.G),
+                database.getBlockName(BlockNames.H));
 
         if (background != null) {
             background.setImageDrawable(null);
@@ -218,14 +218,14 @@ public class Settings extends AppCompatActivity {
         // https://stackoverflow.com/questions/26404951/avoid-passing-null-as-the-view-root-warning-when-inflating-view-for-use-by-ale/26596164
         @SuppressLint("InflateParams") final View view = inflater.inflate(R.layout.classnames, null);
 
-        ((EditText) view.findViewById(R.id.ABlockName)).setText(database.getBlockName(Block.ANormal));
-        ((EditText) view.findViewById(R.id.BBlockName)).setText(database.getBlockName(Block.BNormal));
-        ((EditText) view.findViewById(R.id.CBlockName)).setText(database.getBlockName(Block.CNormal));
-        ((EditText) view.findViewById(R.id.DBlockName)).setText(database.getBlockName(Block.DNormal));
-        ((EditText) view.findViewById(R.id.EBlockName)).setText(database.getBlockName(Block.ENormal));
-        ((EditText) view.findViewById(R.id.FBlockName)).setText(database.getBlockName(Block.FNormal));
-        ((EditText) view.findViewById(R.id.GBlockName)).setText(database.getBlockName(Block.GNormal));
-        ((EditText) view.findViewById(R.id.HBlockName)).setText(database.getBlockName(Block.HNormal));
+        ((EditText) view.findViewById(R.id.ABlockName)).setText(database.getBlockName(BlockNames.A));
+        ((EditText) view.findViewById(R.id.BBlockName)).setText(database.getBlockName(BlockNames.B));
+        ((EditText) view.findViewById(R.id.CBlockName)).setText(database.getBlockName(BlockNames.C));
+        ((EditText) view.findViewById(R.id.DBlockName)).setText(database.getBlockName(BlockNames.D));
+        ((EditText) view.findViewById(R.id.EBlockName)).setText(database.getBlockName(BlockNames.E));
+        ((EditText) view.findViewById(R.id.FBlockName)).setText(database.getBlockName(BlockNames.F));
+        ((EditText) view.findViewById(R.id.GBlockName)).setText(database.getBlockName(BlockNames.G));
+        ((EditText) view.findViewById(R.id.HBlockName)).setText(database.getBlockName(BlockNames.H));
 
         view.findViewById(R.id.ABlockReset).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -341,17 +341,17 @@ public class Settings extends AppCompatActivity {
                 GBlockStart = view.findViewById(R.id.GBlockStart), GBlockEnd = view.findViewById(R.id.GBlockEnd),
                 HBlockStart = view.findViewById(R.id.HBlockStart), HBlockEnd = view.findViewById(R.id.HBlockEnd);
 
-        // If the custom regime file isn't empty, set the check boxes to whether or not the block is in the regime
+        // If the custom regime file isn't empty, set the check boxes to whether or not the blockType is in the regime
         if (!customRegime.isEmpty()) {
-            NoABlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.ANormal));
-            NoBBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.BNormal));
-            NoCBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.CNormal));
-            NoDBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.DNormal));
-            NoLunch.setChecked(customRegime.isBlockNotInCustomRegime(Block.LunchNormal));
-            NoEBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.ENormal));
-            NoFBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.FNormal));
-            NoGBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.GNormal));
-            NoHBlock.setChecked(customRegime.isBlockNotInCustomRegime(Block.HNormal));
+            NoABlock.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.A));
+            NoBBlock.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.B));
+            NoCBlock.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.C));
+            NoDBlock.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.D));
+            NoLunch.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.Lunch));
+            NoEBlock.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.E));
+            NoFBlock.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.F));
+            NoGBlock.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.G));
+            NoHBlock.setChecked(customRegime.isBlockNotInCustomRegime(BlockNames.H));
         }
 
         // Initialize the edit-texts based on whether or not the button is checked
@@ -376,35 +376,35 @@ public class Settings extends AppCompatActivity {
 
         // If the custom regime file isn't empty, set the correct start and end times
         if (!customRegime.isEmpty()) {
-            setEditText(ABlockStart, ABlockEnd, Block.ANormal);
-            setEditText(BBlockStart, BBlockEnd, Block.BNormal);
-            setEditText(CBlockStart, CBlockEnd, Block.CNormal);
-            setEditText(DBlockStart, DBlockEnd, Block.DNormal);
-            setEditText(LunchStart, LunchEnd, Block.LunchNormal);
-            setEditText(EBlockStart, EBlockEnd, Block.ENormal);
-            setEditText(FBlockStart, FBlockEnd, Block.FNormal);
-            setEditText(GBlockStart, GBlockEnd, Block.GNormal);
-            setEditText(HBlockStart, HBlockEnd, Block.HNormal);
+            setEditText(ABlockStart, ABlockEnd, BlockNames.A);
+            setEditText(BBlockStart, BBlockEnd, BlockNames.B);
+            setEditText(CBlockStart, CBlockEnd, BlockNames.C);
+            setEditText(DBlockStart, DBlockEnd, BlockNames.D);
+            setEditText(LunchStart, LunchEnd, BlockNames.Lunch);
+            setEditText(EBlockStart, EBlockEnd, BlockNames.E);
+            setEditText(FBlockStart, FBlockEnd, BlockNames.F);
+            setEditText(GBlockStart, GBlockEnd, BlockNames.G);
+            setEditText(HBlockStart, HBlockEnd, BlockNames.H);
         }
 
-        setTimePicker(ABlockStart, "A block starts at:");
-        setTimePicker(ABlockEnd, "A block ends at:");
-        setTimePicker(BBlockStart, "B block starts at:");
-        setTimePicker(BBlockEnd, "B block ends at:");
-        setTimePicker(CBlockStart, "C block starts at:");
-        setTimePicker(CBlockEnd, "C block ends at:");
-        setTimePicker(DBlockStart, "D block starts at:");
-        setTimePicker(DBlockEnd, "D block ends at:");
+        setTimePicker(ABlockStart, "A blockType starts at:");
+        setTimePicker(ABlockEnd, "A blockType ends at:");
+        setTimePicker(BBlockStart, "B blockType starts at:");
+        setTimePicker(BBlockEnd, "B blockType ends at:");
+        setTimePicker(CBlockStart, "C blockType starts at:");
+        setTimePicker(CBlockEnd, "C blockType ends at:");
+        setTimePicker(DBlockStart, "D blockType starts at:");
+        setTimePicker(DBlockEnd, "D blockType ends at:");
         setTimePicker(LunchStart, "Lunch starts at:");
         setTimePicker(LunchEnd, "Lunch ends at:");
-        setTimePicker(EBlockStart, "E block starts at:");
-        setTimePicker(EBlockEnd, "E block ends at:");
-        setTimePicker(FBlockStart, "F block starts at:");
-        setTimePicker(FBlockEnd, "F block ends at:");
-        setTimePicker(GBlockStart, "G block starts at:");
-        setTimePicker(GBlockEnd, "G block ends at:");
-        setTimePicker(HBlockStart, "H block starts at:");
-        setTimePicker(HBlockEnd, "H block ends at:");
+        setTimePicker(EBlockStart, "E blockType starts at:");
+        setTimePicker(EBlockEnd, "E blockType ends at:");
+        setTimePicker(FBlockStart, "F blockType starts at:");
+        setTimePicker(FBlockEnd, "F blockType ends at:");
+        setTimePicker(GBlockStart, "G blockType starts at:");
+        setTimePicker(GBlockEnd, "G blockType ends at:");
+        setTimePicker(HBlockStart, "H blockType starts at:");
+        setTimePicker(HBlockEnd, "H blockType ends at:");
 
         NoABlock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -493,7 +493,7 @@ public class Settings extends AppCompatActivity {
                         // Get the custom regime times
                         if (!NoABlock.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.ANormal;
+                            clss.blockName = BlockNames.A;
                             clss.startTime = ABlockStart.getText().toString();
                             clss.endTime = ABlockEnd.getText().toString();
                             classes.add(clss);
@@ -501,7 +501,7 @@ public class Settings extends AppCompatActivity {
 
                         if (!NoBBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.BNormal;
+                            clss.blockName = BlockNames.B;
                             clss.startTime = BBlockStart.getText().toString();
                             clss.endTime = BBlockEnd.getText().toString();
                             classes.add(clss);
@@ -509,7 +509,7 @@ public class Settings extends AppCompatActivity {
 
                         if (!NoCBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.CNormal;
+                            clss.blockName = BlockNames.C;
                             clss.startTime = CBlockStart.getText().toString();
                             clss.endTime = CBlockEnd.getText().toString();
                             classes.add(clss);
@@ -517,7 +517,7 @@ public class Settings extends AppCompatActivity {
 
                         if (!NoDBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.DNormal;
+                            clss.blockName = BlockNames.D;
                             clss.startTime = DBlockStart.getText().toString();
                             clss.endTime = DBlockEnd.getText().toString();
                             classes.add(clss);
@@ -525,7 +525,7 @@ public class Settings extends AppCompatActivity {
 
                         if (!NoLunch.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.LunchNormal;
+                            clss.blockName = BlockNames.Lunch;
                             clss.startTime = LunchStart.getText().toString();
                             clss.endTime = LunchEnd.getText().toString();
                             classes.add(clss);
@@ -533,7 +533,7 @@ public class Settings extends AppCompatActivity {
 
                         if (!NoEBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.ENormal;
+                            clss.blockName = BlockNames.E;
                             clss.startTime = EBlockStart.getText().toString();
                             clss.endTime = EBlockEnd.getText().toString();
                             classes.add(clss);
@@ -541,7 +541,7 @@ public class Settings extends AppCompatActivity {
 
                         if (!NoFBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.FNormal;
+                            clss.blockName = BlockNames.F;
                             clss.startTime = FBlockStart.getText().toString();
                             clss.endTime = FBlockEnd.getText().toString();
                             classes.add(clss);
@@ -549,7 +549,7 @@ public class Settings extends AppCompatActivity {
 
                         if (!NoGBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.GNormal;
+                            clss.blockName = BlockNames.G;
                             clss.startTime = GBlockStart.getText().toString();
                             clss.endTime = GBlockEnd.getText().toString();
                             classes.add(clss);
@@ -557,7 +557,7 @@ public class Settings extends AppCompatActivity {
 
                         if (!NoHBlock.isChecked()) {
                             ClassTime clss = new ClassTime();
-                            clss.block = Block.HNormal;
+                            clss.blockName = BlockNames.H;
                             clss.startTime = HBlockStart.getText().toString();
                             clss.endTime = HBlockEnd.getText().toString();
                             classes.add(clss);
@@ -575,12 +575,12 @@ public class Settings extends AppCompatActivity {
         return builder.create();
     }
 
-    private void setEditText(EditText startText, EditText endText, Block block) {
-        if (!new CustomRegime().isBlockNotInCustomRegime(block)) {
+    private void setEditText(EditText startText, EditText endText, BlockNames blockName) {
+        if (!new CustomRegime().isBlockNotInCustomRegime(blockName)) {
             RegimeFiles regimeFiles = new RegimeFiles();
             // https://stackoverflow.com/questions/15268489/replacing-last-character-in-a-string-with-java
-            startText.setText(regimeFiles.getTimesFromRegime(WeekType.Custom, block)[0].substring(0, regimeFiles.getTimesFromRegime(WeekType.Custom, block)[0].length() - 3));
-            endText.setText(regimeFiles.getTimesFromRegime(WeekType.Custom, block)[1].substring(0, regimeFiles.getTimesFromRegime(WeekType.Custom, block)[1].length() - 3));
+            startText.setText(regimeFiles.getTimesFromRegime(WeekType.Custom, blockName)[0].substring(0, regimeFiles.getTimesFromRegime(WeekType.Custom, blockName)[0].length() - 3));
+            endText.setText(regimeFiles.getTimesFromRegime(WeekType.Custom, blockName)[1].substring(0, regimeFiles.getTimesFromRegime(WeekType.Custom, blockName)[1].length() - 3));
         }
     }
 
