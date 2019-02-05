@@ -2,7 +2,6 @@ package com.spud.sgsclasscountdownapp.Regime;
 
 /**
  * Created by Stephen Ogden on 2/4/19.
- * FRC 1595
  */
 public class Class {
 
@@ -21,6 +20,21 @@ public class Class {
         this.setName(name);
         this.setStartTime(startTime);
         this.setEndTime(endTime);
+    }
+
+    /**
+     * (Non native java) Class constructor.
+     *
+     * @param name       The official name of the class.
+     * @param startTime  When the class starts (as a long).
+     * @param endTime    When the class ends (as a long).
+     * @param customName The customized name for the class
+     */
+    public Class(String name, long startTime, long endTime, String customName) {
+        this.setName(name);
+        this.setStartTime(startTime);
+        this.setEndTime(endTime);
+        this.setCustomName(customName);
     }
 
     /**

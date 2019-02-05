@@ -1,60 +1,13 @@
 <resources>
     <string name="app_name">Class Timer</string>
-    <string name="back">Return to previous screen</string>
-    <string name="backgroundImageDescription">The background image to be displayed</string>
-    <string name="noClass">No class right now!</string>
-    <string name="endingPlaceholder">- will end in:</string>
-    <string name="timerPlaceholder" translatable="false">--:--</string>
-    <string name="bluredbackgroundImageDescription">The blurred background image to be displayed</string>
+    <string name="loading">Loading…</string>
+    <string name="timerPlaceholder">--:--</string>
     <string name="settings">Settings</string>
-    <string name="schedule_update_method">Schedule update method:</string>
-    <string name="automatic">Automatic\n(Coming soon!)</string>
-    <string name="builtin">Built-in</string>
-    <string name="manual">Manual</string>
-    <string name="override_options">Manual options:</string>
-    <string name="_8_period_day_normal">8 period day (Normal)</string>
-    <string name="a_day">A day (Long blocks)</string>
-    <string name="e_day">E day (Long blocks)</string>
-    <string name="set_class_names">Set class names</string>
-    <string name="a_block">A Block:</string>
-    <string name="b_block">B Block:</string>
-    <string name="c_block">C Block:</string>
-    <string name="d_block">D Block:</string>
-    <string name="lunch">Lunch:</string>
-    <string name="e_block">E Block:</string>
-    <string name="f_block">F Block:</string>
-    <string name="g_block">G Block:</string>
-    <string name="h_block">H Block:</string>
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
+    <string name="backgroundImageDescription">The app background image</string>
+    <string name="create_custom_schedule">Edit schedules</string>
     <string name="reset">Reset</string>
-    <string name="create_custom_schedule">Create custom schedule</string>
-    <string name="custom">Custom</string>
-    <string name="no_a_block">No A block</string>
-    <string name="no_b_block">No B block</string>
-    <string name="no_c_block">No C block</string>
-    <string name="no_d_block">No D block</string>
-    <string name="no_lunch">No Lunch</string>
-    <string name="no_e_block">No E block</string>
-    <string name="no_f_block">No F block</string>
-    <string name="no_g_block">No G block</string>
-    <string name="no_h_block">No H block</string>
-    <string name="aBlockTime" translatable="false">8:20</string>
-    <string name="aBlockTimeEnd" translatable="false">9:00</string>
-    <string name="bBlockTime" translatable="false">9:05</string>
-    <string name="bBlockTimeEnd" translatable="false">9:45</string>
-    <string name="cBlockTime" translatable="false">10:05</string>
-    <string name="cBlockTimeEnd" translatable="false">10:45</string>
-    <string name="dBlockTime" translatable="false">10:50</string>
-    <string name="dBlockTimeEnd" translatable="false">11:30</string>
-    <string name="lunchTime" translatable="false">12:15</string>
-    <string name="lunchTimeEnd" translatable="false">12:55</string>
-    <string name="eBlockTime" translatable="false">11:35</string>
-    <string name="eBlockTimeEnd" translatable="false">12:15</string>
-    <string name="fBlockTime" translatable="false">13:00</string>
-    <string name="fBlockTimeEnd" translatable="false">13:40</string>
-    <string name="gBlockTime" translatable="false">13:45</string>
-    <string name="gBlockTimeEnd" translatable="false">14:25</string>
-    <string name="hBlockTime" translatable="false">14:30</string>
-    <string name="hBlockTimeEnd" translatable="false">15:10</string>
+    <string name="back">Save</string>
+    <string name="schedule_update_method">Select current schedule:</string>
+    <string name="bluredbackgroundImageDescription">The app background image (but it\'s burred this time)</string>
+    <string name="Automatic">Automatic</string>
 </resources>

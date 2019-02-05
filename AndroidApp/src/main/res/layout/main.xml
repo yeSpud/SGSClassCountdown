@@ -1,39 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".Timer">
+    tools:context=".Activities.Main">
 
     <ImageView
-        android:id="@+id/backgroundImage"
+        android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="@string/backgroundImageDescription" />
+        android:contentDescription="@string/backgroundImageDescription"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background1" />
 
     <LinearLayout
         android:id="@+id/centeredLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:background="@drawable/roundcorners"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom="200dp">
-
-        <TextView
-            android:id="@+id/noClass"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/noClass"
-            android:textColor="@android:color/white"
-            android:textSize="35sp"
-            android:visibility="gone" />
+        android:layout_marginTop="150dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/blockInfo"
@@ -41,7 +29,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:paddingBottom="20dp"
-            android:text="@string/endingPlaceholder"
+            android:text="@string/loading"
             android:textColor="@android:color/white"
             android:textSize="25sp"
             android:visibility="visible" />
@@ -62,14 +50,13 @@
         android:id="@+id/gotoSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:text="@string/settings"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:text="@string/settings"
+        android:textSize="20sp" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
