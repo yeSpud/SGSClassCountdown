@@ -19,21 +19,21 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
         // If none exist, hide the auto one, and display a message telling the user to create a regime
         RadioGroup group = this.findViewById(R.id.updateGroup);
 
-        try {
-            RadioButton checkedButton = this.findViewById(group.getCheckedRadioButtonId());
-        } catch (Exception e) {
-            // Just assume automatic is selected
-        }
-
+        RadioButton checkedButton = this.findViewById(group.getCheckedRadioButtonId());
 
         // Setup back button
-        findViewById(R.id.back).setOnClickListener((event) -> {
+        this.findViewById(R.id.back).setOnClickListener((event) -> {
             //this.setCurrentRegime(); // Set the regime based on name for future lookup
             this.finish();
         });
 
+        // Setup the edit regimes button
+        this.findViewById(R.id.editSchedules).setOnClickListener((event) ->
+                this.startActivity(new android.content.Intent(Settings.this, EditRegime.class)));
+
         // Setup the dialog box for the restore button
-        findViewById(R.id.Reset).setOnClickListener((event) -> new FactoryResetDialog().show(this.getFragmentManager(), "Are you sure you want to do that?"));
+        this.findViewById(R.id.Reset).setOnClickListener((event) ->
+                new FactoryResetDialog().show(this.getFragmentManager(), "Are you sure you want to do that?"));
     }
 
     private void setCurrentRegime(String name) {

@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.spud.sgsclasscountdownapp.Activities.Settings" />
+        <activity android:name=".Activities.EditRegime"/>
     </application>
 
 </manifest>

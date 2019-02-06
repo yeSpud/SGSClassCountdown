@@ -3,26 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
     tools:context=".Activities.Settings">
 
     <ImageView
-        android:id="@+id/settingsbackgroundImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/bluredbackgroundImageDescription"
         android:scaleType="centerCrop"
         android:src="@drawable/settingsbackground" />
 
-    <TextView
+    <LinearLayout
         android:id="@+id/settingsHeaders"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="@string/settings"
-        android:textColor="@color/white"
-        android:textSize="40sp" />
+        android:background="@drawable/roundcorners"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -48,7 +53,7 @@
                 android:layout_marginTop="25dp"
                 android:text="@string/schedule_update_method"
                 android:textColor="@color/white"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <RadioGroup
                 android:id="@+id/updateGroup"
@@ -69,7 +74,7 @@
 
 
             <Button
-                android:id="@+id/customSchedule"
+                android:id="@+id/editSchedules"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="25dp"
@@ -97,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/back"
         android:textSize="15sp" />
 
