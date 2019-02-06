@@ -1,5 +1,8 @@
 package com.spud.sgsclasscountdownapp.Regime;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.spud.sgsclasscountdownapp.Activities.Main;
 
 import org.json.JSONArray;
@@ -7,16 +10,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by Stephen Ogden on 2/4/19.
  */
 public class Regime {
 
+    public static File regimeDatabase = new File(Main.dir.getAbsolutePath() + "regimes.db");
     private String name;
-
     private int[] dateOccurrence;
 
     private Class[] classes;
@@ -27,54 +29,65 @@ public class Regime {
         this.classes = classes;
     }
 
-    public static Regime loadRegime(String name) throws FileNotFoundException {
-        JSONObject json = Regime.readJsonFile(new File(Main.dir + name));
+    public static Regime loadRegime(int day) {
+        // Open a connection the database
+        SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(), null, 0x0000);
+        Cursor result = database.rawQuery("SELECT * FROM regimes WHERE occurrence LIKE '" + day + "';", null);
 
-        // Get the name
-        String regimeName = json.optString("name");
+        // Get the name of the regime
+        String name = "";
+        if (result.moveToFirst()) {
+            name = result.getString(result.getColumnIndex("name"));
+        } else {
+            result.close();
+            database.close();
+            return null;
+        }
 
         // Get the applicable dates
-        JSONArray dateArray = json.optJSONArray("dates");
-        int[] dates = new int[dateArray.length()];
-        for (int i = 0; i < dateArray.length(); i++) {
-            try {
-                dates[i] = dateArray.getInt(i);
-            } catch (JSONException e) {
-                e.printStackTrace();
+        int[] dates;
+        if (result.moveToFirst()) {
+            String[] dateResult;
+            dateResult = result.getString(result.getColumnIndex("occurrence")).split(",");
+            dates = new int[dateResult.length];
+            for (int i = 0; i < dateResult.length; i++) {
+                dates[i] = Integer.parseInt(dateResult[i]);
             }
+        } else {
+            result.close();
+            database.close();
+            return null;
         }
 
         // Get the classes
-        JSONArray classArray = json.optJSONArray("classes");
-        Class[] classes = new Class[classArray.length()];
-        for (int i = 0; i < classArray.length(); i++) {
+        Class[] classes;
+        if (result.moveToFirst()) {
             try {
-                JSONObject ass /* hehe */ = classArray.getJSONObject(i);
-                String className = ass.getString("name"), customName = ass.getString("custom name");
-                long startTime = Long.parseLong(ass.getString("start time")), endTime = Long.parseLong(ass.getString("end time"));
-                classes[i] = new Class(className, startTime, endTime, customName);
+                JSONArray classArray = new JSONArray(result.getString(result.getColumnIndex("classes")));
+                classes = new Class[classArray.length()];
+                for (int i = 0; i < classArray.length(); i++) {
+                    JSONObject object = classArray.getJSONObject(i);
+                    Class a = new Class(object.optString("name"),
+                            Long.parseLong(object.optString("start time")),
+                            Long.parseLong(object.optString("end time")),
+                            object.optString("custom name"));
+                    classes[i] = a;
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
+                result.close();
+                database.close();
+                return null;
             }
+        } else {
+            result.close();
+            database.close();
+            return null;
         }
 
-        return new Regime(regimeName, dates, classes);
-
-    }
-
-    private static JSONObject readJsonFile(File file) throws FileNotFoundException {
-        // https://stackoverflow.com/questions/13814503/reading-a-json-file-in-android
-        java.io.InputStream inStream = new java.io.FileInputStream(file);
-        try {
-            int size = inStream.available();
-            byte[] buffer = new byte[size];
-            inStream.read(buffer);
-            inStream.close();
-            return new JSONObject(new String(buffer, java.nio.charset.StandardCharsets.UTF_8));
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-            throw new FileNotFoundException();
-        }
+        result.close();
+        database.close();
+        return new Regime(name, dates, classes);
     }
 
     public String getName() {
@@ -113,26 +126,24 @@ public class Regime {
             classArray.put(butt);
         }
 
-        // Get the dates that occur
-        JSONArray dates = new JSONArray();
-        for (int date : this.getDateOccurence()) {
-            dates.put(date);
-        }
+        String classes = classArray.toString();
 
-        // Get the name, and then add all that stuff to a large json object
-        JSONObject json = new JSONObject();
-        json.putOpt("name", this.getName());
-        json.putOpt("dates", dates);
-        json.putOpt("classes", classArray);
+        // Get the dates in which this occues as a string
+        String occurrence = Arrays.toString(this.getDateOccurence());
 
-        try {
-            java.io.FileWriter writer = new java.io.FileWriter(new File(Main.dir + this.getName()));
-            writer.write(json.toString(4));
-            writer.flush();
-            writer.close();
-            // TODO: Save name of file to an overall directory for lookup later
-        } catch (IOException e) {
-            e.printStackTrace();
+        // Put this in the regime database
+        SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(), null, 0x0000);
+
+        // First, check if the regime is already in the database
+        Cursor result = database.rawQuery("SELECT * FROM regimes WHERE name = " + this.getName(), null);
+        if (result.getCount() > 0) {
+            // Update the data
+            database.execSQL("UPDATE regimes SET occurrence = '" + occurrence + "', SET classes = '" + classes + "';");
+        } else {
+            // Add the regime
+            database.execSQL("INSERT INTO regimes (name, occurrence, classes, override) VALUES ('" + this.getName() + "', '" + occurrence + "', '" + classes + "', 'false');");
         }
+        result.close();
+        database.close();
     }
 }

@@ -38,6 +38,23 @@ public class Class {
     }
 
     /**
+     * Get the current class from the loaded regime.
+     *
+     * @param currentTime The current time (as a long)
+     * @return The class. If there is no class, will return null.
+     */
+    public static Class getClass(Regime regime, long currentTime) {
+        for (Class a : regime.getClasses()) {
+            // Check if the start time for the class has already passed, and if the end time is yet to come
+            if (a.getStartTime() < currentTime && a.getEndTime() > currentTime) {
+                // Set the current class, and stop the loop
+                return a;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Get the time (as a long) of when the class starts.
      *
      * @return When the class.
@@ -110,4 +127,12 @@ public class Class {
         this.name = name;
     }
 
+    /**
+     * Checks whether this class has a custom name.
+     *
+     * @return Whether this class has a custom name.
+     */
+    public boolean hasCustomName() {
+        return !this.customName.equals("");
+    }
 }

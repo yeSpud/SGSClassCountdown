@@ -1,8 +1,10 @@
 package com.spud.sgsclasscountdownapp;
 
-import com.spud.sgsclasscountdownapp.Regime.Regime;
+import com.spud.sgsclasscountdownapp.Activities.Main;
+import com.spud.sgsclasscountdownapp.Regime.Class;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by Stephen Ogden on 2/5/19.
@@ -11,30 +13,53 @@ public class Timer extends Thread {
 
     public volatile boolean enable = false;
 
+    public static String formatTimeRemaining(long seconds) {
+        int minutes = 0;
+        while (seconds > 60) {
+            minutes++;
+            seconds -= 60;
+        }
+
+        if (minutes > 0) {
+            return String.format(Locale.ENGLISH, "%02d:%02d", minutes, seconds);
+        } else {
+            return String.format("%02d", seconds);
+        }
+
+    }
+
     public void run() {
+        Main app = new Main();
         while (!Thread.interrupted()) {
             // If enabled, update the HUD
             if (enable) {
 
+                // Get the classes from the regime
+                //Class currentClass = Class.getClass(Regime.loadRegime(/* Get the current regime from settings*/), Timer.getCurrentTime()); // TODO
+                //app.updateTime(currentClass, Timer.formatTimeRemaining(this.getTimeRemaining(currentClass)));
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
-
-    private int getTimeRemaining() {
-        // TODO
-
+    private long getTimeRemaining(Class currentClass) {
         // Get the current time in seconds (since the start of the day)
-        long currentTime = this.getCurrentTime();
+        long currentTime = Timer.getCurrentTime();
 
-
-        Regime regime = Regime.loadRegime(/* TODO: Get the current regime from settings*/);
-
-
-        return 0;
+        // If the class is still null, then return 0, as there is no class at the moment
+        if (currentClass == null) {
+            return 0;
+        } else {
+            // Return the remaining time.
+            return currentClass.getEndTime() - currentTime;
+        }
     }
 
-    private long getCurrentTime() {
+    public static long getCurrentTime() {
         // https://stackoverflow.com/questions/4389500/how-can-i-find-the-amount-of-seconds-passed-from-the-midnight-with-java
         Calendar c = Calendar.getInstance();
         long now = c.getTimeInMillis();
