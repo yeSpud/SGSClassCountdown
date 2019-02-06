@@ -1,26 +1,23 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spud.sgsclasscountdownapp.R;
-import com.spud.sgsclasscountdownapp.Regime.Class;
 import com.spud.sgsclasscountdownapp.Regime.Regime;
 import com.spud.sgsclasscountdownapp.Timer;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Calendar;
 
 public class Main extends android.support.v7.app.AppCompatActivity {
 
-    public static File dir;
+    public static java.io.File dir;
+
+    public static Regime currentRegeme;
 
     private static Timer timer = new Timer();
 
-    private TextView text, countdown;
+    private android.widget.TextView text, countdown;
 
     protected void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,23 +39,26 @@ public class Main extends android.support.v7.app.AppCompatActivity {
         // If none is selected, update the view telling the user to create one in settings
         if (Regime.regimeDatabase.exists()) {
             // TODO: Check for overrides
-            Regime regime = Regime.loadRegime(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
-            if (regime == null) {
+            Main.currentRegeme = Regime.loadRegime(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+            if (Main.currentRegeme == null) {
                 this.countdown.setVisibility(View.GONE);
                 this.text.setText("There doesn't seem to be a schedule for today.\nPlease create a new schedule in settings");
                 return;
             }
         } else {
             try {
-                Regime.regimeDatabase.createNewFile();
-                SQLiteDatabase database = this.openOrCreateDatabase(Regime.regimeDatabase.getAbsolutePath(), MODE_PRIVATE, null);
+                if (!Regime.regimeDatabase.createNewFile()) {
+                    Toast.makeText(this, "An unknown error occurred (-1).\nPlease restart the app", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                android.database.sqlite.SQLiteDatabase database = this.openOrCreateDatabase(Regime.regimeDatabase.getAbsolutePath(), MODE_PRIVATE, null);
                 database.execSQL("CREATE TABLE regimes (name TEXT NOT NULL UNIQUE, occurrence TEXT NOT NULL UNIQUE, classes TEXT NOT NULL, override TEXT NOT NULL)");
                 database.close();
 
                 this.countdown.setVisibility(View.GONE);
                 this.text.setText("There doesn't seem to be a schedule for today.\nPlease create a new schedule in settings");
-            } catch (IOException e) {
-                Toast.makeText(this, "An unknown error occurred (-1).\nPlease restart the app", Toast.LENGTH_LONG).show();
+            } catch (java.io.IOException e) {
+                Toast.makeText(this, "An unknown error occurred (-2).\nPlease restart the app", Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
             return;
@@ -95,7 +95,7 @@ public class Main extends android.support.v7.app.AppCompatActivity {
         Main.timer.enable = false;
     }
 
-    public void updateTime(Class currentClass, String time) {
+    public void updateTime(com.spud.sgsclasscountdownapp.Regime.Class currentClass, String time) {
         String header = currentClass.hasCustomName() ? String.format("%s (%s) will be over in:",
                 currentClass.getName(false), currentClass.getName(true)) :
                 currentClass.getName(false) + " will be over in:";

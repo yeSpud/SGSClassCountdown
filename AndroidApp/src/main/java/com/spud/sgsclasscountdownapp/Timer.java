@@ -35,8 +35,8 @@ public class Timer extends Thread {
             if (enable) {
 
                 // Get the classes from the regime
-                //Class currentClass = Class.getClass(Regime.loadRegime(/* Get the current regime from settings*/), Timer.getCurrentTime()); // TODO
-                //app.updateTime(currentClass, Timer.formatTimeRemaining(this.getTimeRemaining(currentClass)));
+                Class currentClass = Class.getClass(Main.currentRegeme, Timer.getCurrentTime());
+                app.updateTime(currentClass, Timer.formatTimeRemaining(this.getTimeRemaining(currentClass)));
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
@@ -69,5 +69,10 @@ public class Timer extends Thread {
         c.set(Calendar.MILLISECOND, 0);
         long passed = now - c.getTimeInMillis();
         return passed / 1000;
+    }
+
+    private boolean isAprilFirst() {
+        // TODO
+        return false;
     }
 }

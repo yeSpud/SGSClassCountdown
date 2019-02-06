@@ -12,23 +12,10 @@ public class Class {
     /**
      * (Non native java) Class constructor.
      *
-     * @param name      The official name of the class.
-     * @param startTime When the class starts (as a long).
-     * @param endTime   When the class ends (as a long).
-     */
-    public Class(String name, long startTime, long endTime) {
-        this.setName(name);
-        this.setStartTime(startTime);
-        this.setEndTime(endTime);
-    }
-
-    /**
-     * (Non native java) Class constructor.
-     *
      * @param name       The official name of the class.
      * @param startTime  When the class starts (as a long).
      * @param endTime    When the class ends (as a long).
-     * @param customName The customized name for the class
+     * @param customName The customized name for the class (usually an empty string).
      */
     public Class(String name, long startTime, long endTime, String customName) {
         this.setName(name);
@@ -44,11 +31,11 @@ public class Class {
      * @return The class. If there is no class, will return null.
      */
     public static Class getClass(Regime regime, long currentTime) {
-        for (Class a : regime.getClasses()) {
+        for (Class c : regime.getClasses()) {
             // Check if the start time for the class has already passed, and if the end time is yet to come
-            if (a.getStartTime() < currentTime && a.getEndTime() > currentTime) {
+            if (c.getStartTime() < currentTime && c.getEndTime() > currentTime) {
                 // Set the current class, and stop the loop
-                return a;
+                return c;
             }
         }
         return null;

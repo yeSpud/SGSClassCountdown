@@ -3,8 +3,6 @@ package com.spud.sgsclasscountdownapp.Regime;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.spud.sgsclasscountdownapp.Activities.Main;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,7 +15,7 @@ import java.util.Arrays;
  */
 public class Regime {
 
-    public static File regimeDatabase = new File(Main.dir.getAbsolutePath() + "regimes.db");
+    public static File regimeDatabase = new File(com.spud.sgsclasscountdownapp.Activities.Main.dir.getAbsolutePath() + "regimes.db");
     private String name;
     private int[] dateOccurrence;
 
