@@ -53,60 +53,65 @@ public class Regime {
         Cursor result = database.rawQuery("SELECT * FROM regimes WHERE occurrence LIKE '" +
                 day + "';", null);
 
-        // Get the name of the regime
-        String name;
+
         if (result.moveToFirst()) {
-            name = result.getString(result.getColumnIndex("name"));
+            // Get the name of the regime
+            String name = result.getString(result.getColumnIndex("name"));
+
+            // Get the applicable dates
+            int[] dates = Regime.parseDates(result.getString(result.getColumnIndex("occurrence")));
+
+            // Get the classes
+            Class[] classes = Regime.parseClasses(result.getString(result.getColumnIndex("classes")));
+
+            result.close();
+            database.close();
+            return new Regime(name, dates, classes);
         } else {
             result.close();
             database.close();
             return null;
         }
+    }
 
-        // Get the applicable dates
-        int[] dates;
-        if (result.moveToFirst()) {
-            String[] dateResult;
-            dateResult = result.getString(result.getColumnIndex("occurrence")).split(",");
-            dates = new int[dateResult.length];
-            for (int i = 0; i < dateResult.length; i++) {
-                dates[i] = Integer.parseInt(dateResult[i]);
+    /**
+     * TODO
+     *
+     * @param datesFromDB
+     * @return
+     */
+    public static int[] parseDates(String datesFromDB) {
+        String[] dateResult = datesFromDB.split(",");
+        int[] dates = new int[dateResult.length];
+        for (int i = 0; i < dateResult.length; i++) {
+            dates[i] = Integer.parseInt(dateResult[i]);
+        }
+        return dates;
+    }
+
+    /**
+     * TODO
+     *
+     * @param classesFromDB
+     * @return
+     */
+    public static Class[] parseClasses(String classesFromDB) {
+        try {
+            JSONArray classArray = new JSONArray(classesFromDB);
+            Class[] classes = new Class[classArray.length()];
+            for (int i = 0; i < classArray.length(); i++) {
+                JSONObject object = classArray.getJSONObject(i);
+                Class a = new Class(object.optString("name"),
+                        Long.parseLong(object.optString("start time")),
+                        Long.parseLong(object.optString("end time")),
+                        object.optString("custom name"));
+                classes[i] = a;
             }
-        } else {
-            result.close();
-            database.close();
+            return classes;
+        } catch (JSONException e) {
+            e.printStackTrace();
             return null;
         }
-
-        // Get the classes
-        Class[] classes;
-        if (result.moveToFirst()) {
-            try {
-                JSONArray classArray = new JSONArray(result.getString(result.getColumnIndex("classes")));
-                classes = new Class[classArray.length()];
-                for (int i = 0; i < classArray.length(); i++) {
-                    JSONObject object = classArray.getJSONObject(i);
-                    Class a = new Class(object.optString("name"),
-                            Long.parseLong(object.optString("start time")),
-                            Long.parseLong(object.optString("end time")),
-                            object.optString("custom name"));
-                    classes[i] = a;
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                result.close();
-                database.close();
-                return null;
-            }
-        } else {
-            result.close();
-            database.close();
-            return null;
-        }
-
-        result.close();
-        database.close();
-        return new Regime(name, dates, classes);
     }
 
     /**

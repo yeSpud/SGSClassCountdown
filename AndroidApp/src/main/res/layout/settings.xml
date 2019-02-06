@@ -25,6 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/settings"
+            android:paddingTop="-10dp"
+            android:paddingBottom="-10dp"
             android:textColor="@color/white"
             android:textSize="40sp" />
     </LinearLayout>

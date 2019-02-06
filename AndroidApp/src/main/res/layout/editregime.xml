@@ -23,12 +23,47 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="-10dp"
+            android:paddingBottom="-10dp"
             android:text="Edit schedules"
             android:textColor="@color/white"
             android:textSize="40sp" />
     </LinearLayout>
 
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/back"
+        android:layout_below="@id/regimeHeader"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/backgroundgray"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nothingEntered"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="15sp"
+                android:textColor="@color/white"
+                android:text="@string/no_schedule"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
     <Button
+        android:id="@+id/newSchedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
