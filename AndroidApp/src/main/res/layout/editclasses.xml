@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activities.EditRegime">
+    tools:context=".Activities.EditClasses">
 
     <ImageView
         android:layout_width="match_parent"
@@ -14,7 +14,7 @@
 
 
     <LinearLayout
-        android:id="@+id/regimeHeader"
+        android:id="@+id/classHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -23,56 +23,49 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/classHeaderText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="-10dp"
             android:paddingBottom="-10dp"
-            android:text="Edit schedules"
+            android:text="Adding classes for "
             android:textColor="@color/white"
-            android:textSize="30sp" />
+            android:textSize="25sp" />
     </LinearLayout>
-
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/back"
-        android:layout_below="@id/regimeHeader"
+        android:layout_below="@id/classHeader"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:background="@color/backgroundgray"
         android:fillViewport="true">
 
         <LinearLayout
-            android:id="@+id/regimesList"
+            android:id="@+id/classList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:orientation="vertical"
             android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:orientation="vertical">
+            android:paddingEnd="5dp">
 
-            <TextView
-                android:id="@+id/nothingEntered"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="15sp"
-                android:textColor="@color/white"
-                android:text="@string/no_schedule"/>
 
         </LinearLayout>
 
     </ScrollView>
 
     <Button
-        android:id="@+id/newSchedule"
+        android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="5dp"
         android:layout_marginBottom="10dp"
-        android:text="New schedule"
+        android:text="Cancel"
         android:textSize="15sp" />
 
     <Button
@@ -85,6 +78,5 @@
         android:layout_marginBottom="10dp"
         android:text="@string/back"
         android:textSize="15sp" />
-
 
 </RelativeLayout>

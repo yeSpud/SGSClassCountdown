@@ -19,6 +19,7 @@
         </activity>
         <activity android:name="com.spud.sgsclasscountdownapp.Activities.Settings" />
         <activity android:name=".Activities.EditRegime"/>
+        <activity android:name=".Activities.EditClasses"/>
     </application>
 
 </manifest>

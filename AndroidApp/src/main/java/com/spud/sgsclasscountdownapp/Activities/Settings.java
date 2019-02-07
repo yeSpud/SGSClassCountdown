@@ -1,9 +1,13 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.spud.sgsclasscountdownapp.R;
+import com.spud.sgsclasscountdownapp.Regime.Regime;
 
 /**
  * Created by Stephen Ogden on 4/23/18.
@@ -15,11 +19,28 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 
         this.setContentView(R.layout.settings);
 
-        // TODO: Create radio buttons based on different regimes
-        // If none exist, hide the auto one, and display a message telling the user to create a regime
         RadioGroup group = this.findViewById(R.id.updateGroup);
 
         RadioButton checkedButton = this.findViewById(group.getCheckedRadioButtonId());
+
+        SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
+                null, 0x0000);
+        // Get all the regime names from the database
+        Cursor result = database.rawQuery("SELECT name FROM regimes;", null);
+
+        // Move the cursor to the first row
+        if (result.moveToFirst()) {
+            for (int i = 0; i < result.getCount(); i++) {
+                // Add the to the radio group
+                group.addView(this.generateRadioButton(result.getString(result.getColumnIndex("name"))));
+                // Move to the next row (break if it cant)
+                if (!result.moveToNext()) {
+                    break;
+                }
+            }
+        }
+        database.close();
+
 
         // Setup back button
         this.findViewById(R.id.back).setOnClickListener((event) -> {
@@ -41,8 +62,10 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
     }
 
     private RadioButton generateRadioButton(String name) {
-        // TODO
-        return null;
+        RadioButton button = new RadioButton(this);
+        button.setTextColor(Color.WHITE);
+        button.setText(name);
+        return button;
     }
 
 }

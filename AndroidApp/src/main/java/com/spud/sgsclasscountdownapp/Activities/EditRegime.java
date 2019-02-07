@@ -1,6 +1,7 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
@@ -22,37 +23,37 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
         this.setContentView(R.layout.editregime);
 
-        // TODO: Dynamically set the regimes based on what is stored in the database
+        // Linear layout to house all the regimes
+        LinearLayout view = this.findViewById(R.id.regimesList);
+
         SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
                 null, 0x0000);
         // Get all the regimes from the database
         Cursor result = database.rawQuery("SELECT * FROM regimes;", null);
 
         // Change the display message to the regimes that were retrieved.
-        this.findViewById(R.id.nothingEntered).setVisibility(result.getCount() != 0 ? View.GONE : View.VISIBLE);
+        view.findViewById(R.id.nothingEntered).setVisibility(result.getCount() != 0 ? View.GONE : View.VISIBLE);
 
         // Move the cursor to the first row
         if (result.moveToFirst()) {
-
             for (int i = 0; i < result.getCount(); i++) {
-                Regime currentRegime = new Regime(result.getString(result.getColumnIndex("name")),
+                view.addView(this.generateRegimeView(new Regime(result.getString(result.getColumnIndex("name")),
                         Regime.parseDates(result.getString(result.getColumnIndex("occurrence"))),
-                        Regime.parseClasses(result.getString(result.getColumnIndex("classes"))));
-                this.generateRegimeView(currentRegime);
-
+                        Regime.parseClasses(result.getString(result.getColumnIndex("classes"))))));
                 // Move to the next row (break if it cant)
                 if (!result.moveToNext()) {
                     break;
                 }
             }
         }
+        database.close();
 
 
         // Setup the create new schedule button
         this.findViewById(R.id.newSchedule).setOnClickListener((event) -> this.createNewRegime().show());
 
         // Setup the save button
-        this.findViewById(R.id.back).setOnClickListener((event) -> finish()); // TODO: Save the regimes as well
+        this.findViewById(R.id.back).setOnClickListener((event) -> finish());
 
     }
 
@@ -89,6 +90,8 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
         dialog.setView(creationDialog);
         dialog.setPositiveButton("Add classes", (event, id) -> {
             // TODO: pass the name and date into the class page
+            EditClasses.name = ((EditText) creationDialog.findViewById(R.id.name)).getText().toString();
+            this.startActivity(new Intent(EditRegime.this, EditClasses.class));
         }).setNegativeButton("Cancel", null);
 
         return dialog.create();
