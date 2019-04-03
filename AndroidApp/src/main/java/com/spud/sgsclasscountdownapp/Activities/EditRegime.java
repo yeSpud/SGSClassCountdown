@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -35,31 +36,6 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		// Linear layout to house all the regimes
 		regimeList = this.findViewById(R.id.regimesList);
 
-		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
-				null, 0x0000);
-
-		// Get all the regimes from the database
-		Cursor result = database.rawQuery("SELECT * FROM regimes;", null);
-
-		// Change the display message to the regimes that were retrieved.
-		regimeList.findViewById(R.id.nothingEntered).setVisibility(result.getCount() != 0 ? View.GONE : View.VISIBLE);
-
-		// Move the cursor to the first row
-		if (result.moveToFirst()) {
-			for (int i = 0; i < result.getCount(); i++) {
-				regimes.add(new Regime(result.getString(result.getColumnIndex("name")),
-						Regime.parseDates(result.getString(result.getColumnIndex("occurrence"))),
-						Regime.parseClasses(result.getString(result.getColumnIndex("classes")))));
-				// Move to the next row (break if it cant)
-				if (!result.moveToNext()) {
-					break;
-				}
-			}
-		}
-		database.close();
-
-		this.generateRegimeView();
-
 		// Setup the create new schedule button
 		this.findViewById(R.id.newSchedule).setOnClickListener((event) -> this.createNewRegime().show());
 
@@ -69,14 +45,21 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 	}
 
 	private void generateRegimeView() {
+
+		Log.d("onResume", "Generating regime...");
+
 		for (int i = 0; i < regimeList.getChildCount(); i++) {
 			// Remove all but the add button
 			if (!(regimeList.getChildAt(i) instanceof Button)) {
+				Log.d("generateRegimeView", String.format("Removing element %d/%d", i, regimeList.getChildCount()));
 				regimeList.removeViewAt(i);
 			}
 		}
 
 		for (Regime r : regimes) {
+
+			Log.d("generateRegimeView", String.format("Generating view for regime %s", r.getName()));
+
 			TextView title = new TextView(this);
 			title.setText(r.getName());
 
@@ -126,6 +109,33 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 	}
 
+	protected void onResume() {
+		super.onResume();
+
+		this.regimes.clear();
+
+		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
+				null, 0x0000);
+
+		// Get all the regimes from the database
+		Cursor result = database.rawQuery("SELECT * FROM regimes;", null);
+
+		// Move the cursor to the first row
+		if (result.moveToFirst()) {
+			for (int i = 0; i < result.getCount(); i++) {
+				regimes.add(new Regime(result.getString(result.getColumnIndex("name")),
+						Regime.parseDates(result.getString(result.getColumnIndex("occurrence"))),
+						Regime.parseClasses(result.getString(result.getColumnIndex("classes")))));
+				// Move to the next row (break if it cant)
+				if (!result.moveToNext()) {
+					break;
+				}
+			}
+		}
+		database.close();
+
+		this.generateRegimeView();
+	}
 
 	// https://developer.android.com/guide/topics/ui/dialogs#java
 	private AlertDialog createNewRegime(String name, boolean su, boolean m, boolean tu, boolean w, boolean th, boolean f, boolean sa) {

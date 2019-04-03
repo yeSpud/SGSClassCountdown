@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.text.format.DateFormat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +56,6 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		// Find the class view layout
 		classList = this.findViewById(R.id.classList);
 
-		// TODO Get current classes from database, and put them into a class array
 		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
 				null, 0x0000);
 
@@ -75,7 +75,6 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 		result.close();
 		database.close();
-		this.generateClasses();
 
 		// Find and setup the add class button
 		classList.findViewById(R.id.addClass).setOnClickListener((event) -> this.editClasses("", Timer.getCurrentTime(), Timer.getCurrentTime(), "").show());
@@ -91,6 +90,11 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			this.finish();
 		}));
 
+	}
+
+	protected void onResume() {
+		super.onResume();
+		this.generateClasses();
 	}
 
 	// https://developer.android.com/guide/topics/ui/dialogs#java
@@ -157,6 +161,8 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 	}
 
 	private void generateClasses() {
+
+		Log.d("onResume", "Generating classes...");
 
 		for (int i = 0; i < classList.getChildCount(); i++) {
 			// Remove all but the add button
