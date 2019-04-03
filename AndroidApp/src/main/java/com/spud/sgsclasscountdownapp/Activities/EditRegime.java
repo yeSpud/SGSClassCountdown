@@ -6,9 +6,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.spud.sgsclasscountdownapp.R;
 import com.spud.sgsclasscountdownapp.Regime.Regime;
@@ -21,13 +23,17 @@ import java.util.Calendar;
  */
 public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
+	private ArrayList<Regime> regimes = new ArrayList<>();
+
+	private LinearLayout regimeList;
+
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		this.setContentView(R.layout.editregime);
 
 		// Linear layout to house all the regimes
-		LinearLayout view = this.findViewById(R.id.regimesList);
+		regimeList = this.findViewById(R.id.regimesList);
 
 		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
 				null, 0x0000);
@@ -36,14 +42,14 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		Cursor result = database.rawQuery("SELECT * FROM regimes;", null);
 
 		// Change the display message to the regimes that were retrieved.
-		view.findViewById(R.id.nothingEntered).setVisibility(result.getCount() != 0 ? View.GONE : View.VISIBLE);
+		regimeList.findViewById(R.id.nothingEntered).setVisibility(result.getCount() != 0 ? View.GONE : View.VISIBLE);
 
 		// Move the cursor to the first row
 		if (result.moveToFirst()) {
 			for (int i = 0; i < result.getCount(); i++) {
-				view.addView(this.generateRegimeView(new Regime(result.getString(result.getColumnIndex("name")),
+				regimes.add(new Regime(result.getString(result.getColumnIndex("name")),
 						Regime.parseDates(result.getString(result.getColumnIndex("occurrence"))),
-						Regime.parseClasses(result.getString(result.getColumnIndex("classes"))))));
+						Regime.parseClasses(result.getString(result.getColumnIndex("classes")))));
 				// Move to the next row (break if it cant)
 				if (!result.moveToNext()) {
 					break;
@@ -52,6 +58,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		}
 		database.close();
 
+		this.generateRegimeView();
 
 		// Setup the create new schedule button
 		this.findViewById(R.id.newSchedule).setOnClickListener((event) -> this.createNewRegime().show());
@@ -61,14 +68,64 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 	}
 
-	private LinearLayout generateRegimeView(Regime regime) {
-		//LinearLayout layout = new LinearLayout(this);
-		// TODO
-		android.util.Log.w("Need to create a spot for", regime.getName());
-		return null;
+	private void generateRegimeView() {
+		for (int i = 0; i < regimeList.getChildCount(); i++) {
+			// Remove all but the add button
+			if (!(regimeList.getChildAt(i) instanceof Button)) {
+				regimeList.removeViewAt(i);
+			}
+		}
+
+		for (Regime r : regimes) {
+			TextView title = new TextView(this);
+			title.setText(r.getName());
+
+			TextView classCount = new TextView(this);
+			classCount.setText(r.getClassCount() == 1 ? "1 class" : r.getClassCount() + " classes");
+
+			Button edit = new Button(this);
+			edit.setText("Edit");
+			edit.setOnClickListener((e) -> {
+				boolean su = false, m = false, tu = false, w = false, th = false, f = false, sa = false;
+				for (int i : r.getDateOccurrence()) {
+					if (i == Calendar.SUNDAY) {
+						su = true;
+					} else if (i == Calendar.MONDAY) {
+						m = true;
+					} else if (i == Calendar.TUESDAY) {
+						tu = true;
+					} else if (i == Calendar.WEDNESDAY) {
+						w = true;
+					} else if (i == Calendar.THURSDAY) {
+						th = true;
+					} else if (i == Calendar.FRIDAY) {
+						f = true;
+					} else if (i == Calendar.SATURDAY) {
+						sa = true;
+					}
+				}
+				this.createNewRegime(r.getName(), su, m, tu, w, th, f, sa);
+			});
+
+			Button delete = new Button(this);
+			delete.setText("Remove");
+			delete.setOnClickListener((e) -> {
+				regimes.remove(r);
+				r.removeRegime();
+				this.generateRegimeView();
+			});
+
+			LinearLayout l = new LinearLayout(this);
+			l.addView(title, 0);
+			l.addView(classCount, 1);
+			l.addView(edit, 2);
+			l.addView(delete, 3);
+
+			regimeList.addView(l, regimeList.getChildCount() - 1);
+		}
+
 	}
 
-	// TODO Refresh the view
 
 	// https://developer.android.com/guide/topics/ui/dialogs#java
 	private AlertDialog createNewRegime(String name, boolean su, boolean m, boolean tu, boolean w, boolean th, boolean f, boolean sa) {

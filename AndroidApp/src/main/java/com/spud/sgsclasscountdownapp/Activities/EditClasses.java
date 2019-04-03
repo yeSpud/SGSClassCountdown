@@ -1,6 +1,8 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
 import android.app.AlertDialog;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.text.format.DateFormat;
@@ -17,10 +19,15 @@ import android.widget.TimePicker;
 
 import com.spud.sgsclasscountdownapp.R;
 import com.spud.sgsclasscountdownapp.Regime.Class;
+import com.spud.sgsclasscountdownapp.Regime.Regime;
 import com.spud.sgsclasscountdownapp.Timer;
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * Created by Stephen Ogden on 2/6/19.
@@ -49,6 +56,25 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		classList = this.findViewById(R.id.classList);
 
 		// TODO Get current classes from database, and put them into a class array
+		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
+				null, 0x0000);
+
+		// Get all the classes from the database
+		Cursor result = database.rawQuery("SELECT classes FROM regimes WHERE name = \"" + EditClasses.name + "\";", null);
+
+		if (result.moveToFirst()) {
+			// Add the classes to the database
+			for (int i = 0; i < result.getCount(); i++) {
+				this.classes.addAll(Arrays.asList(Objects.requireNonNull(Regime.parseClasses(result.getString(result.getColumnIndex("classes"))))));
+				// Move to the next row (break if it cant)
+				if (!result.moveToNext()) {
+					break;
+				}
+			}
+		}
+
+		result.close();
+		database.close();
 		this.generateClasses();
 
 		// Find and setup the add class button
@@ -56,7 +82,11 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 		// Setup the save button
 		this.findViewById(R.id.save).setOnClickListener((event -> {
-			// TODO
+			try {
+				new Regime(EditClasses.name, EditClasses.dates, classes.toArray(new Class[0])).saveRegime();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			// Save the classes array to the database
 			this.finish();
 		}));

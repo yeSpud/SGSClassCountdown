@@ -50,7 +50,7 @@ public class Regime {
 		// Open a connection the database
 		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
 				null, 0x0000);
-		Cursor result = database.rawQuery("SELECT * FROM regimes WHERE occurrence LIKE '" +
+		Cursor result = database.rawQuery("SELECT name, occurrence, classes FROM regimes WHERE occurrence LIKE '" +
 				day + "';", null);
 
 
@@ -81,7 +81,7 @@ public class Regime {
 	 * @return
 	 */
 	public static int[] parseDates(String datesFromDB) {
-		String[] dateResult = datesFromDB.split(",");
+		String[] dateResult = datesFromDB.replace("[", "").replace("]", "").replace(" ", "").split(",");
 		int[] dates = new int[dateResult.length];
 		for (int i = 0; i < dateResult.length; i++) {
 			dates[i] = Integer.parseInt(dateResult[i]);
@@ -161,7 +161,7 @@ public class Regime {
 	 *
 	 * @return The dates (as an int for Calender constants) in which this regime occurs.
 	 */
-	private int[] getDateOccurrence() {
+	public int[] getDateOccurrence() {
 		return this.dateOccurrence;
 	}
 
@@ -170,7 +170,6 @@ public class Regime {
 	 *
 	 * @throws JSONException Thrown if there was an error when parsing the class data.
 	 */
-	@Deprecated
 	public void saveRegime() throws JSONException {
 		// For each class in the regime, create a JSON object for the name, start, and end times
 		JSONArray classArray = new JSONArray();
@@ -191,7 +190,7 @@ public class Regime {
 				null, 0x0000);
 
 		// First, check if the regime is already in the database
-		Cursor result = database.rawQuery("SELECT * FROM regimes WHERE name = " + this.getName(),
+		Cursor result = database.rawQuery("SELECT * FROM regimes WHERE name = \"" + this.getName() + "\";",
 				null);
 		if (result.getCount() > 0) {
 			// Update the data
@@ -203,6 +202,16 @@ public class Regime {
 					this.getName() + "', '" + occurrence + "', '" + classArray.toString() + "', 'false');");
 		}
 		result.close();
+		database.close();
+	}
+
+	/**
+	 * TODO
+	 */
+	public void removeRegime() {
+		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
+				null, 0x0000);
+		database.execSQL("DELETE FROM regimes WHERE name = \"" + this.name + "\";");
 		database.close();
 	}
 }
