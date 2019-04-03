@@ -4,6 +4,7 @@ import com.spud.sgsclasscountdownapp.Activities.Main;
 import com.spud.sgsclasscountdownapp.Regime.Class;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -26,6 +27,41 @@ public class Timer extends Thread {
             return String.format("%02d", seconds);
         }
 
+    }
+
+    public static int getHour(long time) {
+        int hours = 0;
+        while (time >= 3600) {
+            time -= 3600;
+            hours++;
+        }
+        return hours;
+    }
+
+    public static int getMinute(long time) {
+        int minutes = 0;
+        while (time >= 60) {
+            time -= 60;
+            minutes++;
+        }
+        return minutes;
+    }
+
+    public static long getCurrentTime() {
+        // https://stackoverflow.com/questions/4389500/how-can-i-find-the-amount-of-seconds-passed-from-the-midnight-with-java
+        Calendar c = Calendar.getInstance();
+        long now = c.getTimeInMillis();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        long passed = now - c.getTimeInMillis();
+        return passed / 1000;
+    }
+
+    public static Date longToTime(long seconds) {
+        // TODO
+        return null;
     }
 
     public void run() {
@@ -57,18 +93,6 @@ public class Timer extends Thread {
             // Return the remaining time.
             return currentClass.getEndTime() - currentTime;
         }
-    }
-
-    public static long getCurrentTime() {
-        // https://stackoverflow.com/questions/4389500/how-can-i-find-the-amount-of-seconds-passed-from-the-midnight-with-java
-        Calendar c = Calendar.getInstance();
-        long now = c.getTimeInMillis();
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        long passed = now - c.getTimeInMillis();
-        return passed / 1000;
     }
 
     private boolean isAprilFirst() {
