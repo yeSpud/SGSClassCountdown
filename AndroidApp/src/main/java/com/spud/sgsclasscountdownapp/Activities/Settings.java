@@ -1,7 +1,10 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Build;
 import android.util.Log;
 import android.widget.RadioButton;
 
@@ -63,6 +66,21 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 		RadioButton button = new RadioButton(this);
 		button.setTextColor(android.graphics.Color.WHITE);
 		button.setText(name);
+
+		// Set button tint
+		// https://stackoverflow.com/questions/17120199/change-circle-color-of-radio-button-android
+		if (Build.VERSION.SDK_INT >= 21) {
+			ColorStateList colorStateList = new ColorStateList(new int[][]{
+					new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled} // disabled and enabled respectively
+			}, new int[]{
+					Color.WHITE, Color.WHITE // disabled and enabled respectively
+
+			}
+			);
+
+			button.setBackgroundTintList(colorStateList);
+			button.setButtonTintList(colorStateList); // Set the color tint list
+		}
 		return button;
 	}
 
@@ -71,12 +89,11 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 		// Clear the regime list
 		this.regimeNames.clear();
 
-		for (int i = 0; i < this.buttons.getChildCount(); i++) {
-			RadioButton b = (RadioButton) this.buttons.getChildAt(i);
-			if (!b.getText().toString().equals("Automatic")) {
-				this.buttons.removeViewAt(i);
-			}
-		}
+		// Clear all buttons
+		this.buttons.removeAllViews();
+
+		// Add automatic at the start of the button name array
+		this.regimeNames.add(0, "Automatic");
 
 		SQLiteDatabase database = Regime.getDatabase();
 
@@ -87,7 +104,9 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 		if (result.moveToFirst()) {
 			for (int i = 0; i < result.getCount(); i++) {
 				// Add the regime name to the list
-				this.regimeNames.add(result.getString(result.getColumnIndex("name")));
+				String buttonName = result.getString(result.getColumnIndex("name"));
+				Log.d("Adding radio button", buttonName);
+				this.regimeNames.add(buttonName);
 
 				// Move to the next row (break if it cant)
 				if (!result.moveToNext()) {
@@ -101,7 +120,7 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 		// Generate a new button for each new regime
 		for (String s : this.regimeNames) {
 			RadioButton b = this.generateRadioButton(s);
-			this.buttons.addView(b);
+			this.buttons.addView(b, this.buttons.getChildCount());
 		}
 	}
 

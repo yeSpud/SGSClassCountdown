@@ -199,11 +199,13 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 				dates.add(Calendar.SATURDAY);
 			}
 
-			EditClasses.dates = new int[dates.size()];
-			for (int i = 0; i < dates.size(); i++) {
-				EditClasses.dates[i] = dates.get(i);
+			if (dates.size() != 0) { // TODO: Test this
+				EditClasses.dates = new int[dates.size()];
+				for (int i = 0; i < dates.size(); i++) {
+					EditClasses.dates[i] = dates.get(i);
+				}
+				this.startActivity(new Intent(EditRegime.this, EditClasses.class));
 			}
-			this.startActivity(new Intent(EditRegime.this, EditClasses.class));
 		}).setNegativeButton(R.string.cancel, null);
 
 		return dialog.create();
