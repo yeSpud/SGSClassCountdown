@@ -2,6 +2,7 @@ package com.spud.sgsclasscountdownapp.Regime;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,13 +51,15 @@ public class Regime {
 		// Open a connection the database
 		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
 				null, 0x0000);
-		Cursor result = database.rawQuery("SELECT name, occurrence, classes FROM regimes WHERE occurrence LIKE '" +
-				day + "';", null);
+		Cursor result = database.rawQuery("SELECT name, occurrence, classes FROM regimes WHERE occurrence LIKE \"%" +
+				day + "%\";", null);
 
+		Log.d("Regime", String.format("Found %d matching format(s)", result.getCount()));
 
 		if (result.moveToFirst()) {
 			// Get the name of the regime
 			String name = result.getString(result.getColumnIndex("name"));
+			Log.d("Regime", "Name of loaded regime: " + name);
 
 			// Get the applicable dates
 			int[] dates = Regime.parseDates(result.getString(result.getColumnIndex("occurrence")));
@@ -112,6 +115,11 @@ public class Regime {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public static SQLiteDatabase getDatabase() {
+		return SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
+				null, 0x0000);
 	}
 
 	/**
@@ -186,16 +194,15 @@ public class Regime {
 		String occurrence = Arrays.toString(this.getDateOccurrence());
 
 		// Put this in the regime database
-		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
-				null, 0x0000);
+		SQLiteDatabase database = Regime.getDatabase();
 
 		// First, check if the regime is already in the database
 		Cursor result = database.rawQuery("SELECT * FROM regimes WHERE name = \"" + this.getName() + "\";",
 				null);
 		if (result.getCount() > 0) {
 			// Update the data
-			database.execSQL("UPDATE regimes SET occurrence = '" + occurrence + "', SET classes = '" +
-					classArray.toString() + "';");
+			database.execSQL("UPDATE regimes SET occurrence = \"" + occurrence + "\", SET classes = \"" +
+					classArray.toString() + " WHERE name = " + this.getName() + ";");
 		} else {
 			// Add the regime
 			database.execSQL("INSERT INTO regimes (name, occurrence, classes, override) VALUES ('" +
@@ -209,8 +216,7 @@ public class Regime {
 	 * TODO
 	 */
 	public void removeRegime() {
-		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
-				null, 0x0000);
+		SQLiteDatabase database = Regime.getDatabase();
 		database.execSQL("DELETE FROM regimes WHERE name = \"" + this.name + "\";");
 		database.close();
 	}

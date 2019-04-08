@@ -1,5 +1,8 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -35,11 +38,29 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 		// Setup the Settings button
 		this.findViewById(R.id.gotoSettings).setOnClickListener((event) -> this.startActivity(new android.content.Intent(Main.this, Settings.class)));
 
+		// Enable the timer
+		Main.timer.enable = true;
+
+
+		// Run the timer
+		// Main.timer.run();
+
+	}
+
+	protected void onPause() {
+		super.onPause();
+
+		// Pause the timer
+		Main.timer.enable = false;
+	}
+
+	protected void onResume() {
+		super.onResume();
+
 		// Get which ever regime is selected (from file)
 		// If none is selected, update the view telling the user to create one in settings
 		if (Regime.regimeDatabase.exists()) {
-			// TODO: Check for overrides
-			Main.currentRegeme = Regime.loadRegime(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+			Main.currentRegeme = Regime.loadRegime(this.getOverride());
 			if (Main.currentRegeme == null) {
 				this.countdown.setVisibility(View.GONE);
 				this.text.setText("There doesn't seem to be a schedule for today.\nPlease create a new schedule in settings");
@@ -64,25 +85,6 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 			return;
 		}
 
-		// Enable the timer
-		Main.timer.enable = true;
-
-
-		// Run the timer
-		// Main.timer.run();
-
-	}
-
-	protected void onPause() {
-		super.onPause();
-
-		// Pause the timer
-		Main.timer.enable = false;
-	}
-
-	protected void onResume() {
-		super.onResume();
-
 		// Resume the timer
 		Main.timer.enable = true;
 	}
@@ -101,5 +103,29 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 				currentClass.getName(false) + " will be over in:";
 		this.text.setText(header);
 		this.countdown.setText(time);
+	}
+
+	private int getOverride() {
+		// Check for an override from the database
+		SQLiteDatabase database = Regime.getDatabase();
+		Cursor result = database.rawQuery("SELECT name, occurrence FROM regimes WHERE override = \"true\";", null);
+
+		// If there is no result, return the day of the week
+		if (result.getCount() == 0 || !result.moveToFirst()) {
+			Log.d("Override name", "No override");
+			return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+		}
+
+		Log.d("Override name", result.getString(result.getColumnIndex("name")));
+
+		String o = result.getString(result.getColumnIndex("occurrence"));
+
+		result.close();
+		database.close();
+
+		String[] arr = o.replace("[", "").replace("]", "").replace(" ", "").split(",");
+
+		// Return the first occurrence value
+		return Integer.parseInt(arr[0]);
 	}
 }

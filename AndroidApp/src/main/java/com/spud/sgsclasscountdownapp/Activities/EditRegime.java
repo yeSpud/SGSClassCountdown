@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -62,6 +63,9 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 			TextView title = new TextView(this);
 			title.setText(r.getName());
+			LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+			titleParams.setMargins(0, 0, 5, 0);
+			title.setLayoutParams(titleParams);
 
 			TextView classCount = new TextView(this);
 			classCount.setText(r.getClassCount() == 1 ? "1 class" : r.getClassCount() + " classes");
@@ -87,7 +91,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 						sa = true;
 					}
 				}
-				this.createNewRegime(r.getName(), su, m, tu, w, th, f, sa);
+				this.createNewRegime(r.getName(), su, m, tu, w, th, f, sa).show();
 			});
 
 			Button delete = new Button(this);

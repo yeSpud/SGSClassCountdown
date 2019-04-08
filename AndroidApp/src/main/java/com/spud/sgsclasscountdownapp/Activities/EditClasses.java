@@ -7,14 +7,12 @@ import android.graphics.Color;
 import android.os.Build;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -203,18 +201,24 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			Button edit = new Button(this);
 			edit.setText("Edit class");
 			edit.setTextSize(15);
+			edit.setTextColor(Color.BLACK);
 			edit.setOnClickListener((e) -> {
 				classes.remove(c);
 				this.editClasses(c.getName(false), c.getStartTime(), c.getEndTime(), c.hasCustomName() ? c.getName(true) : "").show();
 			});
+			LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			edit.setLayoutParams(editParams);
 
 			Button delete = new Button(this);
 			delete.setText("Remove class");
 			delete.setTextSize(15);
+			delete.setTextColor(Color.BLACK);
 			delete.setOnClickListener((e) -> {
 				classes.remove(c);
 				this.generateClasses();
 			});
+			LinearLayout.LayoutParams deleteParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			delete.setLayoutParams(deleteParams);
 
 			LinearLayout classDetails = new LinearLayout(this);
 			classDetails.setOrientation(LinearLayout.HORIZONTAL);
