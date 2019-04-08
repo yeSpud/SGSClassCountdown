@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,17 +60,14 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 			Log.d("generateRegimeView", String.format("Generating view for regime %s", r.getName()));
 
-			TextView title = new TextView(this);
+			TextView title = this.createTextView();
 			title.setText(r.getName());
-			LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-			titleParams.setMargins(0, 0, 20, 0);
-			title.setLayoutParams(titleParams);
 
-			TextView classCount = new TextView(this);
+			TextView classCount = this.createTextView();
 			classCount.setText(r.getClassCount() == 1 ? "1 class" : r.getClassCount() + " classes");
 
 			Button edit = new Button(this);
-			edit.setText("Edit");
+			edit.setText(R.string.edit);
 			edit.setOnClickListener((e) -> {
 				boolean su = false, m = false, tu = false, w = false, th = false, f = false, sa = false;
 				for (int i : r.getDateOccurrence()) {
@@ -90,16 +89,19 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 				}
 				this.createNewRegime(r.getName(), su, m, tu, w, th, f, sa).show();
 			});
+			edit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
 			Button delete = new Button(this);
-			delete.setText("Remove");
+			delete.setText(R.string.delete);
 			delete.setOnClickListener((e) -> {
 				regimes.remove(r);
 				r.removeRegime();
 				this.generateRegimeView();
 			});
+			delete.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
 			LinearLayout l = new LinearLayout(this);
+			l.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 			l.setOrientation(LinearLayout.HORIZONTAL);
 			l.addView(title, 0);
 			l.addView(classCount, 1);
@@ -210,5 +212,15 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 	private AlertDialog createNewRegime() {
 		return this.createNewRegime("", false, false, false, false, false, false, false);
+	}
+
+	private TextView createTextView() {
+		TextView t = new TextView(this);
+		t.setGravity(Gravity.CENTER_VERTICAL);
+		t.setTextColor(Color.WHITE);
+		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+		p.setMargins(0, 0, 20, 0);
+		t.setLayoutParams(p);
+		return t;
 	}
 }
