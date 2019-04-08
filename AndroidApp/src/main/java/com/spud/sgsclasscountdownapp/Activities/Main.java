@@ -1,12 +1,11 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.spud.sgsclasscountdownapp.R;
+import com.spud.sgsclasscountdownapp.Regime.Class;
 import com.spud.sgsclasscountdownapp.Regime.Regime;
 import com.spud.sgsclasscountdownapp.Timer;
 
@@ -16,11 +15,9 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 
 	public static java.io.File dir;
 
-	public static Regime currentRegeme;
-
-	private static Timer timer = new Timer();
-
 	private android.widget.TextView text, countdown;
+
+	private volatile boolean r = false;
 
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -38,20 +35,12 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 		// Setup the Settings button
 		this.findViewById(R.id.gotoSettings).setOnClickListener((event) -> this.startActivity(new android.content.Intent(Main.this, Settings.class)));
 
-		// Enable the timer
-		Main.timer.enable = true;
-
-
-		// Run the timer
-		// Main.timer.run();
-
 	}
 
 	protected void onPause() {
 		super.onPause();
 
-		// Pause the timer
-		Main.timer.enable = false;
+		this.r = false;
 	}
 
 	protected void onResume() {
@@ -60,12 +49,11 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 		// Get which ever regime is selected (from file)
 		// If none is selected, update the view telling the user to create one in settings
 		if (Regime.regimeDatabase.exists()) {
-			Main.currentRegeme = Regime.loadRegime(this.getOverride());
-			if (Main.currentRegeme == null) {
-				this.countdown.setVisibility(View.GONE);
-				this.text.setText("There doesn't seem to be a schedule for today.\nPlease create a new schedule in settings");
-				return;
-			}
+
+			this.r = true;
+
+			// Start a timer
+			this.timer().start();
 		} else {
 			try {
 				if (!Regime.regimeDatabase.createNewFile()) {
@@ -82,33 +70,20 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 				Toast.makeText(this, "An unknown error occurred (-2).\nPlease restart the app", Toast.LENGTH_LONG).show();
 				e.printStackTrace();
 			}
-			return;
 		}
-
-		// Resume the timer
-		Main.timer.enable = true;
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 
-		// Stop the timer
-		Main.timer.enable = false;
-	}
-
-	public void updateTime(com.spud.sgsclasscountdownapp.Regime.Class currentClass, String time) {
-		String header = currentClass.hasCustomName() ? String.format("%s (%s) will be over in:",
-				currentClass.getName(false), currentClass.getName(true)) :
-				currentClass.getName(false) + " will be over in:";
-		this.text.setText(header);
-		this.countdown.setText(time);
+		this.r = false;
 	}
 
 	private int getOverride() {
 		// Check for an override from the database
-		SQLiteDatabase database = Regime.getDatabase();
-		Cursor result = database.rawQuery("SELECT name, occurrence FROM regimes WHERE override = \"true\";", null);
+		android.database.sqlite.SQLiteDatabase database = Regime.getDatabase();
+		android.database.Cursor result = database.rawQuery("SELECT name, occurrence FROM regimes WHERE override = \"true\";", null);
 
 		// If there is no result, return the day of the week
 		if (result.getCount() == 0 || !result.moveToFirst()) {
@@ -127,5 +102,63 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 
 		// Return the first occurrence value
 		return Integer.parseInt(arr[0]);
+	}
+
+	private Thread timer() {
+		Thread t = new Thread(() -> {
+			Log.w("Timer", "Starting up...");
+
+			while (r && !Thread.interrupted()) {
+
+				// Load a regime
+				Regime currentRegime = Regime.loadRegime(this.getOverride());
+				if (currentRegime != null) {
+
+					// Figure out if there is a class right now
+					Class currentClass = Class.getClass(currentRegime, Timer.getCurrentTime());
+					if (currentClass != null) {
+
+						// Count down how long it will be until its over
+						String header = currentClass.hasCustomName() ? String.format("%s (%s) will be over in:",
+								currentClass.getName(false), currentClass.getName(true)) :
+								currentClass.getName(false) + " will be over in:",
+								remaining = Timer.formatTimeRemaining(Timer.getTimeRemaining(currentClass));
+
+						this.runOnUiThread(() -> {
+							this.text.setText(header);
+							this.countdown.setVisibility(View.VISIBLE);
+							this.countdown.setText(remaining);
+						});
+
+					} else {
+
+						// If there isn't, display a message
+						this.runOnUiThread(() -> {
+							this.countdown.setVisibility(View.GONE);
+							this.text.setText("No class currently.");
+						});
+					}
+				} else {
+
+					// No regime currently loaded
+					this.runOnUiThread(() -> {
+						this.countdown.setVisibility(View.GONE);
+						this.text.setText("There doesn't seem to be a schedule for today.\nPlease create a new schedule in settings");
+					});
+				}
+
+				try {
+					Thread.sleep(250);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				Thread.yield();
+				Log.d("Timer", "Looping...");
+			}
+
+			Log.w("Timer", "Shutting down...");
+		});
+		t.setName("Timer");
+		return t;
 	}
 }

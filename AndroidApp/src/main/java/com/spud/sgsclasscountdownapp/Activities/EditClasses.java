@@ -1,14 +1,9 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
-import android.text.format.DateFormat;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,12 +16,8 @@ import com.spud.sgsclasscountdownapp.Regime.Class;
 import com.spud.sgsclasscountdownapp.Regime.Regime;
 import com.spud.sgsclasscountdownapp.Timer;
 
-import org.json.JSONException;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
-import java.util.Objects;
 
 /**
  * Created by Stephen Ogden on 2/6/19.
@@ -40,6 +31,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 	private ArrayList<Class> classes = new ArrayList<>();
 
+	@SuppressLint("SetTextI18n")
 	protected void onCreate(android.os.Bundle bundle) {
 		super.onCreate(bundle);
 
@@ -54,16 +46,15 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		// Find the class view layout
 		classList = this.findViewById(R.id.classList);
 
-		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
-				null, 0x0000);
+		android.database.sqlite.SQLiteDatabase database = Regime.getDatabase();
 
 		// Get all the classes from the database
-		Cursor result = database.rawQuery("SELECT classes FROM regimes WHERE name = \"" + EditClasses.name + "\";", null);
+		android.database.Cursor result = database.rawQuery("SELECT classes FROM regimes WHERE name = \"" + EditClasses.name + "\";", null);
 
 		if (result.moveToFirst()) {
 			// Add the classes to the database
 			for (int i = 0; i < result.getCount(); i++) {
-				this.classes.addAll(Arrays.asList(Objects.requireNonNull(Regime.parseClasses(result.getString(result.getColumnIndex("classes"))))));
+				this.classes.addAll(java.util.Arrays.asList(java.util.Objects.requireNonNull(Regime.parseClasses(result.getString(result.getColumnIndex("classes"))))));
 				// Move to the next row (break if it cant)
 				if (!result.moveToNext()) {
 					break;
@@ -81,7 +72,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		this.findViewById(R.id.save).setOnClickListener((event -> {
 			try {
 				new Regime(EditClasses.name, EditClasses.dates, classes.toArray(new Class[0])).saveRegime();
-			} catch (JSONException e) {
+			} catch (org.json.JSONException e) {
 				e.printStackTrace();
 			}
 			// Save the classes array to the database
@@ -100,9 +91,9 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
 		// Get the layout inflater
-		LayoutInflater inflater = this.getLayoutInflater();
+		android.view.LayoutInflater inflater = this.getLayoutInflater();
 
-		final View creationDialog = inflater.inflate(R.layout.classname, null);
+		final android.view.View creationDialog = inflater.inflate(R.layout.classname, null);
 
 		// Prepopulate any variables
 		final EditText officialName = creationDialog.findViewById(R.id.className);
@@ -160,8 +151,6 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 	private void generateClasses() {
 
-		Log.d("onResume", "Generating classes...");
-
 		for (int i = 0; i < classList.getChildCount(); i++) {
 			// Remove all but the add button
 			if (!(classList.getChildAt(i) instanceof Button)) {
@@ -182,7 +171,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			int startTimeHour = Timer.getHour(c.getStartTime()), startTimeMinute = Timer.getMinute(c.getStartTime()) % 60,
 					endTimeHour = Timer.getHour(c.getEndTime()), endTimeMinute = Timer.getMinute(c.getEndTime()) % 60;
 
-			if (DateFormat.is24HourFormat(this)) {
+			if (android.text.format.DateFormat.is24HourFormat(this)) {
 				time.setText(String.format(Locale.ENGLISH, "%d:%02d - %d:%02d", startTimeHour, startTimeMinute, endTimeHour, endTimeMinute));
 			} else {
 				boolean startPM = startTimeHour >= 12;

@@ -50,11 +50,8 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		Log.d("onResume", "Generating regime...");
 
 		for (int i = 0; i < regimeList.getChildCount(); i++) {
-			// Remove all but the add button
-			if (!(regimeList.getChildAt(i) instanceof Button)) {
-				Log.d("generateRegimeView", String.format("Removing element %d/%d", i, regimeList.getChildCount()));
-				regimeList.removeViewAt(i);
-			}
+			Log.d("generateRegimeView", String.format("Removing element %d/%d", i, regimeList.getChildCount()));
+			regimeList.removeViewAt(i);
 		}
 
 		for (Regime r : regimes) {
@@ -63,8 +60,8 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 			TextView title = new TextView(this);
 			title.setText(r.getName());
-			LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-			titleParams.setMargins(0, 0, 5, 0);
+			LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			titleParams.setMargins(0, 0, 20, 0);
 			title.setLayoutParams(titleParams);
 
 			TextView classCount = new TextView(this);
@@ -103,12 +100,13 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 			});
 
 			LinearLayout l = new LinearLayout(this);
+			l.setOrientation(LinearLayout.HORIZONTAL);
 			l.addView(title, 0);
 			l.addView(classCount, 1);
 			l.addView(edit, 2);
 			l.addView(delete, 3);
 
-			regimeList.addView(l, regimeList.getChildCount() - 1);
+			regimeList.addView(l);
 		}
 
 	}

@@ -117,6 +117,10 @@ public class Regime {
 		}
 	}
 
+	/**
+	 * TODO
+	 * @return
+	 */
 	public static SQLiteDatabase getDatabase() {
 		return SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
 				null, 0x0000);
@@ -201,8 +205,8 @@ public class Regime {
 				null);
 		if (result.getCount() > 0) {
 			// Update the data
-			database.execSQL("UPDATE regimes SET occurrence = \"" + occurrence + "\", SET classes = \"" +
-					classArray.toString() + " WHERE name = " + this.getName() + ";");
+			database.execSQL("UPDATE regimes SET occurrence = '" + occurrence + "', classes = '" +
+					classArray.toString() + "' WHERE name = '" + this.getName() + "';");
 		} else {
 			// Add the regime
 			database.execSQL("INSERT INTO regimes (name, occurrence, classes, override) VALUES ('" +

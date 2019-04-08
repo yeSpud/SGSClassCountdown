@@ -2,10 +2,8 @@ package com.spud.sgsclasscountdownapp.Activities;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.util.Log;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 
 import com.spud.sgsclasscountdownapp.R;
 import com.spud.sgsclasscountdownapp.Regime.Regime;
@@ -19,7 +17,7 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 
 	private ArrayList<String> regimeNames = new ArrayList<>();
 
-	private RadioGroup buttons;
+	private android.widget.RadioGroup buttons;
 
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,7 +61,7 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 
 	private RadioButton generateRadioButton(String name) {
 		RadioButton button = new RadioButton(this);
-		button.setTextColor(Color.WHITE);
+		button.setTextColor(android.graphics.Color.WHITE);
 		button.setText(name);
 		return button;
 	}
@@ -109,7 +107,7 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 
 	private void handleOverrides() {
 		// Check for overrides
-		String overrideName = "";
+		String overrideName;
 
 		SQLiteDatabase database = Regime.getDatabase();
 
