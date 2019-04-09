@@ -80,28 +80,26 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 		this.r = false;
 	}
 
-	private int getOverride() {
+	private String getOverride() {
 		// Check for an override from the database
 		android.database.sqlite.SQLiteDatabase database = Regime.getDatabase();
-		android.database.Cursor result = database.rawQuery("SELECT name, occurrence FROM regimes WHERE override = \"true\";", null);
+		android.database.Cursor result = database.rawQuery("SELECT name FROM regimes WHERE override = \"true\";", null);
 
 		// If there is no result, return the day of the week
 		if (result.getCount() == 0 || !result.moveToFirst()) {
 			Log.d("Override name", "No override");
-			return Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+			return null;
 		}
 
 		Log.d("Override name", result.getString(result.getColumnIndex("name")));
 
-		String o = result.getString(result.getColumnIndex("occurrence"));
+		String o = result.getString(result.getColumnIndex("name"));
 
 		result.close();
 		database.close();
 
-		String[] arr = o.replace("[", "").replace("]", "").replace(" ", "").split(",");
-
-		// Return the first occurrence value
-		return Integer.parseInt(arr[0]);
+		// Return the name of the override
+		return o;
 	}
 
 	private Thread timer() {
@@ -111,7 +109,17 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 			while (r && !Thread.interrupted()) {
 
 				// Load a regime
-				Regime currentRegime = Regime.loadRegime(this.getOverride());
+				Regime currentRegime;
+
+				// Check for override
+				String override = this.getOverride();
+				if (override != null) {
+					currentRegime = Regime.loadRegime(this.getOverride());
+				} else {
+					currentRegime = Regime.loadRegime(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+				}
+
+				
 				if (currentRegime != null) {
 
 					// Figure out if there is a class right now

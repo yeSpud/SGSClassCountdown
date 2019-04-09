@@ -18,13 +18,13 @@ public class Timer extends Thread {
 	 */
 	public static String formatTimeRemaining(long seconds) {
 		int minutes = 0;
-		while (seconds > 60) {
+		while (seconds >= 60) {
 			minutes++;
 			seconds -= 60;
 		}
 
 		if (minutes > 0) {
-			return String.format(Locale.ENGLISH, "%02d:%02d", minutes, seconds);
+			return String.format(Locale.ENGLISH, "%d:%02d", minutes, seconds);
 		} else {
 			return String.format("%02d", seconds);
 		}

@@ -49,8 +49,7 @@ public class Regime {
 	 */
 	public static Regime loadRegime(int day) {
 		// Open a connection the database
-		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
-				null, 0x0000);
+		SQLiteDatabase database = Regime.getDatabase();
 		Cursor result = database.rawQuery("SELECT name, occurrence, classes FROM regimes WHERE occurrence LIKE \"%" +
 				day + "%\";", null);
 
@@ -71,6 +70,40 @@ public class Regime {
 			database.close();
 			return new Regime(name, dates, classes);
 		} else {
+			result.close();
+			database.close();
+			return null;
+		}
+	}
+
+	/**
+	 * TODO
+	 *
+	 * @param name
+	 * @return
+	 */
+	public static Regime loadRegime(String name) {
+		// Open a connection the database
+		SQLiteDatabase database = Regime.getDatabase();
+		Cursor result = database.rawQuery("SELECT name, occurrence, classes FROM regimes WHERE name = \"" +
+				name + "\";", null);
+
+		if (result.moveToFirst()) {
+			// Get the name of the regime
+			String n = result.getString(result.getColumnIndex("name"));
+			Log.d("Regime", "Name of loaded regime: " + n);
+
+			// Get the applicable dates
+			int[] dates = Regime.parseDates(result.getString(result.getColumnIndex("occurrence")));
+
+			// Get the classes
+			Class[] classes = Regime.parseClasses(result.getString(result.getColumnIndex("classes")));
+
+			result.close();
+			database.close();
+			return new Regime(name, dates, classes);
+		} else {
+			Log.d("Regime", "No regime loaded");
 			result.close();
 			database.close();
 			return null;
@@ -119,6 +152,7 @@ public class Regime {
 
 	/**
 	 * TODO
+	 *
 	 * @return
 	 */
 	public static SQLiteDatabase getDatabase() {

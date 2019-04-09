@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -159,55 +160,54 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		}
 
 		for (Class c : classes) {
-			TextView title = new TextView(this);
+			TextView title = this.generateTextView();
 			title.setText(c.hasCustomName() ? String.format(Locale.ENGLISH, "%s (%s)", c.getName(false), c.getName(true)) : c.getName(false));
-			title.setTextColor(Color.WHITE);
-			title.setTextSize(15);
-			LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-			titleParams.setMargins(0, 0, 20, 0);
-			title.setLayoutParams(titleParams);
 
-			TextView time = new TextView(this);
+			TextView time = this.generateTextView();
+
 			int startTimeHour = Timer.getHour(c.getStartTime()), startTimeMinute = Timer.getMinute(c.getStartTime()) % 60,
 					endTimeHour = Timer.getHour(c.getEndTime()), endTimeMinute = Timer.getMinute(c.getEndTime()) % 60;
 
+			if (startTimeHour == 0) {
+				startTimeHour = 12;
+			}
+
+			if (endTimeHour == 0) {
+				endTimeHour = 12;
+			}
+
+			String timeText;
+
 			if (android.text.format.DateFormat.is24HourFormat(this)) {
-				time.setText(String.format(Locale.ENGLISH, "%d:%02d - %d:%02d", startTimeHour, startTimeMinute, endTimeHour, endTimeMinute));
+				timeText = String.format(Locale.ENGLISH, "%d:%02d - %d:%02d", startTimeHour, startTimeMinute, endTimeHour, endTimeMinute);
 			} else {
-				boolean startPM = startTimeHour >= 12;
-				startTimeHour = startTimeHour % 12;
+				boolean startPM = startTimeHour > 11;
+				if (startTimeHour > 13) {
+					startTimeHour = startTimeHour - 12;
+				}
 				String start = String.format(Locale.ENGLISH, "%d:%02d %s", startTimeHour, startTimeMinute, startPM ? "PM" : "AM");
 
-				boolean endPM = endTimeHour >= 12;
-				endTimeHour = (endTimeHour % 12);
+				boolean endPM = endTimeHour > 11;
+				if (endTimeHour > 13) {
+					endTimeHour = (endTimeHour - 12);
+				}
 				String end = String.format(Locale.ENGLISH, "%d:%02d %s", endTimeHour, endTimeMinute, endPM ? "PM" : "AM");
 
-				time.setText(String.format(Locale.ENGLISH, "%s - %s", start, end));
+				timeText = String.format(Locale.ENGLISH, "%s - %s", start, end);
 			}
-			time.setTextColor(Color.WHITE);
-			time.setTextSize(15);
+			time.setText(timeText);
 
-			Button edit = new Button(this);
-			edit.setText("Edit class");
-			edit.setTextSize(15);
-			edit.setTextColor(Color.BLACK);
+			Button edit = this.generateButton(R.string.edit);
 			edit.setOnClickListener((e) -> {
 				classes.remove(c);
 				this.editClasses(c.getName(false), c.getStartTime(), c.getEndTime(), c.hasCustomName() ? c.getName(true) : "").show();
 			});
-			LinearLayout.LayoutParams editParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-			edit.setLayoutParams(editParams);
 
-			Button delete = new Button(this);
-			delete.setText("Remove class");
-			delete.setTextSize(15);
-			delete.setTextColor(Color.BLACK);
+			Button delete = this.generateButton(R.string.delete);
 			delete.setOnClickListener((e) -> {
 				classes.remove(c);
 				this.generateClasses();
 			});
-			LinearLayout.LayoutParams deleteParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-			delete.setLayoutParams(deleteParams);
 
 			LinearLayout classDetails = new LinearLayout(this);
 			classDetails.setOrientation(LinearLayout.HORIZONTAL);
@@ -219,5 +219,31 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			classList.addView(classDetails, classList.getChildCount() - 1);
 
 		}
+	}
+
+	private TextView generateTextView() {
+		TextView t = new TextView(this);
+		t.setTextColor(Color.WHITE);
+		t.setTextSize(15);
+		t.setGravity(Gravity.CENTER_VERTICAL);
+		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+		p.setMargins(0, 0, 20, 0);
+		t.setLayoutParams(p);
+		return t;
+	}
+
+	private Button generateButton(String text) {
+		Button b = new Button(this);
+		b.setText(text);
+		b.setTextSize(15);
+		b.setTextColor(Color.BLACK);
+		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		b.setLayoutParams(p);
+		return b;
+	}
+
+	private Button generateButton(int text) {
+		String string = this.getResources().getText(text).toString();
+		return this.generateButton(string);
 	}
 }

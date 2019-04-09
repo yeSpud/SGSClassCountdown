@@ -49,12 +49,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 	private void generateRegimeView() {
 
-		Log.d("onResume", "Generating regime...");
-
-		for (int i = 0; i < regimeList.getChildCount(); i++) {
-			Log.d("generateRegimeView", String.format("Removing element %d/%d", i, regimeList.getChildCount()));
-			regimeList.removeViewAt(i);
-		}
+		regimeList.removeAllViews();
 
 		for (Regime r : regimes) {
 
