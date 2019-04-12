@@ -66,9 +66,6 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		result.close();
 		database.close();
 
-		// Find and setup the add class button
-		classList.findViewById(R.id.addClass).setOnClickListener((event) -> this.editClasses("", Timer.getCurrentTime(), Timer.getCurrentTime(), "").show());
-
 		// Setup the save button
 		this.findViewById(R.id.save).setOnClickListener((event -> {
 			try {
@@ -152,12 +149,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 	private void generateClasses() {
 
-		for (int i = 0; i < classList.getChildCount(); i++) {
-			// Remove all but the add button
-			if (!(classList.getChildAt(i) instanceof Button)) {
-				classList.removeViewAt(i);
-			}
-		}
+		classList.removeAllViews();
 
 		for (Class c : classes) {
 			TextView title = this.generateTextView();
@@ -182,13 +174,13 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 				timeText = String.format(Locale.ENGLISH, "%d:%02d - %d:%02d", startTimeHour, startTimeMinute, endTimeHour, endTimeMinute);
 			} else {
 				boolean startPM = startTimeHour > 11;
-				if (startTimeHour > 13) {
+				if (startTimeHour >= 13) {
 					startTimeHour = startTimeHour - 12;
 				}
 				String start = String.format(Locale.ENGLISH, "%d:%02d %s", startTimeHour, startTimeMinute, startPM ? "PM" : "AM");
 
 				boolean endPM = endTimeHour > 11;
-				if (endTimeHour > 13) {
+				if (endTimeHour >= 13) {
 					endTimeHour = (endTimeHour - 12);
 				}
 				String end = String.format(Locale.ENGLISH, "%d:%02d %s", endTimeHour, endTimeMinute, endPM ? "PM" : "AM");
@@ -216,15 +208,23 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			classDetails.addView(edit, 2);
 			classDetails.addView(delete, 3);
 
-			classList.addView(classDetails, classList.getChildCount() - 1);
+			classList.addView(classDetails);
 
 		}
+
+		Button add = this.generateButton("Add new class");
+		LinearLayout.LayoutParams p = (LinearLayout.LayoutParams) add.getLayoutParams();
+		p.setMargins(0, 0, 10, 0);
+		add.setLayoutParams(p);
+		add.setOnClickListener((event) -> this.editClasses("", Timer.getCurrentTime(), Timer.getCurrentTime(), "").show());
+		classList.addView(add);
+
 	}
 
 	private TextView generateTextView() {
 		TextView t = new TextView(this);
 		t.setTextColor(Color.WHITE);
-		t.setTextSize(15);
+		t.setTextSize(12);
 		t.setGravity(Gravity.CENTER_VERTICAL);
 		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		p.setMargins(0, 0, 20, 0);
@@ -235,7 +235,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 	private Button generateButton(String text) {
 		Button b = new Button(this);
 		b.setText(text);
-		b.setTextSize(15);
+		b.setTextSize(12);
 		b.setTextColor(Color.BLACK);
 		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		b.setLayoutParams(p);

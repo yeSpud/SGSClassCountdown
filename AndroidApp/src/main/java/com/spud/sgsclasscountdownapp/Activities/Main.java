@@ -119,7 +119,7 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 					currentRegime = Regime.loadRegime(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
 				}
 
-				
+
 				if (currentRegime != null) {
 
 					// Figure out if there is a class right now
@@ -156,7 +156,7 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 				}
 
 				try {
-					Thread.sleep(250);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

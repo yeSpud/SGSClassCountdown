@@ -194,7 +194,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 				dates.add(Calendar.SATURDAY);
 			}
 
-			if (dates.size() != 0) { // TODO: Test this
+			if (dates.size() != 0) {
 				EditClasses.dates = new int[dates.size()];
 				for (int i = 0; i < dates.size(); i++) {
 					EditClasses.dates[i] = dates.get(i);
