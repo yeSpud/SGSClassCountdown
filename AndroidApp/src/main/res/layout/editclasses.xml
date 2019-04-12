@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="-10dp"
             android:paddingBottom="-10dp"
-            android:text="Adding classes for "
+            android:text="@string/adding_classes_for"
             android:textColor="@color/white"
             android:textSize="25sp" />
     </LinearLayout>
@@ -76,6 +76,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
         android:text="@string/save"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        tools:ignore="RelativeOverlap" />
 
 </RelativeLayout>

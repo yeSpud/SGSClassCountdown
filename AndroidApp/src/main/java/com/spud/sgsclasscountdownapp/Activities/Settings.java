@@ -4,7 +4,6 @@ import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.os.Build;
 import android.util.Log;
 import android.widget.RadioButton;
 
@@ -69,7 +68,7 @@ public class Settings extends android.support.v7.app.AppCompatActivity {
 
 		// Set button tint
 		// https://stackoverflow.com/questions/17120199/change-circle-color-of-radio-button-android
-		if (Build.VERSION.SDK_INT >= 21) {
+		if (android.os.Build.VERSION.SDK_INT >= 21) {
 			ColorStateList colorStateList = new ColorStateList(new int[][]{
 					new int[]{-android.R.attr.state_enabled}, new int[]{android.R.attr.state_enabled} // disabled and enabled respectively
 			}, new int[]{

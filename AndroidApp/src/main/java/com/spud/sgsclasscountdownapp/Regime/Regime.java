@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.util.Arrays;
 
 /**
  * Created by Stephen Ogden on 2/4/19.
@@ -77,10 +76,11 @@ public class Regime {
 	}
 
 	/**
-	 * TODO
+	 * A helper function that loads the regime depending on the name of the regime that was provided.
+	 * Will return null if no regime exists, or if it errors while loading.
 	 *
-	 * @param name
-	 * @return
+	 * @param name The regime name to load.
+	 * @return A regime object, or null of none exists (or an error occurs).
 	 */
 	public static Regime loadRegime(String name) {
 		// Open a connection the database
@@ -111,10 +111,10 @@ public class Regime {
 	}
 
 	/**
-	 * TODO
+	 * Gets the dates from a string that was returned by the database.
 	 *
-	 * @param datesFromDB
-	 * @return
+	 * @param datesFromDB The database string (such as <code>[1,2,3]</code>).
+	 * @return Returns a int array of all the int dates from the database string.
 	 */
 	public static int[] parseDates(String datesFromDB) {
 		String[] dateResult = datesFromDB.replace("[", "").replace("]", "").replace(" ", "").split(",");
@@ -126,10 +126,10 @@ public class Regime {
 	}
 
 	/**
-	 * TODO
+	 * Parses the classes from the database string, which should be in JSON format.
 	 *
-	 * @param classesFromDB
-	 * @return
+	 * @param classesFromDB The database string, which should be in a JSON format.
+	 * @return An array of class objects, which have been derived from the database string.
 	 */
 	public static Class[] parseClasses(String classesFromDB) {
 		try {
@@ -151,9 +151,9 @@ public class Regime {
 	}
 
 	/**
-	 * TODO
+	 * Returns a SQLiteDatabase object of the regime database.
 	 *
-	 * @return
+	 * @return The regime database as a SQLiteDatabase.
 	 */
 	public static SQLiteDatabase getDatabase() {
 		return SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
@@ -174,7 +174,7 @@ public class Regime {
 	 *
 	 * @return The classes in the regime (as an array of classes).
 	 */
-	public Class[] getClasses() {
+	Class[] getClasses() {
 		return this.classes;
 	}
 
@@ -194,6 +194,7 @@ public class Regime {
 	 * @return The class.
 	 * @throws IndexOutOfBoundsException Thrown if the index is larger than the number of classes in the regime.
 	 */
+	@Deprecated
 	public Class getClass(int index) throws IndexOutOfBoundsException {
 		if (index >= this.getClassCount()) {
 			throw new IndexOutOfBoundsException();
@@ -229,7 +230,7 @@ public class Regime {
 		}
 
 		// Get the dates in which this occurs as a string
-		String occurrence = Arrays.toString(this.getDateOccurrence());
+		String occurrence = java.util.Arrays.toString(this.getDateOccurrence());
 
 		// Put this in the regime database
 		SQLiteDatabase database = Regime.getDatabase();
@@ -251,7 +252,7 @@ public class Regime {
 	}
 
 	/**
-	 * TODO
+	 * Removes the regime from the regime database.
 	 */
 	public void removeRegime() {
 		SQLiteDatabase database = Regime.getDatabase();

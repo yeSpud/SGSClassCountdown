@@ -1,10 +1,8 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Build;
-import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +30,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 	private ArrayList<Class> classes = new ArrayList<>();
 
-	@SuppressLint("SetTextI18n")
+	@android.annotation.SuppressLint("SetTextI18n")
 	protected void onCreate(android.os.Bundle bundle) {
 		super.onCreate(bundle);
 
@@ -225,7 +223,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		TextView t = new TextView(this);
 		t.setTextColor(Color.WHITE);
 		t.setTextSize(12);
-		t.setGravity(Gravity.CENTER_VERTICAL);
+		t.setGravity(android.view.Gravity.CENTER_VERTICAL);
 		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		p.setMargins(0, 0, 20, 0);
 		t.setLayoutParams(p);

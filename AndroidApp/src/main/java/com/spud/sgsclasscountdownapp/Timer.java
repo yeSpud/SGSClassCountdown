@@ -1,9 +1,6 @@
 package com.spud.sgsclasscountdownapp;
 
-import com.spud.sgsclasscountdownapp.Regime.Class;
-
 import java.util.Calendar;
-import java.util.Locale;
 
 /**
  * Created by Stephen Ogden on 2/5/19.
@@ -11,10 +8,10 @@ import java.util.Locale;
 public class Timer extends Thread {
 
 	/**
-	 * TODO
+	 * Format the number of seconds remaining to a countdown like string (ex. 20:37 for 20 minutes and 37 seconds).
 	 *
-	 * @param seconds
-	 * @return
+	 * @param seconds The current time remaining.
+	 * @return The formatted string.
 	 */
 	public static String formatTimeRemaining(long seconds) {
 		int minutes = 0;
@@ -24,7 +21,7 @@ public class Timer extends Thread {
 		}
 
 		if (minutes > 0) {
-			return String.format(Locale.ENGLISH, "%d:%02d", minutes, seconds);
+			return String.format(java.util.Locale.ENGLISH, "%d:%02d", minutes, seconds);
 		} else {
 			return String.format("%02d", seconds);
 		}
@@ -32,10 +29,10 @@ public class Timer extends Thread {
 	}
 
 	/**
-	 * TODO
+	 * Returns the hour from a long time object.
 	 *
-	 * @param time
-	 * @return
+	 * @param time The time in seconds since midnight.
+	 * @return The current hour (as an int)
 	 */
 	public static int getHour(long time) {
 		int hours = 0;
@@ -47,10 +44,10 @@ public class Timer extends Thread {
 	}
 
 	/**
-	 * TODO
+	 * Returns the minute from a long time object.
 	 *
-	 * @param time
-	 * @return
+	 * @param time The time in seconds since midnight.
+	 * @return The current minute (as an int)
 	 */
 	public static int getMinute(long time) {
 		int minutes = 0;
@@ -62,9 +59,9 @@ public class Timer extends Thread {
 	}
 
 	/**
-	 * TODO
+	 * Gets the current time since midnight in seconds.
 	 *
-	 * @return
+	 * @return The time elapsed in seconds since midnight.
 	 */
 	public static long getCurrentTime() {
 		// https://stackoverflow.com/questions/4389500/how-can-i-find-the-amount-of-seconds-passed-from-the-midnight-with-java
@@ -79,12 +76,12 @@ public class Timer extends Thread {
 	}
 
 	/**
-	 * TODO
+	 * Gets the time remaining in the current class object.
 	 *
-	 * @param currentClass
-	 * @return
+	 * @param currentClass The current class as a class object.
+	 * @return The time remaining in seconds.
 	 */
-	public static long getTimeRemaining(Class currentClass) {
+	public static long getTimeRemaining(com.spud.sgsclasscountdownapp.Regime.Class currentClass) {
 		// Get the current time in seconds (since the start of the day)
 		long currentTime = Timer.getCurrentTime();
 
@@ -92,13 +89,24 @@ public class Timer extends Thread {
 		if (currentClass == null) {
 			return 0;
 		} else {
-			// Return the remaining time.
-			return currentClass.getEndTime() - currentTime;
+
+			if (Timer.isAprilFirst()) {
+				return currentTime - currentClass.getStartTime();
+			} else {
+				// Return the remaining time.
+				return currentClass.getEndTime() - currentTime;
+			}
 		}
 	}
 
-	private boolean isAprilFirst() {
-		// TODO
-		return false;
+	/**
+	 * Returns if its april first or not.
+	 * <p>
+	 * Happy april fools.
+	 *
+	 * @return Returns whether or not it is april first.
+	 */
+	public static boolean isAprilFirst() {
+		return Calendar.getInstance().get(Calendar.MONTH) == Calendar.APRIL && Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == 1;
 	}
 }

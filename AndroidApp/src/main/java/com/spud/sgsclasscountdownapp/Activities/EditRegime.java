@@ -1,18 +1,8 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
 import android.app.AlertDialog;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -53,7 +43,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 		for (Regime r : regimes) {
 
-			Log.d("generateRegimeView", String.format("Generating view for regime %s", r.getName()));
+			android.util.Log.d("generateRegimeView", String.format("Generating view for regime %s", r.getName()));
 
 			TextView title = this.createTextView();
 			title.setText(r.getName());
@@ -113,11 +103,10 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 		this.regimes.clear();
 
-		SQLiteDatabase database = SQLiteDatabase.openDatabase(Regime.regimeDatabase.getAbsolutePath(),
-				null, 0x0000);
+		android.database.sqlite.SQLiteDatabase database = Regime.getDatabase();
 
 		// Get all the regimes from the database
-		Cursor result = database.rawQuery("SELECT * FROM regimes;", null);
+		android.database.Cursor result = database.rawQuery("SELECT * FROM regimes;", null);
 
 		// Move the cursor to the first row
 		if (result.moveToFirst()) {
@@ -131,6 +120,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 				}
 			}
 		}
+		result.close();
 		database.close();
 
 		this.generateRegimeView();
@@ -142,12 +132,12 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
 		// Get the layout inflater
-		LayoutInflater inflater = this.getLayoutInflater();
+		android.view.LayoutInflater inflater = this.getLayoutInflater();
 
-		View creationDialog = inflater.inflate(R.layout.createnewregime, null);
+		android.view.View creationDialog = inflater.inflate(R.layout.createnewregime, null);
 
-		final EditText regimeName = creationDialog.findViewById(R.id.name);
-		final CheckBox sunday = creationDialog.findViewById(R.id.sunday),
+		final android.widget.EditText regimeName = creationDialog.findViewById(R.id.name);
+		final android.widget.CheckBox sunday = creationDialog.findViewById(R.id.sunday),
 				monday = creationDialog.findViewById(R.id.monday),
 				tuesday = creationDialog.findViewById(R.id.tuesday),
 				wednesday = creationDialog.findViewById(R.id.wednesday),
@@ -199,7 +189,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 				for (int i = 0; i < dates.size(); i++) {
 					EditClasses.dates[i] = dates.get(i);
 				}
-				this.startActivity(new Intent(EditRegime.this, EditClasses.class));
+				this.startActivity(new android.content.Intent(EditRegime.this, EditClasses.class));
 			}
 		}).setNegativeButton(R.string.cancel, null);
 
@@ -213,8 +203,8 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 	private TextView createTextView() {
 		TextView t = new TextView(this);
-		t.setGravity(Gravity.CENTER_VERTICAL);
-		t.setTextColor(Color.WHITE);
+		t.setGravity(android.view.Gravity.CENTER_VERTICAL);
+		t.setTextColor(android.graphics.Color.WHITE);
 		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		p.setMargins(0, 0, 20, 0);
 		t.setLayoutParams(p);

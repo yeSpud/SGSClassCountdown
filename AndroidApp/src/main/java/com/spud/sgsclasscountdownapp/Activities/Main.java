@@ -126,14 +126,25 @@ public class Main extends android.support.v7.app.AppCompatActivity {
 					Class currentClass = Class.getClass(currentRegime, Timer.getCurrentTime());
 					if (currentClass != null) {
 
-						// Count down how long it will be until its over
-						String header = currentClass.hasCustomName() ? String.format("%s (%s) will be over in:",
-								currentClass.getName(false), currentClass.getName(true)) :
-								currentClass.getName(false) + " will be over in:",
-								remaining = Timer.formatTimeRemaining(Timer.getTimeRemaining(currentClass));
+						String header, remaining = Timer.formatTimeRemaining(Timer.getTimeRemaining(currentClass));
+
+						if (Timer.isAprilFirst()) {
+							// Count up how long the user has been in class
+							header = currentClass.hasCustomName() ? String.format("You've been in %s (%s) for:",
+									currentClass.getName(false), currentClass.getName(true)) :
+									String.format("You've been in %s for:", currentClass.getName(false));
+
+						} else {
+							// Count down how long it will be until its over
+							header = currentClass.hasCustomName() ? String.format("%s (%s) will be over in:",
+									currentClass.getName(false), currentClass.getName(true)) :
+									currentClass.getName(false) + " will be over in:";
+						}
+
+						final String finalHeader = header;
 
 						this.runOnUiThread(() -> {
-							this.text.setText(header);
+							this.text.setText(finalHeader);
 							this.countdown.setVisibility(View.VISIBLE);
 							this.countdown.setText(remaining);
 						});

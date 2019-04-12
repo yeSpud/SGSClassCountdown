@@ -18,8 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/roundcorners"
         android:layout_marginTop="150dp"
+        android:background="@drawable/roundcorners"
         android:orientation="vertical">
 
         <TextView
