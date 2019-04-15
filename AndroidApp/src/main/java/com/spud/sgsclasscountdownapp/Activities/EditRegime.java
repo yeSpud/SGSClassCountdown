@@ -1,6 +1,9 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -21,6 +24,9 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 	private LinearLayout regimeList;
 
+	private View createRegimeName;
+
+	@SuppressLint("InflateParams")
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -29,8 +35,17 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		// Linear layout to house all the regimes
 		regimeList = this.findViewById(R.id.regimesList);
 
+		// Get the layout inflater
+		android.view.LayoutInflater inflater = this.getLayoutInflater();
+
+		this.createRegimeName = inflater.inflate(R.layout.createnewregime, null);
+
 		// Setup the create new schedule button
-		this.findViewById(R.id.newSchedule).setOnClickListener((event) -> this.createNewRegime().show());
+		this.findViewById(R.id.newSchedule).setOnClickListener((event) -> {
+			AlertDialog createNewRegimeName = this.createNewRegime();
+			createNewRegimeName.setView(this.createRegimeName);
+			createNewRegimeName.show();
+		});
 
 		// Setup the save button
 		this.findViewById(R.id.back).setOnClickListener((event) -> finish());
@@ -72,7 +87,11 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 						sa = true;
 					}
 				}
-				this.createNewRegime(r.getName(), su, m, tu, w, th, f, sa).show();
+
+				AlertDialog createNewRegimeName = this.createNewRegime(r.getName(), su, m, tu, w, th, f, sa);
+				createNewRegimeName.setView(this.createRegimeName);
+				createNewRegimeName.show();
+
 			});
 			edit.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
@@ -127,78 +146,61 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 	}
 
 	// https://developer.android.com/guide/topics/ui/dialogs#java
-	// TODO Use setMultiChoiceItems option in builder
 	private AlertDialog createNewRegime(String name, boolean su, boolean m, boolean tu, boolean w, boolean th, boolean f, boolean sa) {
 
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
-		// Get the layout inflater
-		android.view.LayoutInflater inflater = this.getLayoutInflater();
-
-		android.view.View creationDialog = inflater.inflate(R.layout.createnewregime, null);
-
-		// TODO
-		dialog.setMultiChoiceItems(new String[] {"Sunday", "Monday", "Tuesday"}, null, null);
-
-		final android.widget.EditText regimeName = creationDialog.findViewById(R.id.name);
-		final android.widget.CheckBox sunday = creationDialog.findViewById(R.id.sunday),
-				monday = creationDialog.findViewById(R.id.monday),
-				tuesday = creationDialog.findViewById(R.id.tuesday),
-				wednesday = creationDialog.findViewById(R.id.wednesday),
-				thursday = creationDialog.findViewById(R.id.thursday),
-				friday = creationDialog.findViewById(R.id.friday),
-				saturday = creationDialog.findViewById(R.id.saturday);
+		final android.widget.EditText regimeName = this.createRegimeName.findViewById(R.id.name);
 
 		// Prepopulate any variables
 		if (!name.equals("")) {
 			regimeName.setText(name);
 		}
-		sunday.setChecked(su);
-		monday.setChecked(m);
-		tuesday.setChecked(tu);
-		wednesday.setChecked(w);
-		thursday.setChecked(th);
-		friday.setChecked(f);
-		saturday.setChecked(sa);
 
-		dialog.setView(creationDialog);
-		dialog.setPositiveButton("Add classes", (event, id) -> {
-			EditClasses.name = regimeName.getText().toString();
-			ArrayList<Integer> dates = new ArrayList<>();
-			// Get which dates are checked
-			if (sunday.isChecked()) {
-				dates.add(Calendar.SUNDAY);
-			}
-			if (monday.isChecked()) {
-				dates.add(Calendar.MONDAY);
-			}
-			if (tuesday.isChecked()) {
-				dates.add(Calendar.TUESDAY);
-			}
-			if (wednesday.isChecked()) {
-				dates.add(Calendar.WEDNESDAY);
-			}
-			if (thursday.isChecked()) {
-				dates.add(Calendar.THURSDAY);
-			}
-			if (friday.isChecked()) {
-				dates.add(Calendar.FRIDAY);
-			}
-			if (saturday.isChecked()) {
-				dates.add(Calendar.SATURDAY);
-			}
-
-			if (dates.size() != 0) {
-				EditClasses.dates = new int[dates.size()];
-				for (int i = 0; i < dates.size(); i++) {
-					EditClasses.dates[i] = dates.get(i);
-				}
-				this.startActivity(new android.content.Intent(EditRegime.this, EditClasses.class));
-			}
-		}).setNegativeButton(R.string.cancel, null);
+		dialog.setPositiveButton(R.string.next, (event, id) -> {
+			this.killView(this.createRegimeName);
+			AlertDialog occurrenceDialog = this.createOccurrenceDialog(regimeName.getText().toString(), su, m, tu, w, th, f, sa);
+			occurrenceDialog.show();
+		}).setNegativeButton(R.string.cancel, (event, id) -> this.killView(this.createRegimeName));
 
 		return dialog.create();
 
+	}
+
+	private AlertDialog createOccurrenceDialog(String name, boolean su, boolean m, boolean tu, boolean w, boolean th, boolean f, boolean sa) {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+		ArrayList<Integer> selectedDates = new ArrayList<>();
+
+		dialog.setTitle(R.string.select_the_day_this_schedule_occurs);
+
+		dialog.setMultiChoiceItems(new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"},
+				new boolean[]{su, m, tu, w, th, f, sa}, (dialog1, which, isChecked) -> {
+					if (isChecked) {
+						selectedDates.add(which);
+					} else if (selectedDates.contains(which)) {
+						selectedDates.remove(which);
+					}
+				});
+
+		dialog.setPositiveButton(R.string.edit_classes, (event, id) -> {
+
+			EditClasses.name = name;
+
+			if (selectedDates.size() != 0) {
+				EditClasses.dates = new int[selectedDates.size()];
+				for (int i = 0; i < selectedDates.size(); i++) {
+					EditClasses.dates[i] = selectedDates.get(i) + 1; // The calendar instance starts at 1
+				}
+				this.startActivity(new android.content.Intent(EditRegime.this, EditClasses.class));
+			}
+		}).setNegativeButton(R.string.back, (event, id) -> {
+			AlertDialog createNewRegimeName = this.createNewRegime(name, su, m, tu, w, th, f, sa);
+			createNewRegimeName.setView(this.createRegimeName);
+			createNewRegimeName.show();
+		});
+
+		return dialog.create();
 	}
 
 	private AlertDialog createNewRegime() {
@@ -213,5 +215,15 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		p.setMargins(0, 0, 20, 0);
 		t.setLayoutParams(p);
 		return t;
+	}
+
+	private void killView(View v) {
+		try {
+			ViewGroup parent = (ViewGroup) v.getParent();
+			parent.removeView(v);
+		} catch (NullPointerException e) {
+			Log.w("KillView", "View is null!");
+			e.printStackTrace();
+		}
 	}
 }

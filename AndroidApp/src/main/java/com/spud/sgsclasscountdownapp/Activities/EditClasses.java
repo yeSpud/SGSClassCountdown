@@ -1,14 +1,12 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -37,7 +35,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 	private ArrayList<Class> classes = new ArrayList<>();
 
-	@android.annotation.SuppressLint("SetTextI18n")
+	@android.annotation.SuppressLint({"SetTextI18n", "InflateParams"})
 	protected void onCreate(android.os.Bundle bundle) {
 		super.onCreate(bundle);
 

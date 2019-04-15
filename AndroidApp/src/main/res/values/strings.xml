@@ -22,7 +22,7 @@
     <string name="enter_when_class_ends">Enter when class ends</string>
     <string name="enter_schedule_name">Enter schedule name</string>
     <string name="name_of_schedule">Name of schedule</string>
-    <string name="select_the_day_this_schedule_occurs">Select the day this schedule occurs</string>
+    <string name="select_the_day_this_schedule_occurs">Set the schedule occurrence</string>
     <string name="sunday">Sunday</string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
@@ -31,6 +31,7 @@
     <string name="friday">Friday</string>
     <string name="saturday">Saturday</string>
     <string name="adding_classes_for">Adding classes for</string>
+    <string name="edit_classes">Edit classes</string>
     <string name="edit_schedules">Edit schedules</string>
     <string name="new_schedule">New schedule</string>
 </resources>
