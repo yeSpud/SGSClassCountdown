@@ -1,9 +1,14 @@
 package com.spud.sgsclasscountdownapp.Activities;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,6 +33,8 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 	private LinearLayout classList;
 
+	private View classNameView, startTimeView, endTimeView;
+
 	private ArrayList<Class> classes = new ArrayList<>();
 
 	@android.annotation.SuppressLint("SetTextI18n")
@@ -43,7 +50,15 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		((TextView) this.findViewById(R.id.classHeaderText)).setText("Adding classes for " + EditClasses.name);
 
 		// Find the class view layout
-		classList = this.findViewById(R.id.classList);
+		this.classList = this.findViewById(R.id.classList);
+
+		// Get the layout inflater
+		LayoutInflater inflater = this.getLayoutInflater();
+
+		// Setup all the popup views
+		this.classNameView = inflater.inflate(R.layout.classname, null);
+		this.startTimeView = inflater.inflate(R.layout.classstarttime, null);
+		this.endTimeView = inflater.inflate(R.layout.classendtime, null);
 
 		android.database.sqlite.SQLiteDatabase database = Regime.getDatabase();
 
@@ -83,27 +98,38 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 	}
 
 	// https://developer.android.com/guide/topics/ui/dialogs#java
-	private AlertDialog editClasses(String name, long startTime, long endTime, String customName) {
+	private AlertDialog setClassNames(String name, long startTime, long endTime, String customName) {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
-		// Get the layout inflater
-		android.view.LayoutInflater inflater = this.getLayoutInflater();
-
-		final android.view.View creationDialog = inflater.inflate(R.layout.classname, null);
-
 		// Prepopulate any variables
-		final EditText officialName = creationDialog.findViewById(R.id.className);
+		EditText officialName = this.classNameView.findViewById(R.id.className);
 		if (!name.equals("")) {
 			officialName.setText(name);
 		}
 
-		final EditText customNameText = creationDialog.findViewById(R.id.customClassName);
+		EditText customNameText = this.classNameView.findViewById(R.id.customClassName);
 		if (!customName.equals("")) {
 			customNameText.setText(customName);
 		}
 
+		// TODO: Next text to resource
+		dialog.setPositiveButton("Next", (event, id) -> {
+
+			// The specified child already has a parent. You must call removeView() on the child's parent first.
+			this.killView(this.classNameView);
+			AlertDialog startTimeDialog = this.setStartTime(officialName.getText().toString(), startTime, endTime, customNameText.getText().toString()); // TODO Error here
+			startTimeDialog.setView(this.startTimeView);
+			startTimeDialog.show();
+		}).setNegativeButton(R.string.cancel, (event, id) -> this.killView(this.classNameView));
+
+		return dialog.create();
+	}
+
+	private AlertDialog setStartTime(String name, long startTime, long endTime, String customName) {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
 		// Start time
-		final TimePicker start = creationDialog.findViewById(R.id.startTime);
+		TimePicker start = this.startTimeView.findViewById(R.id.startTime);
 		if (Build.VERSION.SDK_INT < 23) {
 			start.setCurrentHour(Timer.getHour(startTime));
 			start.setCurrentMinute(Timer.getMinute(startTime));
@@ -112,9 +138,35 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			start.setMinute(Timer.getMinute(startTime));
 		}
 
+		// TODO: Next text to resource
+		dialog.setPositiveButton("Next", (event, id) -> {
+			long s;
+
+			if (Build.VERSION.SDK_INT < 23) {
+				s = start.getCurrentHour() * 3600 + start.getCurrentMinute() * 60;
+			} else {
+				s = start.getHour() * 3600 + start.getMinute() * 60;
+			}
+
+			this.killView(this.startTimeView);
+			AlertDialog endTimeDialog = this.setEndTime(name, s, endTime, customName);
+			endTimeDialog.setView(this.endTimeView);
+			endTimeDialog.show();
+		}).setNegativeButton(R.string.back, (event, id) -> {
+			this.killView(this.startTimeView);
+			AlertDialog classNameDialog = this.setStartTime(name, startTime, endTime, customName);
+			classNameDialog.setView(this.classNameView);
+			classNameDialog.show();
+		});
+
+		return dialog.create();
+	}
+
+	private AlertDialog setEndTime(String name, long startTime, long endTime, String customName) {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
 		// End time
-		final TimePicker end = creationDialog.findViewById(R.id.endTime);
+		TimePicker end = this.endTimeView.findViewById(R.id.endTime);
 		if (Build.VERSION.SDK_INT < 23) {
 			end.setCurrentHour(Timer.getHour(endTime));
 			end.setCurrentMinute(Timer.getMinute(endTime));
@@ -123,24 +175,27 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			end.setMinute(Timer.getMinute(endTime));
 		}
 
+		dialog.setPositiveButton(R.id.save, (event, id) -> {
+			long e;
 
-		dialog.setView(creationDialog);
-		dialog.setPositiveButton("Create class", (event, id) -> {
-			long sT, eT;
 			if (Build.VERSION.SDK_INT < 23) {
-				sT = start.getCurrentHour() * 3600 + start.getCurrentMinute() * 60;
-				eT = end.getCurrentHour() * 3600 + end.getCurrentMinute() * 60;
+				e = end.getCurrentHour() * 3600 + end.getCurrentMinute() * 60;
 			} else {
-				sT = start.getHour() * 3600 + start.getMinute() * 60;
-				eT = end.getHour() * 3600 + end.getMinute() * 60;
+				e = end.getHour() * 3600 + end.getMinute() * 60;
 			}
 
-			Class newClass = new Class(officialName.getText().toString(), sT, eT, customNameText.getText().toString());
+			Class newClass = new Class(name, startTime, e, customName);
 
 			this.classes.add(newClass);
 
+			this.killView(this.endTimeView);
 			this.generateClasses();
-		}).setNegativeButton(R.string.cancel, null);
+		}).setNegativeButton(R.string.back, (event, id) -> {
+			this.killView(this.endTimeView);
+			AlertDialog startTimeDialog = this.setStartTime(name, startTime, endTime, customName);
+			startTimeDialog.setView(this.startTimeView);
+			startTimeDialog.show();
+		});
 
 		return dialog.create();
 	}
@@ -190,7 +245,9 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			Button edit = this.generateButton(R.string.edit);
 			edit.setOnClickListener((e) -> {
 				classes.remove(c);
-				this.editClasses(c.getName(false), c.getStartTime(), c.getEndTime(), c.hasCustomName() ? c.getName(true) : "").show();
+				AlertDialog dialog = this.setClassNames(c.getName(false), c.getStartTime(), c.getEndTime(), c.hasCustomName() ? c.getName(true) : "");
+				dialog.setView(this.classNameView);
+				dialog.show();
 			});
 
 			Button delete = this.generateButton(R.string.delete);
@@ -214,7 +271,10 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		LinearLayout.LayoutParams p = (LinearLayout.LayoutParams) add.getLayoutParams();
 		p.setMargins(0, 0, 10, 0);
 		add.setLayoutParams(p);
-		add.setOnClickListener((event) -> this.editClasses("", Timer.getCurrentTime(), Timer.getCurrentTime(), "").show());
+		add.setOnClickListener((event) -> {
+			AlertDialog dialog = this.setClassNames("", Timer.getCurrentTime(), Timer.getCurrentTime(), "");
+			dialog.show();
+		});
 		classList.addView(add);
 
 	}
@@ -243,5 +303,14 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 	private Button generateButton(int text) {
 		String string = this.getResources().getText(text).toString();
 		return this.generateButton(string);
+	}
+
+	private void killView(View v) {
+		try {
+			ViewGroup parent = (ViewGroup) v.getParent();
+			parent.removeView(v);
+		} catch (NullPointerException ignore) {
+			
+		}
 	}
 }
