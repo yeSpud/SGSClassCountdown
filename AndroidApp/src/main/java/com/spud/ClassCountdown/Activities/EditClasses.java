@@ -1,10 +1,8 @@
-package com.spud.sgsclasscountdownapp.Activities;
+package com.spud.ClassCountdown.Activities;
 
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,10 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.spud.sgsclasscountdownapp.R;
-import com.spud.sgsclasscountdownapp.Regime.Class;
-import com.spud.sgsclasscountdownapp.Regime.Regime;
-import com.spud.sgsclasscountdownapp.Timer;
+import com.spud.ClassCountdown.R;
+import com.spud.ClassCountdown.Regime.Class;
+import com.spud.ClassCountdown.Regime.Regime;
+import com.spud.ClassCountdown.Timer;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -51,7 +49,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		this.classList = this.findViewById(R.id.classList);
 
 		// Get the layout inflater
-		LayoutInflater inflater = this.getLayoutInflater();
+		android.view.LayoutInflater inflater = this.getLayoutInflater();
 
 		// Setup all the popup views
 		this.classNameView = inflater.inflate(R.layout.classname, null);
@@ -306,7 +304,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			ViewGroup parent = (ViewGroup) v.getParent();
 			parent.removeView(v);
 		} catch (NullPointerException e) {
-			Log.w("KillView", "View is null!");
+			android.util.Log.w("KillView", "View is null!");
 			e.printStackTrace();
 		}
 	}

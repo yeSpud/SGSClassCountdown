@@ -3,14 +3,13 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
     }
-    compileSdkVersion 26
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.spud.sgsclasscountdownapp"
         minSdkVersion 19
-        targetSdkVersion 26
-        versionCode 5
-        versionName "Alpha 5"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        targetSdkVersion 28
+        versionCode 7
+        versionName "Alpha 7"
     }
     buildTypes {
         release {
@@ -31,5 +30,5 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 }

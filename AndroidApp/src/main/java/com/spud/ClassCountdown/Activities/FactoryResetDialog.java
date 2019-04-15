@@ -1,4 +1,4 @@
-package com.spud.sgsclasscountdownapp.Activities;
+package com.spud.ClassCountdown.Activities;
 
 /**
  * Created by Stephen Ogden on 10/9/18.

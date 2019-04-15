@@ -1,4 +1,4 @@
-package com.spud.sgsclasscountdownapp.Activities;
+package com.spud.ClassCountdown.Activities;
 
 import android.content.res.ColorStateList;
 import android.database.Cursor;
@@ -7,8 +7,8 @@ import android.graphics.Color;
 import android.util.Log;
 import android.widget.RadioButton;
 
-import com.spud.sgsclasscountdownapp.R;
-import com.spud.sgsclasscountdownapp.Regime.Regime;
+import com.spud.ClassCountdown.R;
+import com.spud.ClassCountdown.Regime.Regime;
 
 import java.util.ArrayList;
 

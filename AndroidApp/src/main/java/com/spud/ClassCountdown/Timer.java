@@ -1,4 +1,4 @@
-package com.spud.sgsclasscountdownapp;
+package com.spud.ClassCountdown;
 
 import java.util.Calendar;
 
@@ -81,7 +81,7 @@ public class Timer extends Thread {
 	 * @param currentClass The current class as a class object.
 	 * @return The time remaining in seconds.
 	 */
-	public static long getTimeRemaining(com.spud.sgsclasscountdownapp.Regime.Class currentClass) {
+	public static long getTimeRemaining(com.spud.ClassCountdown.Regime.Class currentClass) {
 		// Get the current time in seconds (since the start of the day)
 		long currentTime = Timer.getCurrentTime();
 

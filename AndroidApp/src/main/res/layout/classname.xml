@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="@string/enter_class_name"
             android:textSize="25sp" />
 
@@ -20,7 +19,6 @@
             android:id="@+id/className"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="20dp"
             android:importantForAutofill="no"
             android:inputType="textAutoCorrect"
@@ -29,9 +27,8 @@
             tools:targetApi="o" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:text="@string/enter_custom_class_name"
             android:textSize="25sp" />
 
@@ -39,7 +36,6 @@
             android:id="@+id/customClassName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:importantForAutofill="no"
             android:inputType="textAutoCorrect"
             android:textSize="20sp"
@@ -47,6 +43,5 @@
             tools:targetApi="o" />
 
     </LinearLayout>
-
 
 </ScrollView>

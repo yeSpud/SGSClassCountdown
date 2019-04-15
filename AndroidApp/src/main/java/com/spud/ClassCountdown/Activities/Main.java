@@ -1,13 +1,13 @@
-package com.spud.sgsclasscountdownapp.Activities;
+package com.spud.ClassCountdown.Activities;
 
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.spud.sgsclasscountdownapp.R;
-import com.spud.sgsclasscountdownapp.Regime.Class;
-import com.spud.sgsclasscountdownapp.Regime.Regime;
-import com.spud.sgsclasscountdownapp.Timer;
+import com.spud.ClassCountdown.R;
+import com.spud.ClassCountdown.Regime.Class;
+import com.spud.ClassCountdown.Regime.Regime;
+import com.spud.ClassCountdown.Timer;
 
 import java.util.Calendar;
 

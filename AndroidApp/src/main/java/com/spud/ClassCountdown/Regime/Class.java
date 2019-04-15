@@ -1,4 +1,4 @@
-package com.spud.sgsclasscountdownapp.Regime;
+package com.spud.ClassCountdown.Regime;
 
 /**
  * Created by Stephen Ogden on 2/4/19.
@@ -55,7 +55,7 @@ public class Class {
      *
      * @param startTime The time when the class starts.
      */
-    public void setStartTime(long startTime) {
+    private void setStartTime(long startTime) {
         this.startTime = startTime;
     }
 
@@ -73,7 +73,7 @@ public class Class {
      *
      * @param endTime The time when the class ends.
      */
-    public void setEndTime(long endTime) {
+    private void setEndTime(long endTime) {
         this.endTime = endTime;
     }
 
@@ -101,7 +101,7 @@ public class Class {
      *
      * @param customName The custom name.
      */
-    public void setCustomName(String customName) {
+    private void setCustomName(String customName) {
         this.customName = customName;
     }
 

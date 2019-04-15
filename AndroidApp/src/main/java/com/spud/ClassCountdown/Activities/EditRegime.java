@@ -1,6 +1,5 @@
-package com.spud.sgsclasscountdownapp.Activities;
+package com.spud.ClassCountdown.Activities;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +8,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.spud.sgsclasscountdownapp.R;
-import com.spud.sgsclasscountdownapp.Regime.Regime;
+import com.spud.ClassCountdown.R;
+import com.spud.ClassCountdown.Regime.Regime;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +25,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 	private View createRegimeName;
 
-	@SuppressLint("InflateParams")
+	@android.annotation.SuppressLint("InflateParams")
 	protected void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -48,7 +47,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		});
 
 		// Setup the save button
-		this.findViewById(R.id.back).setOnClickListener((event) -> finish());
+		this.findViewById(R.id.back).setOnClickListener((event) -> this.finish());
 
 	}
 
@@ -150,6 +149,8 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
+		dialog.setTitle(R.string.enter_schedule_name);
+
 		final android.widget.EditText regimeName = this.createRegimeName.findViewById(R.id.name);
 
 		// Prepopulate any variables
@@ -171,15 +172,38 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
 		ArrayList<Integer> selectedDates = new ArrayList<>();
+		// Prepopulate the array
+		if (su) {
+			selectedDates.add(Calendar.SUNDAY);
+		}
+		if (m) {
+			selectedDates.add(Calendar.MONDAY);
+		}
+		if (tu) {
+			selectedDates.add(Calendar.TUESDAY);
+		}
+		if (w) {
+			selectedDates.add(Calendar.WEDNESDAY);
+		}
+		if (th) {
+			selectedDates.add(Calendar.THURSDAY);
+		}
+		if (f) {
+			selectedDates.add(Calendar.FRIDAY);
+		}
+		if (sa) {
+			selectedDates.add(Calendar.SATURDAY);
+		}
 
 		dialog.setTitle(R.string.select_the_day_this_schedule_occurs);
 
 		dialog.setMultiChoiceItems(new String[]{"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"},
 				new boolean[]{su, m, tu, w, th, f, sa}, (dialog1, which, isChecked) -> {
+					// The calendar instance starts at 1
 					if (isChecked) {
-						selectedDates.add(which);
-					} else if (selectedDates.contains(which)) {
-						selectedDates.remove(which);
+						selectedDates.add(which + 1);
+					} else if (selectedDates.contains(which + 1)) {
+						selectedDates.remove(which + 1);
 					}
 				});
 
@@ -190,7 +214,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 			if (selectedDates.size() != 0) {
 				EditClasses.dates = new int[selectedDates.size()];
 				for (int i = 0; i < selectedDates.size(); i++) {
-					EditClasses.dates[i] = selectedDates.get(i) + 1; // The calendar instance starts at 1
+					EditClasses.dates[i] = selectedDates.get(i);
 				}
 				this.startActivity(new android.content.Intent(EditRegime.this, EditClasses.class));
 			}

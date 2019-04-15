@@ -1,4 +1,4 @@
-package com.spud.sgsclasscountdownapp.Regime;
+package com.spud.ClassCountdown.Regime;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,7 +18,7 @@ public class Regime {
 	/**
 	 * The regime database file.
 	 */
-	public static File regimeDatabase = new File(com.spud.sgsclasscountdownapp.Activities.Main.dir.getAbsolutePath() + "regimes.db");
+	public static File regimeDatabase = new File(com.spud.ClassCountdown.Activities.Main.dir.getAbsolutePath() + "regimes.db");
 
 	private String name;
 	private int[] dateOccurrence;

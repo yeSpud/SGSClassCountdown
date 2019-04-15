@@ -1,4 +1,4 @@
-package com.spud.sgsclasscountdownapp.Layout;
+package com.spud.ClassCountdown.Layout;
 
 import android.content.Context;
 import android.widget.Button;
@@ -8,6 +8,7 @@ import android.widget.TextView;
 /**
  * Created by Stephen Ogden on 4/8/19.
  */
+@Deprecated
 public class RegimeLayout extends LinearLayout {
 
 	public TextView title, classCount;
