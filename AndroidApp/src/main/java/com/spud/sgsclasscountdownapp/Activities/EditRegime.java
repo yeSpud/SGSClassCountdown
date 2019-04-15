@@ -127,6 +127,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 	}
 
 	// https://developer.android.com/guide/topics/ui/dialogs#java
+	// TODO Use setMultiChoiceItems option in builder
 	private AlertDialog createNewRegime(String name, boolean su, boolean m, boolean tu, boolean w, boolean th, boolean f, boolean sa) {
 
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this);
@@ -135,6 +136,9 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		android.view.LayoutInflater inflater = this.getLayoutInflater();
 
 		android.view.View creationDialog = inflater.inflate(R.layout.createnewregime, null);
+
+		// TODO
+		dialog.setMultiChoiceItems(new String[] {"Sunday", "Monday", "Tuesday"}, null, null);
 
 		final android.widget.EditText regimeName = creationDialog.findViewById(R.id.name);
 		final android.widget.CheckBox sunday = creationDialog.findViewById(R.id.sunday),

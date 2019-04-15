@@ -8,6 +8,7 @@
     <string name="reset">Reset</string>
     <string name="save">Save</string>
     <string name="back">Back</string>
+    <string name="next">Next</string>
     <string name="cancel">Cancel</string>
     <string name="schedule_update_method">Select current schedule:</string>
     <string name="bluredbackgroundImageDescription">The app background image (but it\'s burred this time)</string>

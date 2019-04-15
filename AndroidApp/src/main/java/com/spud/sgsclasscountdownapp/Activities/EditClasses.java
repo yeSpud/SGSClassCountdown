@@ -112,12 +112,10 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			customNameText.setText(customName);
 		}
 
-		// TODO: Next text to resource
-		dialog.setPositiveButton("Next", (event, id) -> {
-
+		dialog.setPositiveButton(R.string.next, (event, id) -> {
 			// The specified child already has a parent. You must call removeView() on the child's parent first.
 			this.killView(this.classNameView);
-			AlertDialog startTimeDialog = this.setStartTime(officialName.getText().toString(), startTime, endTime, customNameText.getText().toString()); // TODO Error here
+			AlertDialog startTimeDialog = this.setStartTime(officialName.getText().toString(), startTime, endTime, customNameText.getText().toString());
 			startTimeDialog.setView(this.startTimeView);
 			startTimeDialog.show();
 		}).setNegativeButton(R.string.cancel, (event, id) -> this.killView(this.classNameView));
@@ -138,8 +136,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			start.setMinute(Timer.getMinute(startTime));
 		}
 
-		// TODO: Next text to resource
-		dialog.setPositiveButton("Next", (event, id) -> {
+		dialog.setPositiveButton(R.string.next, (event, id) -> {
 			long s;
 
 			if (Build.VERSION.SDK_INT < 23) {
@@ -154,7 +151,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			endTimeDialog.show();
 		}).setNegativeButton(R.string.back, (event, id) -> {
 			this.killView(this.startTimeView);
-			AlertDialog classNameDialog = this.setStartTime(name, startTime, endTime, customName);
+			AlertDialog classNameDialog = this.setClassNames(name, startTime, endTime, customName);
 			classNameDialog.setView(this.classNameView);
 			classNameDialog.show();
 		});
@@ -175,7 +172,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			end.setMinute(Timer.getMinute(endTime));
 		}
 
-		dialog.setPositiveButton(R.id.save, (event, id) -> {
+		dialog.setPositiveButton(R.string.save, (event, id) -> {
 			long e;
 
 			if (Build.VERSION.SDK_INT < 23) {
@@ -273,6 +270,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		add.setLayoutParams(p);
 		add.setOnClickListener((event) -> {
 			AlertDialog dialog = this.setClassNames("", Timer.getCurrentTime(), Timer.getCurrentTime(), "");
+			dialog.setView(this.classNameView);
 			dialog.show();
 		});
 		classList.addView(add);
@@ -309,8 +307,9 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		try {
 			ViewGroup parent = (ViewGroup) v.getParent();
 			parent.removeView(v);
-		} catch (NullPointerException ignore) {
-			
+		} catch (NullPointerException e) {
+			Log.w("KillView", "View is null!");
+			e.printStackTrace();
 		}
 	}
 }
