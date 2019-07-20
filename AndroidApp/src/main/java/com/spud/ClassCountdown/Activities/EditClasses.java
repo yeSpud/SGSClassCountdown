@@ -110,11 +110,11 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 		dialog.setPositiveButton(R.string.next, (event, id) -> {
 			// The specified child already has a parent. You must call removeView() on the child's parent first.
-			this.killView(this.classNameView);
+			ActivityHelper.killView(this.classNameView);
 			AlertDialog startTimeDialog = this.setStartTime(officialName.getText().toString(), startTime, endTime, customNameText.getText().toString());
 			startTimeDialog.setView(this.startTimeView);
 			startTimeDialog.show();
-		}).setNegativeButton(R.string.cancel, (event, id) -> this.killView(this.classNameView));
+		}).setNegativeButton(R.string.cancel, (event, id) -> ActivityHelper.killView((this.classNameView)));
 
 		return dialog.create();
 	}
@@ -141,12 +141,12 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 				s = start.getHour() * 3600 + start.getMinute() * 60;
 			}
 
-			this.killView(this.startTimeView);
+			ActivityHelper.killView(this.startTimeView);
 			AlertDialog endTimeDialog = this.setEndTime(name, s, endTime, customName);
 			endTimeDialog.setView(this.endTimeView);
 			endTimeDialog.show();
 		}).setNegativeButton(R.string.back, (event, id) -> {
-			this.killView(this.startTimeView);
+			ActivityHelper.killView(this.startTimeView);
 			AlertDialog classNameDialog = this.setClassNames(name, startTime, endTime, customName);
 			classNameDialog.setView(this.classNameView);
 			classNameDialog.show();
@@ -181,10 +181,10 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 			this.classes.add(newClass);
 
-			this.killView(this.endTimeView);
+			ActivityHelper.killView(this.endTimeView);
 			this.generateClasses();
 		}).setNegativeButton(R.string.back, (event, id) -> {
-			this.killView(this.endTimeView);
+			ActivityHelper.killView(this.endTimeView);
 			AlertDialog startTimeDialog = this.setStartTime(name, startTime, endTime, customName);
 			startTimeDialog.setView(this.startTimeView);
 			startTimeDialog.show();
@@ -251,6 +251,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 			LinearLayout classDetails = new LinearLayout(this);
 			classDetails.setOrientation(LinearLayout.HORIZONTAL);
+
 			classDetails.addView(title, 0);
 			classDetails.addView(time, 1);
 			classDetails.addView(edit, 2);

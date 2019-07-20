@@ -159,10 +159,10 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		}
 
 		dialog.setPositiveButton(R.string.next, (event, id) -> {
-			this.killView(this.createRegimeName);
+			ActivityHelper.killView(this.createRegimeName);
 			AlertDialog occurrenceDialog = this.createOccurrenceDialog(regimeName.getText().toString(), su, m, tu, w, th, f, sa);
 			occurrenceDialog.show();
-		}).setNegativeButton(R.string.cancel, (event, id) -> this.killView(this.createRegimeName));
+		}).setNegativeButton(R.string.cancel, (event, id) -> ActivityHelper.killView(this.createRegimeName));
 
 		return dialog.create();
 
