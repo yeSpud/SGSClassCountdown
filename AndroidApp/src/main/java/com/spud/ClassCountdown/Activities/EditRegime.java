@@ -241,6 +241,7 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		return t;
 	}
 
+	@Deprecated
 	private void killView(View v) {
 		try {
 			ViewGroup parent = (ViewGroup) v.getParent();

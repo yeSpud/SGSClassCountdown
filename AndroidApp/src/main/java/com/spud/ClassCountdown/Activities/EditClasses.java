@@ -299,6 +299,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		return this.generateButton(string);
 	}
 
+	@Deprecated
 	private void killView(View v) {
 		try {
 			ViewGroup parent = (ViewGroup) v.getParent();
