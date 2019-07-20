@@ -197,43 +197,17 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 		classList.removeAllViews();
 
-		for (Class c : classes) {
+		for (Class c : this.classes) {
+
+			// Generate the title of the class
 			TextView title = this.generateTextView();
 			title.setText(c.hasCustomName() ? String.format(Locale.ENGLISH, "%s (%s)", c.getName(false), c.getName(true)) : c.getName(false));
 
+			// Generate the time field of the class
 			TextView time = this.generateTextView();
 
-			int startTimeHour = Timer.getHour(c.getStartTime()), startTimeMinute = Timer.getMinute(c.getStartTime()) % 60,
-					endTimeHour = Timer.getHour(c.getEndTime()), endTimeMinute = Timer.getMinute(c.getEndTime()) % 60;
-
-			if (startTimeHour == 0) {
-				startTimeHour = 12;
-			}
-
-			if (endTimeHour == 0) {
-				endTimeHour = 12;
-			}
-
-			String timeText;
-
-			if (android.text.format.DateFormat.is24HourFormat(this)) {
-				timeText = String.format(Locale.ENGLISH, "%d:%02d - %d:%02d", startTimeHour, startTimeMinute, endTimeHour, endTimeMinute);
-			} else {
-				boolean startPM = startTimeHour > 11;
-				if (startTimeHour >= 13) {
-					startTimeHour = startTimeHour - 12;
-				}
-				String start = String.format(Locale.ENGLISH, "%d:%02d %s", startTimeHour, startTimeMinute, startPM ? "PM" : "AM");
-
-				boolean endPM = endTimeHour > 11;
-				if (endTimeHour >= 13) {
-					endTimeHour = (endTimeHour - 12);
-				}
-				String end = String.format(Locale.ENGLISH, "%d:%02d %s", endTimeHour, endTimeMinute, endPM ? "PM" : "AM");
-
-				timeText = String.format(Locale.ENGLISH, "%s - %s", start, end);
-			}
-			time.setText(timeText);
+			// Get the start and end times
+			time.setText(this.getTimes(c));
 
 			Button edit = this.generateButton(R.string.edit);
 			edit.setOnClickListener((e) -> {
@@ -261,6 +235,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 		}
 
+		// Add a button to add a new class
 		Button add = this.generateButton("Add new class");
 		LinearLayout.LayoutParams p = (LinearLayout.LayoutParams) add.getLayoutParams();
 		p.setMargins(0, 0, 10, 0);
@@ -300,14 +275,35 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		return this.generateButton(string);
 	}
 
-	@Deprecated
-	private void killView(View v) {
-		try {
-			ViewGroup parent = (ViewGroup) v.getParent();
-			parent.removeView(v);
-		} catch (NullPointerException e) {
-			android.util.Log.w("KillView", "View is null!");
-			e.printStackTrace();
+	// FIXME Issues with 12 vs 24 hours (especially around 12)
+	private String getTimes(Class c) {
+
+		int startTimeHour = Timer.getHour(c.getStartTime()), startTimeMinute = Timer.getMinute(c.getStartTime()) % 60,
+				endTimeHour = Timer.getHour(c.getEndTime()), endTimeMinute = Timer.getMinute(c.getEndTime()) % 60;
+
+
+		// Check if user is using 24 hour time
+		if (android.text.format.DateFormat.is24HourFormat(this)) {
+
+			return String.format(Locale.ENGLISH, "%02d:%02d - %d02:%02d", startTimeHour, startTimeMinute, endTimeHour, endTimeMinute);
+		} else {
+
+			// If they are not, add in AM and PM symbols
+			boolean startPM = startTimeHour > 11;
+			if (startTimeHour >= 13) {
+				startTimeHour = startTimeHour - 12;
+			}
+			String start = String.format(Locale.ENGLISH, "%d:%02d %s", startTimeHour, startTimeMinute, startPM ? "PM" : "AM");
+
+			boolean endPM = endTimeHour > 11;
+			if (endTimeHour >= 13) {
+				endTimeHour = (endTimeHour - 12);
+			}
+			String end = String.format(Locale.ENGLISH, "%d:%02d %s", endTimeHour, endTimeMinute, endPM ? "PM" : "AM");
+
+			return String.format(Locale.ENGLISH, "%s - %s", start, end);
 		}
+
 	}
+
 }

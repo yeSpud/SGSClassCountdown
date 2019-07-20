@@ -1,7 +1,6 @@
 package com.spud.ClassCountdown.Activities;
 
 import android.app.AlertDialog;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -241,14 +240,4 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 		return t;
 	}
 
-	@Deprecated
-	private void killView(View v) {
-		try {
-			ViewGroup parent = (ViewGroup) v.getParent();
-			parent.removeView(v);
-		} catch (NullPointerException e) {
-			Log.w("KillView", "View is null!");
-			e.printStackTrace();
-		}
-	}
 }

@@ -31,31 +31,21 @@ public class Timer extends Thread {
 	/**
 	 * Returns the hour from a long time object.
 	 *
-	 * @param time The time in seconds since midnight.
+	 * @param seconds The time in seconds since midnight.
 	 * @return The current hour (as an int)
 	 */
-	public static int getHour(long time) {
-		int hours = 0;
-		while (time >= 3600) {
-			time -= 3600;
-			hours++;
-		}
-		return hours;
+	public static int getHour(long seconds) {
+		return (int) Math.floor(seconds / 3600.0d);
 	}
 
 	/**
 	 * Returns the minute from a long time object.
 	 *
-	 * @param time The time in seconds since midnight.
+	 * @param seconds The time in seconds since midnight.
 	 * @return The current minute (as an int)
 	 */
-	public static int getMinute(long time) {
-		int minutes = 0;
-		while (time >= 60) {
-			time -= 60;
-			minutes++;
-		}
-		return minutes;
+	public static int getMinute(long seconds) {
+		return (int) Math.floor(seconds / 60.0d);
 	}
 
 	/**
@@ -90,19 +80,17 @@ public class Timer extends Thread {
 			return 0;
 		} else {
 
-			if (Timer.isAprilFirst()) {
-				return currentTime - currentClass.getStartTime();
-			} else {
-				// Return the remaining time.
-				return currentClass.getEndTime() - currentTime;
-			}
+			// Return the time remaining unless its april first then return a joke ;)
+			return Timer.isAprilFirst() ? currentTime - currentClass.getStartTime() : currentClass.getEndTime() - currentTime;
 		}
 	}
 
 	/**
 	 * Returns if its april first or not.
 	 * <p>
-	 * Happy april fools.
+	 * Happy april fools!
+	 * <p>
+	 * :D
 	 *
 	 * @return Returns whether or not it is april first.
 	 */
