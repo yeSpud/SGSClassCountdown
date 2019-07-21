@@ -3,6 +3,7 @@ package com.spud.ClassCountdown.Activities;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -195,7 +196,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 	private void generateClasses() {
 
-		classList.removeAllViews();
+		this.classList.removeAllViews();
 
 		for (Class c : this.classes) {
 
@@ -207,11 +208,25 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			TextView time = this.generateTextView();
 
 			// Get the start and end times
-			time.setText(this.getTimes(c));
+			long startTime = c.getStartTime(), endTime = c.getEndTime();
+
+			String timeString;
+
+			// Check if user is using 24 hour time
+			if (android.text.format.DateFormat.is24HourFormat(this)) {
+				timeString = String.format(Locale.ENGLISH, "%02d:%02d - %02d:%02d", Timer.getHour(startTime),
+						Timer.getMinute(startTime), Timer.getHour(endTime), Timer.getMinute(endTime));
+			} else {
+				// If they are not, add in AM and PM symbols
+				String start = this.get12Time(startTime), end = this.get12Time(endTime);
+				timeString = String.format(Locale.ENGLISH, "%s - %s", start, end);
+			}
+
+			time.setText(timeString);
 
 			Button edit = this.generateButton(R.string.edit);
 			edit.setOnClickListener((e) -> {
-				classes.remove(c);
+				this.classes.remove(c);
 				AlertDialog dialog = this.setClassNames(c.getName(false), c.getStartTime(), c.getEndTime(), c.hasCustomName() ? c.getName(true) : "");
 				dialog.setView(this.classNameView);
 				dialog.show();
@@ -219,7 +234,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 			Button delete = this.generateButton(R.string.delete);
 			delete.setOnClickListener((e) -> {
-				classes.remove(c);
+				this.classes.remove(c);
 				this.generateClasses();
 			});
 
@@ -231,7 +246,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			classDetails.addView(edit, 2);
 			classDetails.addView(delete, 3);
 
-			classList.addView(classDetails);
+			this.classList.addView(classDetails);
 
 		}
 
@@ -245,7 +260,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			dialog.setView(this.classNameView);
 			dialog.show();
 		});
-		classList.addView(add);
+		this.classList.addView(add);
 
 	}
 
@@ -275,34 +290,22 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		return this.generateButton(string);
 	}
 
-	// FIXME Issues with 12 vs 24 hours (especially around 12)
-	private String getTimes(Class c) {
+	private String get12Time(long seconds) {
 
-		int startTimeHour = Timer.getHour(c.getStartTime()), startTimeMinute = Timer.getMinute(c.getStartTime()) % 60,
-				endTimeHour = Timer.getHour(c.getEndTime()), endTimeMinute = Timer.getMinute(c.getEndTime()) % 60;
+		// Determine the hour and minute of the class's time
+		int hour = Timer.getHour(seconds), minute = Timer.getMinute(seconds);
 
+		// Determine whether or not it is during the AM hour or the PM hour
+		boolean PM = hour >= 12;
 
-		// Check if user is using 24 hour time
-		if (android.text.format.DateFormat.is24HourFormat(this)) {
+		// If the hour is 0, switch it to display 12 AM
+		hour = hour == 0 ? 12 : hour;
 
-			return String.format(Locale.ENGLISH, "%02d:%02d - %d02:%02d", startTimeHour, startTimeMinute, endTimeHour, endTimeMinute);
-		} else {
+		// If the hour is greater than 12 (will be in the PM range) subtract 12
+		hour = hour > 12 ? hour - 12 : hour;
 
-			// If they are not, add in AM and PM symbols
-			boolean startPM = startTimeHour > 11;
-			if (startTimeHour >= 13) {
-				startTimeHour = startTimeHour - 12;
-			}
-			String start = String.format(Locale.ENGLISH, "%d:%02d %s", startTimeHour, startTimeMinute, startPM ? "PM" : "AM");
-
-			boolean endPM = endTimeHour > 11;
-			if (endTimeHour >= 13) {
-				endTimeHour = (endTimeHour - 12);
-			}
-			String end = String.format(Locale.ENGLISH, "%d:%02d %s", endTimeHour, endTimeMinute, endPM ? "PM" : "AM");
-
-			return String.format(Locale.ENGLISH, "%s - %s", start, end);
-		}
+		// Format the string and return it
+		return String.format("%d:%02d %s", hour, minute, PM ? "PM" : "AM");
 
 	}
 

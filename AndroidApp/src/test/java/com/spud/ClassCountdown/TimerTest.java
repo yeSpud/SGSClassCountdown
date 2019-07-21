@@ -105,6 +105,13 @@ public class TimerTest {
 		Assert.assertEquals(1, Timer.getMinute(65));
 		Assert.assertEquals(1, Timer.getMinute(100));
 		Assert.assertEquals(1, Timer.getMinute(119));
+
+		// Should also be 1, but be over an hour
+		Assert.assertEquals(1, Timer.getMinute(3660));
+		Assert.assertEquals(1, Timer.getMinute(3661));
+		Assert.assertEquals(1, Timer.getMinute(3665));
+		Assert.assertEquals(1, Timer.getMinute(3700));
+		Assert.assertEquals(1, Timer.getMinute(3719));
 	}
 
 }

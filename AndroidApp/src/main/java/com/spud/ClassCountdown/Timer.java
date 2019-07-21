@@ -39,13 +39,15 @@ public class Timer extends Thread {
 	}
 
 	/**
-	 * Returns the minute from a long time object.
+	 * Returns the minute from a long time object. It should be noted that this function also deducts hours, so it just returns minutes.
+	 * <p>
+	 * IE. If the current minute minute value is 61 minutes it will return 1, and if it's 59 it will return 59.
 	 *
 	 * @param seconds The time in seconds since midnight.
 	 * @return The current minute (as an int)
 	 */
 	public static int getMinute(long seconds) {
-		return (int) Math.floor(seconds / 60.0d);
+		return (int) Math.floor((seconds / 60.0d) % 60);
 	}
 
 	/**
