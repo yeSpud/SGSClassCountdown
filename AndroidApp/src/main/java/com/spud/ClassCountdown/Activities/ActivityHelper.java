@@ -9,9 +9,9 @@ import android.view.ViewGroup;
  * <p>
  * For the license, view the file titled LICENSE at the root of the project
  */
-public class ActivityHelper {
+class ActivityHelper {
 
-	public static void killView(View view) {
+	static void killView(View view) {
 		try {
 
 			// Get the views parent

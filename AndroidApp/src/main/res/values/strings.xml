@@ -34,4 +34,6 @@
     <string name="edit_classes">Edit classes</string>
     <string name="edit_schedules">Edit schedules</string>
     <string name="new_schedule">New schedule</string>
+    <string name="addClasses">Adding classes for: %1$s</string>
+    <string name="add_new_class">Add new class</string>
 </resources>
