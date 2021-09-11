@@ -58,10 +58,10 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 			android.util.Log.d("generateRegimeView", String.format("Generating view for regime %s", r.getName()));
 
-			TextView title = this.createTextView();
+			TextView title = ActivityHelper.createTextView(this);
 			title.setText(r.getName());
 
-			TextView classCount = this.createTextView();
+			TextView classCount = ActivityHelper.createTextView(this);
 			classCount.setText(r.getClassCount() == 1 ? "1 class" : r.getClassCount() + " classes");
 
 			Button edit = new Button(this);
@@ -228,16 +228,6 @@ public class EditRegime extends android.support.v7.app.AppCompatActivity {
 
 	private AlertDialog createNewRegime() {
 		return this.createNewRegime("", false, false, false, false, false, false, false);
-	}
-
-	private TextView createTextView() {
-		TextView t = new TextView(this);
-		t.setGravity(android.view.Gravity.CENTER_VERTICAL);
-		t.setTextColor(android.graphics.Color.WHITE);
-		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		p.setMargins(0, 0, 20, 0);
-		t.setLayoutParams(p);
-		return t;
 	}
 
 }

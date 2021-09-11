@@ -1,7 +1,6 @@
 package com.spud.ClassCountdown.Activities;
 
 import android.app.AlertDialog;
-import android.graphics.Color;
 import android.os.Build;
 import android.view.Gravity;
 import android.view.View;
@@ -33,7 +32,7 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 
 	private View classNameView, startTimeView, endTimeView;
 
-	private ArrayList<Class> classes = new ArrayList<>();
+	private final ArrayList<Class> classes = new ArrayList<>();
 
 	@android.annotation.SuppressLint({"InflateParams"})
 	protected void onCreate(android.os.Bundle bundle) {
@@ -195,12 +194,17 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 		return dialog.create();
 	}
 
+	/**
+	 * TODO Documentation
+	 */
 	private void generateClasses() {
-
+		// Clear the view (effectively resetting it)
 		this.classList.removeAllViews();
 
-		for (int index = 0; index < 1; index++) { // TODO Cleanup
+		// Sort through all the classes in the array
+		for (int index = 0; index < this.classes.size(); index++) {
 
+			// Get the class as a single object from the array
 			Class c = this.classes.get(index);
 
 			// Generate the title of the class
@@ -209,17 +213,11 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			// Get the start and end times
 			long startTime = c.getStartTime(), endTime = c.getEndTime();
 
-			String timeString;
+			// Check if user is using 24 hour time. If they are not, add in AM and PM symbols
+			String timeString = android.text.format.DateFormat.is24HourFormat(this) ?
+					String.format(Locale.ENGLISH, "%02d:%02d - %02d:%02d", Timer.getHour(startTime), Timer.getMinute(startTime), Timer.getHour(endTime), Timer.getMinute(endTime)) :
+					String.format(Locale.ENGLISH, "%s - %s", this.get12Time(startTime), this.get12Time(endTime));
 
-			// Check if user is using 24 hour time
-			if (android.text.format.DateFormat.is24HourFormat(this)) {
-				timeString = String.format(Locale.ENGLISH, "%02d:%02d - %02d:%02d", Timer.getHour(startTime),
-						Timer.getMinute(startTime), Timer.getHour(endTime), Timer.getMinute(endTime));
-			} else {
-				// If they are not, add in AM and PM symbols
-				String start = this.get12Time(startTime), end = this.get12Time(endTime);
-				timeString = String.format(Locale.ENGLISH, "%s - %s", start, end);
-			}
 
 			// Setup the text view
 			LinearLayout textView = this.generateTextView(className, timeString, index);
@@ -235,16 +233,15 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 				this.generateClasses();
 			}, index);
 
-
+			// Add the text-view and the button-view to the class list view
 			this.classList.addView(textView, 0);
 			this.classList.addView(buttonView, 1);
 
 		}
 
 		// Add a button to add a new class
-		/*
 		Button add = this.generateButton(R.string.add_new_class);
-		GridLayout.LayoutParams p = (GridLayout.LayoutParams) add.getLayoutParams();
+		GridLayout.LayoutParams p = new GridLayout.LayoutParams();
 		p.rowSpec = GridLayout.spec(this.classes.size(), 1);
 		p.columnSpec = GridLayout.spec(0, 1);
 		p.setMargins(0, 0, 10, 0);
@@ -255,76 +252,99 @@ public class EditClasses extends android.support.v7.app.AppCompatActivity {
 			dialog.show();
 		});
 		this.classList.addView(add);
-		*/
 
 	}
 
+	/**
+	 * TODO Documentation
+	 *
+	 * @param className
+	 * @param classTimes
+	 * @param row
+	 * @return
+	 */
 	private LinearLayout generateTextView(String className, String classTimes, int row) {
 		// Create the linear layout that will house all the text stuff
 		LinearLayout l = new LinearLayout(this);
-		l.setGravity(Gravity.CENTER_HORIZONTAL);
+		l.setGravity(Gravity.CENTER_VERTICAL);
 		l.setOrientation(LinearLayout.HORIZONTAL);
 		GridLayout.LayoutParams p = new GridLayout.LayoutParams();
-		p.rowSpec = GridLayout.spec(row, 2);
+		p.rowSpec = GridLayout.spec(row, 1);
 		p.columnSpec = GridLayout.spec(0, 2);
 		l.setLayoutParams(p);
 
 		// Create the text view that will be used for the class name
-		TextView n = this.generateText();
+		TextView n = ActivityHelper.createTextView(this);
 		n.setText(className);
 
 		// Create the text view that will be used for the class times
-		TextView t = this.generateText();
+		TextView t = ActivityHelper.createTextView(this);
 		t.setText(classTimes);
 
+		// Add the TextViews to the LinearLayout
 		l.addView(n, 0);
 		l.addView(t, 1);
 
 		return l;
 	}
 
+	/**
+	 * Creates the button view for the edit and delete button. OnClickListeners for each button need to be passed as an argument.
+	 *
+	 * @param editListener   The OnClickListener for the edit button.
+	 * @param deleteListener The OnClickListener for the delete button.
+	 * @param row            The row index within the grid view for this view.
+	 * @return The LinearLayout that houses the buttons to edit or delete the class.
+	 */
 	private LinearLayout generateButtonView(View.OnClickListener editListener, View.OnClickListener deleteListener, int row) {
 		// Create the linear layout that will house all the button stuff
 		LinearLayout l = new LinearLayout(this);
 		l.setOrientation(LinearLayout.HORIZONTAL);
 		GridLayout.LayoutParams p = new GridLayout.LayoutParams();
-		p.rowSpec = GridLayout.spec(row, 2);
+		p.rowSpec = GridLayout.spec(row, 1);
 		p.setGravity(Gravity.END);
 		p.columnSpec = GridLayout.spec(2, 2);
 		l.setLayoutParams(p);
 
+		// Create the edit button
 		Button e = this.generateButton(R.string.edit);
 		e.setOnClickListener(editListener);
 
+		// Create the delete button
 		Button d = this.generateButton(R.string.delete);
 		d.setOnClickListener(deleteListener);
 
+		// Add the buttons to the linear layout
 		l.addView(e, 0);
 		l.addView(d, 1);
 		return l;
 	}
 
-	private TextView generateText() {
-		TextView t = new TextView(this);
-		t.setTextColor(Color.WHITE);
-		t.setTextSize(12f);
-		t.setGravity(android.view.Gravity.CENTER_VERTICAL);
-		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-		p.setMargins(0, 0, 20, 0);
-		t.setLayoutParams(p);
-		return t;
-	}
 
+	/**
+	 * Generates a button with the provided text to be displayed.
+	 * <p>
+	 * It should be noted that there is NO event listener added to the button in this function.
+	 *
+	 * @param text The text to be displayed on the button.
+	 * @return The generated button object.
+	 */
 	private Button generateButton(int text) {
 		Button b = new Button(this);
 		b.setText(text);
 		b.setTextSize(12f);
-		b.setTextColor(Color.BLACK);
-		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+		b.setTextColor(android.graphics.Color.BLACK);
+		LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
 		b.setLayoutParams(p);
 		return b;
 	}
 
+	/**
+	 * Formats the time provided in seconds into a hour:minute AM / PM format.
+	 *
+	 * @param seconds The time in seconds.
+	 * @return A string with the formatted 12 hour (AM / PM) time.
+	 */
 	private String get12Time(long seconds) {
 
 		// Determine the hour and minute of the class's time

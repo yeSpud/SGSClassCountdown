@@ -3,11 +3,11 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
     }
-    compileSdkVersion 28
+    compileSdkVersion 31
     defaultConfig {
         applicationId "com.spud.sgsclasscountdownapp"
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion 21
+        targetSdkVersion 31
         versionCode 8
         versionName "Alpha 8"
     }
@@ -19,7 +19,7 @@ android {
             jniDebuggable false
         }
     }
-    buildToolsVersion '28.0.3'
+    buildToolsVersion '31.0.0'
     productFlavors {
     }
     compileOptions {
@@ -31,7 +31,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 
     // https://developer.android.com/training/testing/unit-testing/local-unit-tests
     // Required -- JUnit 4 framework

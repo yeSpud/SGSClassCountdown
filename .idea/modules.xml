@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidApp/AndroidApp.iml" filepath="$PROJECT_DIR$/AndroidApp/AndroidApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/SGSClassCountdown.iml" filepath="$PROJECT_DIR$/SGSClassCountdown.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AndroidApp/SGSClassCountdown.AndroidApp.iml" filepath="$PROJECT_DIR$/.idea/modules/AndroidApp/SGSClassCountdown.AndroidApp.iml" />
     </modules>
   </component>
 </project>

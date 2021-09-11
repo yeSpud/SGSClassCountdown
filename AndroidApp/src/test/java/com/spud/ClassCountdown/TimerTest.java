@@ -55,14 +55,9 @@ public class TimerTest {
 	public void getHour() {
 
 		// Should be 0 (just passed midnight / 12 AM)
-		Assert.assertEquals(0, Timer.getHour(0));
-		Assert.assertEquals(0, Timer.getHour(1));
-		Assert.assertEquals(0, Timer.getHour(2));
-		Assert.assertEquals(0, Timer.getHour(3));
-		Assert.assertEquals(0, Timer.getHour(30));
-		Assert.assertEquals(0, Timer.getHour(60));
-		Assert.assertEquals(0, Timer.getHour(120));
-		Assert.assertEquals(0, Timer.getHour(3599));
+		for (int i = 0; i < 3600; i++) {
+			Assert.assertEquals(0, Timer.getHour(i));
+		}
 
 		// Should be 1 (1 AM)
 		Assert.assertEquals(1, Timer.getHour(3600));
